@@ -7,4 +7,15 @@ to run the app. It only has the core functionality using Restful API
 So to test it's working using postman. Download from `www.getpostman.com`.
 The app listens on port `3000`.
 
+Restful API 
+post request:
+`localhost:3000/api/v1/urls`
+```
+{
+	'longUrl': "https://www.google.com"
+}
+```
+get request:
+`localhost:3000/0`
+
 
