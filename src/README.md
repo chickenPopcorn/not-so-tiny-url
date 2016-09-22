@@ -12,7 +12,7 @@ post request:
 `localhost:3000/api/v1/urls`
 ```
 {
-	'longUrl': "https://www.google.com"
+	"longUrl": "https://www.google.com"
 }
 ```
 get request:
