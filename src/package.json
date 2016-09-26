@@ -1,6 +1,6 @@
 {
   "name": "tinyurl",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "server.js",
   "main": "server.js",
   "scripts": {
