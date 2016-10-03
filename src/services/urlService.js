@@ -5,7 +5,7 @@ var getShortUrl = function(longUrl) {
     if (longToShortHash[longUrl] != null) {
         return longToShortHash[longUrl];
     } else {
-        var shortUrl = genenerateShortUrl();
+        var shortUrl = generateShortUrl();
         longToShortHash[longUrl] = shortUrl;
         shortToLongHash[shortUrl] = longUrl;
         return shortUrl;
@@ -16,7 +16,7 @@ var getLongUrl = function(shortUrl) {
     return shortToLongHash[shortUrl];
 };
 
-var genenerateShortUrl = function() {
+var generateShortUrl = function() {
     var id = Object.keys(longToShortHash).length + 1;
     var code = "abcdefghijklmnopqrstuvwxzy";
     code += code.toUpperCase();
