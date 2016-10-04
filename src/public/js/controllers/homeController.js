@@ -6,6 +6,6 @@ angular.module("tinyurlApp")
             }).success(function(data) {
                 $location.path("/urls/" + data.shortUrl);
             });
-        }
+        };
     }]);
 //$scope, linked view variable and controller variable
