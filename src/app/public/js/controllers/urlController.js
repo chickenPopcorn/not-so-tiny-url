@@ -4,6 +4,6 @@ angular.module("tinyurlApp")
             .success(function(data) {
                 $scope.longUrl = data.longUrl;
                 $scope.shortUrl = data.shortUrl;
-                $scope.shortUrlToShow = "http://localhost:3000/" + data.shortUrl;
+                $scope.shortUrlToShow = "http://localhost/" + data.shortUrl;
             });
     }]);
