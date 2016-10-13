@@ -4,11 +4,15 @@
   "description": "server.js",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node ./node_modules/mocha/bin/mocha",
     "start": "node server.js"
   },
-  "author": "",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chickenPopcorn/ASE-Group-Project"
+  },
+  "author": "Ruicong Xie, Yue Cen, Tianci Zhong, Jiaxin Su",
+  "license": "MIT",
   "dependencies": {
     "angular-chart.js": "^1.0.3",
     "body-parser": "^1.15.2",
@@ -18,5 +22,8 @@
     "geoip-lite": "^1.1.8",
     "mongoose": "^4.6.2",
     "redis": "^2.6.2"
+  },
+  "devDependencies": {
+    "mocha": "^3.1.0"
   }
 }
