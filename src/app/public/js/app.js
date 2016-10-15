@@ -1,4 +1,4 @@
-var app = angular.module("tinyurlApp", ["ngRoute", "ngResource", 'chart.js', 'satellizer', 'ngMessages']);
+var app = angular.module("tinyurlApp", ["ngRoute", "ngResource", 'chart.js', 'satellizer', 'ngMessages', 'toggle-switch']);
 
 app.config(function($routeProvider, $authProvider) {
     // special varible $routeProvider
