@@ -46,7 +46,20 @@ var isAuthenticated = function(req, res, next) {
     })
 };
 
+var getUserId = function(req) {
+    if (!(req.headers && req.headers.authorization)) {
+        return '-1';
+    }
+
+    var header = req.headers.authorization.split(' ');
+    var token = header[1];
+    var payload = jwt.decode(token, config.tokenSecret);
+
+    return payload.sub;
+};
+
 module.exports = {
     createToken: createToken,
-    isAuthenticated: isAuthenticated
+    isAuthenticated: isAuthenticated,
+    getUserId: getUserId
 };

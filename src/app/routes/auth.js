@@ -55,8 +55,4 @@ router.post('/reg', jsonParser, function(req, res) {
     });
 });
 
-router.get('/test', function(req, res) {
-    return res.status(200).send({ message: 'yoyoyoyoyoyoyoy' });
-});
-
 module.exports = router;
