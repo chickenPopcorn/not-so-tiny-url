@@ -5,6 +5,13 @@
             <div class="form-group">
                 <input type="text" class="form-control" ng-model="longUrl" />
             </div>
+            <div class="form-group" ng-init="isPublic = true" ng-show="isLoggedIn()">
+                <toggle-switch
+                        ng-model="isPublic"
+                        on-label="Public"
+                        off-label="Private">
+                </toggle-switch>
+            </div>
             <input type="submit" value="Get Your TinyURL" class="btn btn-primary"/>
         </form>
     </div>

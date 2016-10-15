@@ -4,10 +4,22 @@ var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 var urlService = require('../services/urlService');
 var statsService = require('../services/statsService');
+var authService = require('../services/authService');
+var userUrlService = require('../services/userUrlService');
 
 router.post("/urls", jsonParser, function(req, res) {
     var longUrl = req.body.longUrl;
     urlService.getShortUrl(longUrl, function(url) {
+        authService.getUser(req, function(user) {
+            // console.log('user: ' + user);
+            if (user._id != -1) {
+                var isPublic = typeof req.body.isPublic === 'undefined' ? true : req.body.isPublic;
+                userUrlService.add(user._id, user.fullname, url.shortUrl, longUrl, isPublic, function(data) {
+                    console.log(data);
+                });
+            }
+        });
+
         res.json(url);
     });
 });

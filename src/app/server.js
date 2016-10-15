@@ -4,10 +4,12 @@ var restRouter = require('./routes/rest');
 var redirectRouter = require('./routes/redirect');
 var indexRouter = require("./routes/index");
 var authRouter = require("./routes/auth");
+var feedRouter = require("./routes/feed");
 var mongoose = require('mongoose');
 var useragent = require('express-useragent');
 var cors = require('cors');
 
+mongoose.Promise = global.Promise; // Ref: http://stackoverflow.com/questions/38138445/node3341-deprecationwarning-mongoose-mpromise
 mongoose.connect("mongodb://user:user@ds049466.mlab.com:49466/tinyurl");
 
 app.use(cors());
@@ -25,6 +27,8 @@ app.use(useragent.express());
 app.use("/api/v1", restRouter);
 
 app.use("/auth", authRouter);
+
+app.use("/feed", feedRouter); // TODO: should maybe integrate these into /api/v1
 
 app.use("/:shortUrl", redirectRouter);
 //colom means varaible after it

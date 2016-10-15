@@ -1,4 +1,4 @@
-var app = angular.module("tinyurlApp", ["ngRoute", "ngResource", 'chart.js', 'satellizer', 'ngMessages']);
+var app = angular.module("tinyurlApp", ["ngRoute", "ngResource", 'chart.js', 'satellizer', 'ngMessages', 'toggle-switch', 'infinite-scroll', 'yaru22.angular-timeago']);
 
 app.config(function($routeProvider, $authProvider) {
     // special varible $routeProvider
@@ -17,6 +17,10 @@ app.config(function($routeProvider, $authProvider) {
         .when('/reg', {
             templateUrl: './public/views/reg.html',
             controller: 'regController'
+        })
+        .when('/feed', {
+            templateUrl: './public/views/feed.html',
+            controller: 'feedController'
         });
 
     $authProvider.loginUrl = '/auth/login';
