@@ -80,3 +80,32 @@ describe('User', function() {
             });
     });
 });
+
+describe('Feed', function() {
+    var url = 'http://localhost:3000';
+
+    it('should return the most recent 2 public feed posts', function(done) {
+        request(url)
+            .get('/feed/public/2/-1')
+            .send()
+            .end(function(err, res) {
+                if (err) {
+                    throw err;
+                }
+                res.should.have.property('status', 200);
+                done();
+            });
+    });
+    it('should return the metadata for www.google.com', function(done) {
+        request(url)
+            .get('/feed/meta/www.google.com')
+            .send()
+            .end(function(err, res) {
+                if (err) {
+                    throw err;
+                }
+                res.should.have.property('status', 200);
+                done();
+            });
+    });
+});
