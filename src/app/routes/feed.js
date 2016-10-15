@@ -15,4 +15,11 @@ router.get("/public/:pageSize/:lastId", function(req, res) {
     });
 });
 
+router.get("/meta/:url", function(req, res) {
+    var url = req.params.url;
+    userUrlService.getMeta(url, function(data) {
+        res.json(data);
+    });
+});
+
 module.exports = router;

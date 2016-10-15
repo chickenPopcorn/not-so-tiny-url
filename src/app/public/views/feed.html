@@ -1,23 +1,46 @@
-<div class="container">
+<div class="container feed">
 
-    <div class="row">
-        <div class="col-md-8 col-sm-8 col-xs-12">
+    <div class="row flex">
+        <div class="col-md-8 col-sm-8 col-xs-12 public-feed">
             <div class="row flex">
                 <div infinite-scroll="loadPublicItems()" infinite-scroll-disabled="busy || total == publicItems.length" infinite-scroll-distance="0">
-                    <div ng-repeat="item in publicItems">
-                        <div class="user">{{item.fullname}}</div>
-                        <div class="title">
-                            <a ng-href="{{'/' + item.shortUrl}}" target="_blank">{{item.shortUrl}}</a>
+                    <div ng-repeat="item in publicItems" class="card">
+                        <div class="row">
+                            <div class="col-md-1 col-sm-1 col-xs-1">
+                                <div class="icon"><i class="fa fa-user fa-3x" aria-hidden="true"></i></div>
+                            </div>
+                            <div class="col-md-11 col-sm-11 col-xs-11">
+                                <div class="user">{{item.fullname ? item.fullname : 'User_' + item.userId}}</div>
+                                <div class="time">{{item.timestamp | timeAgo}}</div>
+                            </div>
                         </div>
-                        <div class="time">{{item.timestamp}}</div>
+                        <div class="post">
+                            <span class="text">{{item.title}}</span>
+                            <span><a ng-href="{{'/' + item.shortUrl}}" target="_blank">{{'http://localhost:3000/' + item.shortUrl}}</a></span>
+                        </div>
+
+                        <div class="row sub-card" ng-click="toUrl(item.shortUrl)">
+                            <div class="col-sm-12 col-md-12">
+                                <div class="thumbnail">
+                                    <img ng-src="{{item.image}}" ng-alt="{{item.title}}"/>
+                                    <div class="caption">
+                                        <div class="title">{{item.title}}</div>
+                                        <div class="description">{{item.description}}</div>
+                                        <div class="root-url"><a ng-href="{{item.rootUrl}}">{{item.rootUrl}}</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div ng-show="busy">Loading data...</div>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-4 col-sm-4">
-
+        <div class="col-md-4 col-sm-4 private-feed">
+            <div class="card">
+                This is the private feed.
+            </div>
         </div>
     </div>
 

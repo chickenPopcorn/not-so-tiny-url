@@ -2,3 +2,71 @@
     width: 315px;
     margin: 5% auto;
 }
+
+.feed {
+    max-width: 1015px;
+    margin: 0 auto;
+}
+
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card {
+    background-color: white;
+    /* border: #dfe0e4 solid 1px; */
+    padding: 15px 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, .04),0 1px 5px rgba(0, 0, 0, .1);
+}
+
+.public-feed {
+
+}
+
+.public-feed .card .icon {
+    color: darkgrey;
+}
+
+.public-feed .card .user {
+    color: #3658bb;
+    font-weight: bold;
+}
+
+.public-feed .card .time {
+    color: #e8e9ea;
+}
+
+.public-feed .card .post {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.public-feed .sub-card .thumbnail {
+    max-width: 715px;
+    margin: 0 auto;
+    border-radius: 0;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, .04),0 1px 5px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    background-color: white;
+}
+
+.public-feed .sub-card .thumbnail .title {
+    font-size: 1.4em;
+    margin-bottom: 10px;
+}
+
+.public-feed .sub-card .thumbnail .root-url {
+    margin-top: 20px;
+    text-transform: uppercase;
+    font-size: 0.8em;
+}
+
+.public-feed .sub-card .thumbnail .root-url a {
+    color: #a3a6ad;
+}
+
+.private-feed {
+
+}

@@ -3,6 +3,7 @@
  */
 var userUrlModel = require("../models/userUrlModel");
 var redis = require("redis");
+var MetaInspector = require('node-metainspector');
 
 var port = process.env.REDIS_PORT_6379_TCP_PORT;
 var host = process.env.REDIS_PORT_6379_TCP_ADDR;
@@ -30,7 +31,7 @@ var getFeed = function(pageSize, lastId, callback) {
     // console.log('lastId: ' + lastId);
     pageSize = parseInt(pageSize);
     userUrlModel.find( {'public': true } ).count(function(err, count){
-        var json = { 'count': count, 'data': [] }
+        var json = { 'count': count, 'data': [] };
         if (lastId != -1) {
             // console.log('Here is lastId != -1');
             userUrlModel
@@ -59,7 +60,42 @@ var getFeed = function(pageSize, lastId, callback) {
     });
 };
 
+var getMeta = function(url, callback) {
+    url = decodeURIComponent(url);
+    var client = new MetaInspector(url, { timeout: 5000 });
+
+    var json = { 'result': { 'status': 'ok'}, 'meta': {} };
+
+    client.on("fetch", function() {
+        json['meta']['url'] = url;
+        json['meta']['rootUrl'] = client.rootUrl;
+        json['meta']['title'] = client.title;
+        json['meta']['description'] = client.description;
+        json['meta']['image'] = client.image;
+
+        // console.log(client.images);
+        var length = client.images.length;
+        json['meta']['images'] = [];
+        for (var i=0; i<length; i++) {
+            json['meta']['images'].push(client.images[i]);
+        }
+
+        callback(json);
+    });
+
+    client.on("error", function(err) {
+        console.log(err);
+        json['result']['status'] = 'failed';
+        json['result']['error'] = err;
+        json['meta']['url'] = url;
+        callback(json);
+    });
+
+    client.fetch();
+};
+
 module.exports = {
     add: add,
-    getFeed: getFeed
+    getFeed: getFeed,
+    getMeta: getMeta
 };
