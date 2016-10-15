@@ -46,20 +46,29 @@ var isAuthenticated = function(req, res, next) {
     })
 };
 
-var getUserId = function(req) {
+var getUser = function(req, callback) {
     if (!(req.headers && req.headers.authorization)) {
-        return '-1';
+        return { '_id': -1 };
     }
 
     var header = req.headers.authorization.split(' ');
     var token = header[1];
     var payload = jwt.decode(token, config.tokenSecret);
+    var userId = payload.sub;
 
-    return payload.sub;
+    userModel.findById(userId, function(err, user) {
+        if (err) {
+            // console.log(err);
+            callback(err);
+            return;
+        }
+        // console.log('user: ' + user);
+        callback(user);
+    });
 };
 
 module.exports = {
     createToken: createToken,
     isAuthenticated: isAuthenticated,
-    getUserId: getUserId
+    getUser: getUser
 };

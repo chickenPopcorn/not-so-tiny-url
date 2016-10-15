@@ -8,6 +8,7 @@ angular.module("tinyurlApp")
         };
 
         $scope.publicItems = [];
+        $scope.total = -1;
 
         $scope.loadPublicItems = function() {
             if ($scope.busy) return;
@@ -15,9 +16,10 @@ angular.module("tinyurlApp")
 
             var lastId = $scope.publicItems.length == 0 ? -1 : $scope.publicItems[$scope.publicItems.length - 1]._id;
             feedService.getFeed(10, lastId).success(function(data) {
-                console.log(data);
-                for (var i = 0; i < data.length; i++) {
-                    $scope.publicItems.push(data[i]);
+                // console.log(data);
+                $scope.total = data.count;
+                for (var i = 0; i < data.data.length; i++) {
+                    $scope.publicItems.push(data.data[i]);
                 }
                 $scope.busy = false;
             });
