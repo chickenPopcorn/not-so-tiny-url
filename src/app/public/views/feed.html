@@ -1,0 +1,24 @@
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-8 col-sm-8 col-xs-12">
+            <div class="row flex">
+                <div infinite-scroll="loadPublicItems()" infinite-scroll-disabled="busy" infinite-scroll-distance="0">
+                    <div ng-repeat="item in publicItems">
+                        <div class="user">{{item.userId}}</div>
+                        <div class="title">
+                            <a ng-href="{{'/' + item.shortUrl}}" target="_blank">{{item.shortUrl}}</a>
+                        </div>
+                        <div class="time">{{item.timestamp}}</div>
+                    </div>
+                    <div ng-show="busy">Loading data...</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-4">
+
+        </div>
+    </div>
+
+</div>
