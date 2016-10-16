@@ -33,8 +33,8 @@ var getFeed = function(pageSize, lastId, isPublic, userId, callback) {
     pageSize = parseInt(pageSize);
     var countQuery = {};
     var actualQuery = {};
-    console.log('userId: ' + userId);
-    console.log('lastId: ' + lastId);
+    // console.log('userId: ' + userId);
+    // console.log('lastId: ' + lastId);
     if (userId != -1) {
         countQuery['userId'] = userId;
         actualQuery['userId'] = userId;

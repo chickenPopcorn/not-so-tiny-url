@@ -64,7 +64,7 @@
                         <a ng-href="{{item.shortUrl}}" target="_blank">
                             <p class="list-group-item-heading">{{item.title}}</p>
                         </a>
-                        <p class="list-group-short-url">{{'http://localhost:3000/' + item.shortUrl}}</p>
+                        <span class="list-group-short-url">{{'http://localhost:3000/' + item.shortUrl}}</span> <span><a ng-href="{{'/#/urls/' + item.shortUrl}}"><i class="fa fa-bar-chart" aria-hidden="true"></i></a></span>
                         <p class="list-group-item-text">{{item.description}}</p>
                     </div>
                 </div>
