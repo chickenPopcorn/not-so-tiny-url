@@ -3,7 +3,7 @@
     <div class="row flex">
         <div class="col-md-8 col-sm-8 col-xs-12 public-feed">
             <div class="row flex">
-                <div infinite-scroll="loadPublicItems()" infinite-scroll-disabled="busy || total == publicItems.length" infinite-scroll-distance="0">
+                <div infinite-scroll="loadPublicItems()" infinite-scroll-disabled="busy || total == publicItems.length" infinite-scroll-distance="1">
                     <div ng-repeat="item in publicItems" class="card">
                         <div class="row">
                             <div class="col-md-1 col-sm-1 col-xs-1">
@@ -31,15 +31,43 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row control-panel">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <span class="like-group">
+                                    <span class="not-liked" ng-hide="item.hasLiked">
+                                        <a href="" ng-click="like(item)">
+                                            <i class="fa fa-thumbs-o-up fa-2x" aria-hidden="true"></i> {{item.numOfLikes}}
+                                        </a>
+                                    </span>
+                                    <span class="liked" ng-show="item.hasLiked">
+                                        <a href="" ng-click="unlike(item)">
+                                            <i class="fa fa-thumbs-o-up fa-2x" aria-hidden="true"></i> {{item.numOfLikes}}
+                                        </a>
+                                    </span>
+                                </span>
+                                <span><i class="fa fa-comment fa-2x" aria-hidden="true"></i></span>
+                                <span><a ng-href="{{'/#/urls/' + item.shortUrl}}"><i class="fa fa-bar-chart fa-2x" aria-hidden="true"></i></a></span>
+                            </div>
+                        </div>
                     </div>
-                    <div ng-show="busy">Loading data...</div>
+                    <div ng-show="busy">Loading feed...</div>
                 </div>
             </div>
         </div>
 
         <div class="col-md-4 col-sm-4 private-feed">
             <div class="card">
-                This is the private feed.
+                <div class="header">Private URLs</div>
+                <div class="list-group">
+                    <div ng-repeat="item in privateItems" class="list-group-item">
+                        <a ng-href="{{item.shortUrl}}" target="_blank">
+                            <p class="list-group-item-heading">{{item.title}}</p>
+                        </a>
+                        <span class="list-group-short-url">{{'http://localhost:3000/' + item.shortUrl}}</span> <span><a ng-href="{{'/#/urls/' + item.shortUrl}}"><i class="fa fa-bar-chart" aria-hidden="true"></i></a></span>
+                        <p class="list-group-item-text">{{item.description}}</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

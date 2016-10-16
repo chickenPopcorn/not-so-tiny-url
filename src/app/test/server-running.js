@@ -108,4 +108,28 @@ describe('Feed', function() {
                 done();
             });
     });
+    it('should return status 403 when trying to get the private feed without login', function(done) {
+        request(url)
+            .get('/feed/private/10/-1')
+            .send()
+            .end(function(err, res) {
+                if (err) {
+                    throw err;
+                }
+                res.should.have.property('status', 403);
+                done();
+            });
+    });
+    it('should return the number of likes for a certain post', function(done) {
+        request(url)
+            .get('/feed/post/likes/58030715c387a023e0fb1cb1')
+            .send()
+            .end(function(err, res) {
+                if (err) {
+                    throw err;
+                }
+                res.should.have.property('status', 200);
+                done();
+            });
+    });
 });

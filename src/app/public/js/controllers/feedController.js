@@ -23,14 +23,19 @@ angular.module("tinyurlApp")
 
                     var url = data.data[i].longUrl ? data.data[i].longUrl : 'localhost:3000/' + data.data[i].shortUrl;
                     $scope.getMeta(url, data.data[i]);
+                    $scope.getNumberOfLikes(data.data[i]);
+                    $scope.hasLiked(data.data[i]);
                 }
                 $scope.busy = false;
+
+                console.log('total: ' + $scope.total);
+                console.log('publicItems: ' + $scope.publicItems.length);
             });
         };
 
         $scope.getMeta = function(url, item) {
             feedService.getMeta(url).success(function(data) {
-                if (data.result.status == 'ok') {
+                if (data && data.result.status == 'ok') {
                     item.rootUrl = data.meta.rootUrl.replace(/.*?:\/\//g, "");
                     item.title = data.meta.title;
                     item.description = data.meta.description;
@@ -47,4 +52,54 @@ angular.module("tinyurlApp")
         $scope.toUrl = function(url) {
             window.open(url, '_blank');
         };
+
+        $scope.getNumberOfLikes = function(item) {
+            feedService.getNumberOfLikes(item._id).success(function(data) {
+                if (data.status == 'ok') {
+                    item.numOfLikes = data.data.count;
+                }
+            });
+        };
+
+        $scope.hasLiked = function(item) {
+            feedService.hashLiked(item._id).success(function(data) {
+                if (data.status == 'ok') {
+                    item.hasLiked = data.data.hasLiked;
+                } else {
+                    item.hasLiked = false;
+                }
+            });
+        };
+
+        $scope.like = function(item) {
+            feedService.like(item._id).success(function(data) {
+                item.numOfLikes++;
+                item.hasLiked = true;
+                // console.log(data);
+            });
+        };
+
+        $scope.unlike = function(item) {
+            feedService.unlike(item._id).success(function() {
+                item.numOfLikes--;
+                item.hasLiked = false;
+            });
+        };
+
+        $scope.privateItems = [];
+        $scope.loadPrivateItems = function() {
+            feedService.getPrivateFeed(10, -1).success(function(data) {
+                // console.log(data);
+                for (var i = 0; i < data.data.length; i++) {
+                    $scope.privateItems.push(data.data[i]);
+
+                    var url = data.data[i].longUrl ? data.data[i].longUrl : 'localhost:3000/' + data.data[i].shortUrl;
+                    $scope.getMeta(url, data.data[i]);
+                }
+
+                console.log('total for private: ' + data.count);
+                console.log('privateItems: ' + $scope.privateItems.length);
+            });
+        };
+        $scope.loadPrivateItems();
     });

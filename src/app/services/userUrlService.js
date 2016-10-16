@@ -2,6 +2,7 @@
  * Created by dyorex on 2016-10-15.
  */
 var userUrlModel = require("../models/userUrlModel");
+var likeModel = require("../models/likeModel");
 var redis = require("redis");
 var MetaInspector = require('node-metainspector');
 
@@ -27,36 +28,38 @@ var add = function(userId, fullname, shortUrl, longUrl, isPublic, callback) {
     }
 };
 
-var getFeed = function(pageSize, lastId, callback) {
+var getFeed = function(pageSize, lastId, isPublic, userId, callback) {
     // console.log('lastId: ' + lastId);
     pageSize = parseInt(pageSize);
-    userUrlModel.find( {'public': true } ).count(function(err, count){
+    var countQuery = {};
+    var actualQuery = {};
+    // console.log('userId: ' + userId);
+    // console.log('lastId: ' + lastId);
+    if (userId != -1) {
+        countQuery['userId'] = userId;
+        actualQuery['userId'] = userId;
+    }
+    if (lastId != -1) {
+        actualQuery['_id'] = { $lt: lastId }
+    }
+    countQuery['public'] = isPublic;
+    actualQuery['public'] = isPublic;
+
+    userUrlModel.find( countQuery ).count(function(err, count){
         var json = { 'count': count, 'data': [] };
-        if (lastId != -1) {
-            // console.log('Here is lastId != -1');
-            userUrlModel
-                .find({ '_id': { $lt: lastId }, 'public': true })
-                .sort({ '_id': -1 })
-                .limit(pageSize)
-                .exec(function(err, data){
-                    json.data = data;
-                    callback(json);
-                });
-        } else {
-            // console.log('Here is lastId == -1');
-            userUrlModel
-                .find({ 'public': true })
-                .sort({ '_id': -1 })
-                .limit(pageSize)
-                .exec(function(err, data){
-                    if (err) {
-                        callback(err);
-                        return;
-                    }
-                    json.data = data;
-                    callback(json);
-                });
-        }
+        userUrlModel
+            .find( actualQuery )
+            .sort({ '_id': -1 })
+            .limit(pageSize)
+            .exec(function(err, data){
+                if (err) {
+                    callback(err);
+                    return;
+                }
+
+                json.data = data;
+                callback(json);
+            });
     });
 };
 
@@ -94,8 +97,88 @@ var getMeta = function(url, callback) {
     client.fetch();
 };
 
+var getPostById = function(postId, callback) {
+    redisClient.get(postId, function(err, post) {
+        if (post) {
+            console.log("using cache: " + post);
+            var json = JSON.parse(post);
+            callback(json);
+        } else {
+            userUrlModel.findById(postId, function (err, postInDb) {
+                if (err) {
+                    callback(err);
+                    return;
+                }
+                callback(postInDb);
+                console.log("stringify: " + JSON.stringify(postInDb));
+                redisClient.set(postId, JSON.stringify(postInDb));
+            });
+        }
+    });
+};
+
+var like = function(postId, userId, fullname, callback) {
+    getPostById(postId, function(post) {
+        var likePost = new likeModel({
+            userId: userId,
+            fullname: fullname,
+            postId: postId,
+            shortUrl: post.shortUrl
+        });
+        likePost.save();
+        callback(likePost);
+    });
+};
+
+var unlike = function(postId, userId, callback) {
+    likeModel.find({ postId: postId, userId: userId }).remove( callback );
+};
+
+var getNumberOfLikes = function(postId, callback) {
+    var json = {'status': 'ok', 'data': {} };
+
+    likeModel
+        .find( {postId: postId} )
+        .count()
+        .exec(function(err, count){
+            if (err) {
+                json['status'] = 'failed';
+                json['data'] = err;
+                callback(json);
+                return;
+            }
+
+            json['data']['count'] = count;
+            callback(json);
+        });
+};
+
+var hasLiked = function(postId, userId, callback) {
+    var json = {'status': 'ok', 'data': {} };
+
+    likeModel
+        .find( {postId: postId, userId: userId} )
+        .count()
+        .exec(function(err, count){
+            if (err) {
+                json['status'] = 'failed';
+                json['data'] = err;
+                callback(json);
+                return;
+            }
+
+            json['data']['hasLiked'] = count > 0;
+            callback(json);
+        });
+};
+
 module.exports = {
     add: add,
     getFeed: getFeed,
-    getMeta: getMeta
+    getMeta: getMeta,
+    like: like,
+    unlike: unlike,
+    getPostById: getPostById,
+    getNumberOfLikes: getNumberOfLikes,
+    hasLiked: hasLiked
 };

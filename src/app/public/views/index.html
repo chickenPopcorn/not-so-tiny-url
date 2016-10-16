@@ -3,9 +3,28 @@
 
     <head>
         <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="apple-touch-icon" sizes="57x57" href="/public/img/favicon/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="/public/img/favicon/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/public/img/favicon/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/public/img/favicon/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/public/img/favicon/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/public/img/favicon/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="/public/img/favicon/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/public/img/favicon/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/public/img/favicon/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="/public/img/favicon/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/public/img/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="/public/img/favicon/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/public/img/favicon/favicon-16x16.png">
+        <link rel="manifest" href="/public/img/favicon/manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="/public/img/favicon/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
         <title>Tinyurl</title>
 
         <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-resource.min.js"></script>
@@ -34,15 +53,29 @@
     </head>
     <body ng-app="tinyurlApp">
         <div ng-controller="navController" class="navbar navbar-default navbar-static-top" ng-cloak>
-            <div class="container">
+            <div class="container container-fluid">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#/">TinyURL</a>
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-main" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
                 </div>
-                <ul class="nav navbar-nav">
-                    <li ng-hide="isLoggedIn()"><a href="#/login" title="Sign in">Sign in</a></li>
-                    <li ng-show="isLoggedIn()"><a href="#/feed" title="Feed">Feed</a></li>
-                    <li ng-show="isLoggedIn()"><a ng-click="logout()" href="" title="Sign out">Sign out</a></li>
-                </ul>
+                <div id="navbar-main" class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li ng-show="isLoggedIn()"><a href="#/feed" title="Feed"><i class="fa fa-rss" aria-hidden="true"></i> Feed</a></li>
+                    </ul>
+                    <form class="navbar-form navbar-left" ng-submit="submit()" ng-hide="currentPath === '/'">
+                        <input type="text" class="form-control" name="longUrl" ng-model="longUrl" placeholder="Enter a long URL..." required>
+                        <button class="btn btn-default" type="submit">Shorten it!</button>
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li ng-hide="isLoggedIn()"><a href="#/login" title="Sign in"><i class="fa fa-user" aria-hidden="true"></i> Sign in</a></li>
+                        <li ng-show="isLoggedIn()"><a ng-click="logout()" href="" title="Sign out"><i class="fa fa-sign-out" aria-hidden="true"></i> Sign out</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
 
