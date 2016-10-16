@@ -48,7 +48,8 @@ var isAuthenticated = function(req, res, next) {
 
 var getUser = function(req, callback) {
     if (!(req.headers && req.headers.authorization)) {
-        return { '_id': -1 };
+        callback({ '_id': -1 });
+        return;
     }
 
     var header = req.headers.authorization.split(' ');

@@ -27,36 +27,37 @@ var add = function(userId, fullname, shortUrl, longUrl, isPublic, callback) {
     }
 };
 
-var getFeed = function(pageSize, lastId, callback) {
+var getFeed = function(pageSize, lastId, isPublic, userId, callback) {
     // console.log('lastId: ' + lastId);
     pageSize = parseInt(pageSize);
-    userUrlModel.find( {'public': true } ).count(function(err, count){
+    var countQuery = {};
+    var actualQuery = {};
+    console.log('userId: ' + userId);
+    console.log('lastId: ' + lastId);
+    if (userId != -1) {
+        countQuery['userId'] = userId;
+        actualQuery['userId'] = userId;
+    }
+    if (lastId != -1) {
+        actualQuery['_id'] = { $lt: lastId }
+    }
+    countQuery['public'] = isPublic;
+    actualQuery['public'] = isPublic;
+
+    userUrlModel.find( countQuery ).count(function(err, count){
         var json = { 'count': count, 'data': [] };
-        if (lastId != -1) {
-            // console.log('Here is lastId != -1');
-            userUrlModel
-                .find({ '_id': { $lt: lastId }, 'public': true })
-                .sort({ '_id': -1 })
-                .limit(pageSize)
-                .exec(function(err, data){
-                    json.data = data;
-                    callback(json);
-                });
-        } else {
-            // console.log('Here is lastId == -1');
-            userUrlModel
-                .find({ 'public': true })
-                .sort({ '_id': -1 })
-                .limit(pageSize)
-                .exec(function(err, data){
-                    if (err) {
-                        callback(err);
-                        return;
-                    }
-                    json.data = data;
-                    callback(json);
-                });
-        }
+        userUrlModel
+            .find( actualQuery )
+            .sort({ '_id': -1 })
+            .limit(pageSize)
+            .exec(function(err, data){
+                if (err) {
+                    callback(err);
+                    return;
+                }
+                json.data = data;
+                callback(json);
+            });
     });
 };
 

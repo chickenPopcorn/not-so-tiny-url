@@ -25,6 +25,9 @@ angular.module("tinyurlApp")
                     $scope.getMeta(url, data.data[i]);
                 }
                 $scope.busy = false;
+
+                console.log('total: ' + $scope.total);
+                console.log('publicItems: ' + $scope.publicItems.length);
             });
         };
 
