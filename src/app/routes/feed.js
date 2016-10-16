@@ -25,7 +25,7 @@ router.get("/private/:pageSize/:lastId", function(req, res) {
                 res.json(data);
             });
         } else {
-            res.json({'message': 'No private feed'});
+            res.status(403).json({'message': 'No private feed'});
         }
     });
 });
