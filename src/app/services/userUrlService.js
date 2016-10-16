@@ -2,6 +2,7 @@
  * Created by dyorex on 2016-10-15.
  */
 var userUrlModel = require("../models/userUrlModel");
+var likeModel = require("../models/likeModel");
 var redis = require("redis");
 var MetaInspector = require('node-metainspector');
 
@@ -55,6 +56,7 @@ var getFeed = function(pageSize, lastId, isPublic, userId, callback) {
                     callback(err);
                     return;
                 }
+
                 json.data = data;
                 callback(json);
             });
@@ -95,8 +97,88 @@ var getMeta = function(url, callback) {
     client.fetch();
 };
 
+var getPostById = function(postId, callback) {
+    redisClient.get(postId, function(err, post) {
+        if (post) {
+            console.log("using cache: " + post);
+            var json = JSON.parse(post);
+            callback(json);
+        } else {
+            userUrlModel.findById(postId, function (err, postInDb) {
+                if (err) {
+                    callback(err);
+                    return;
+                }
+                callback(postInDb);
+                console.log("stringify: " + JSON.stringify(postInDb));
+                redisClient.set(postId, JSON.stringify(postInDb));
+            });
+        }
+    });
+};
+
+var like = function(postId, userId, fullname, callback) {
+    getPostById(postId, function(post) {
+        var likePost = new likeModel({
+            userId: userId,
+            fullname: fullname,
+            postId: postId,
+            shortUrl: post.shortUrl
+        });
+        likePost.save();
+        callback(likePost);
+    });
+};
+
+var unlike = function(postId, userId, callback) {
+    likeModel.find({ postId: postId, userId: userId }).remove( callback );
+};
+
+var getNumberOfLikes = function(postId, callback) {
+    var json = {'status': 'ok', 'data': {} };
+
+    likeModel
+        .find( {postId: postId} )
+        .count()
+        .exec(function(err, count){
+            if (err) {
+                json['status'] = 'failed';
+                json['data'] = err;
+                callback(json);
+                return;
+            }
+
+            json['data']['count'] = count;
+            callback(json);
+        });
+};
+
+var hasLiked = function(postId, userId, callback) {
+    var json = {'status': 'ok', 'data': {} };
+
+    likeModel
+        .find( {postId: postId, userId: userId} )
+        .count()
+        .exec(function(err, count){
+            if (err) {
+                json['status'] = 'failed';
+                json['data'] = err;
+                callback(json);
+                return;
+            }
+
+            json['data']['hasLiked'] = count > 0;
+            callback(json);
+        });
+};
+
 module.exports = {
     add: add,
     getFeed: getFeed,
-    getMeta: getMeta
+    getMeta: getMeta,
+    like: like,
+    unlike: unlike,
+    getPostById: getPostById,
+    getNumberOfLikes: getNumberOfLikes,
+    hasLiked: hasLiked
 };

@@ -13,6 +13,10 @@
     flex-wrap: wrap;
 }
 
+.fa-2x {
+    font-size: 1.4em;
+}
+
 .card {
     background-color: white;
     /* border: #dfe0e4 solid 1px; */
@@ -65,6 +69,22 @@
 
 .public-feed .sub-card .thumbnail .root-url a {
     color: #a3a6ad;
+}
+
+.public-feed .control-panel {
+    margin-top: 20px;
+}
+
+.public-feed .control-panel > div > span {
+    margin-right: 20px;
+}
+
+.public-feed .control-panel span a:link, .public-feed .control-panel span a:visited {
+    color: #777777;
+}
+
+.public-feed .control-panel span a:hover, .public-feed .control-panel .liked a:link, .public-feed .control-panel .liked a:visited {
+    color: #d92927;
 }
 
 .private-feed {

@@ -11,9 +11,22 @@ angular.module('tinyurlApp')
             getMeta: function(url) {
                 url = encodeURIComponent(url);
                 return $http.get('/feed/meta/' + url);
+            },
+
+            like: function(postId) {
+                return $http.post('/feed/post/like', { postId: postId });
+            },
+
+            unlike: function(postId) {
+                return $http.post('/feed/post/unlike', { postId: postId });
+            },
+
+            getNumberOfLikes: function(postId) {
+                return $http.get('/feed/post/likes/' + postId);
+            },
+
+            hashLiked: function(postId) {
+                return $http.get('/feed/post/liked/' + postId);
             }
-            // like: function(id) {
-            //     return $http.post('/like', { photoId: id });
-            // }
         }
     });

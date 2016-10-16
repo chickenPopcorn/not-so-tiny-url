@@ -23,6 +23,8 @@ angular.module("tinyurlApp")
 
                     var url = data.data[i].longUrl ? data.data[i].longUrl : 'localhost:3000/' + data.data[i].shortUrl;
                     $scope.getMeta(url, data.data[i]);
+                    $scope.getNumberOfLikes(data.data[i]);
+                    $scope.hasLiked(data.data[i]);
                 }
                 $scope.busy = false;
 
@@ -50,4 +52,37 @@ angular.module("tinyurlApp")
         $scope.toUrl = function(url) {
             window.open(url, '_blank');
         };
+
+        $scope.getNumberOfLikes = function(item) {
+            feedService.getNumberOfLikes(item._id).success(function(data) {
+                if (data.status == 'ok') {
+                    item.numOfLikes = data.data.count;
+                }
+            });
+        };
+
+        $scope.hasLiked = function(item) {
+            feedService.hashLiked(item._id).success(function(data) {
+                if (data.status == 'ok') {
+                    item.hasLiked = data.data.hasLiked;
+                } else {
+                    item.hasLiked = false;
+                }
+            });
+        };
+
+        $scope.like = function(item) {
+            feedService.like(item._id).success(function(data) {
+                item.numOfLikes++;
+                item.hasLiked = true;
+                // console.log(data);
+            });
+        };
+
+        $scope.unlike = function(item) {
+            feedService.unlike(item._id).success(function() {
+                item.numOfLikes--;
+                item.hasLiked = false;
+            });
+        }
     });

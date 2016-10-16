@@ -37,4 +37,59 @@ router.get("/meta/:url", function(req, res) {
     });
 });
 
+router.get("/post/:id", function(req, res) {
+    var postId = req.params.id;
+    userUrlService.getPostById(postId, function(data) {
+        res.json(data);
+    });
+});
+
+router.get("/post/likes/:id", function(req, res) {
+    var postId = req.params.id;
+    userUrlService.getNumberOfLikes(postId, function(data) {
+        res.json(data);
+    });
+});
+
+router.get("/post/liked/:id", function(req, res) {
+    var postId = req.params.id;
+    authService.getUser(req, function(user) {
+        var userId = user._id;
+        if (userId != -1) {
+            userUrlService.hasLiked(postId, userId, function (data) {
+                res.json(data);
+            });
+        } else {
+            res.status(403).send({'status': 'failed', 'message': 'Not authorized.'});
+        }
+    });
+});
+
+router.post("/post/like", jsonParser, function(req, res) {
+    authService.getUser(req, function(user) {
+        var userId = user._id;
+        var fullname = user.fullname;
+        if (userId != -1) {
+            userUrlService.like(req.body.postId, userId, fullname, function (data) {
+                res.json(data);
+            });
+        } else {
+            res.status(403).send({'status': 'failed', 'message': 'Not authorized.'});
+        }
+    });
+});
+
+router.post("/post/unlike", jsonParser, function(req, res) {
+    authService.getUser(req, function(user) {
+        var userId = user._id;
+        if (userId != -1) {
+            userUrlService.unlike(req.body.postId, userId, function () {
+                res.json({'status': 'ok'});
+            });
+        } else {
+            res.status(403).send({'status': 'failed', 'message': 'Not authorized.'});
+        }
+    });
+});
+
 module.exports = router;

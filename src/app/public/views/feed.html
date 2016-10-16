@@ -31,6 +31,25 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row control-panel">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <span class="like-group">
+                                    <span class="not-liked" ng-hide="item.hasLiked">
+                                        <a href="" ng-click="like(item)">
+                                            <i class="fa fa-thumbs-o-up fa-2x" aria-hidden="true"></i> {{item.numOfLikes}}
+                                        </a>
+                                    </span>
+                                    <span class="liked" ng-show="item.hasLiked">
+                                        <a href="" ng-click="unlike(item)">
+                                            <i class="fa fa-thumbs-o-up fa-2x" aria-hidden="true"></i> {{item.numOfLikes}}
+                                        </a>
+                                    </span>
+                                </span>
+                                <span><i class="fa fa-comment fa-2x" aria-hidden="true"></i></span>
+                                <span><a ng-href="{{'/#/urls/' + item.shortUrl}}"><i class="fa fa-bar-chart fa-2x" aria-hidden="true"></i></a></span>
+                            </div>
+                        </div>
                     </div>
                     <div ng-show="busy">Loading data...</div>
                 </div>
