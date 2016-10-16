@@ -27,6 +27,10 @@ angular.module('tinyurlApp')
 
             hashLiked: function(postId) {
                 return $http.get('/feed/post/liked/' + postId);
+            },
+
+            getPrivateFeed: function(pageSize, lastId) {
+                return $http.get('/feed/private/' + pageSize + '/' + lastId);
             }
         }
     });

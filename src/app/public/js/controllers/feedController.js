@@ -35,7 +35,7 @@ angular.module("tinyurlApp")
 
         $scope.getMeta = function(url, item) {
             feedService.getMeta(url).success(function(data) {
-                if (data.result.status == 'ok') {
+                if (data && data.result.status == 'ok') {
                     item.rootUrl = data.meta.rootUrl.replace(/.*?:\/\//g, "");
                     item.title = data.meta.title;
                     item.description = data.meta.description;
@@ -84,5 +84,22 @@ angular.module("tinyurlApp")
                 item.numOfLikes--;
                 item.hasLiked = false;
             });
-        }
+        };
+
+        $scope.privateItems = [];
+        $scope.loadPrivateItems = function() {
+            feedService.getPrivateFeed(10, -1).success(function(data) {
+                // console.log(data);
+                for (var i = 0; i < data.data.length; i++) {
+                    $scope.privateItems.push(data.data[i]);
+
+                    var url = data.data[i].longUrl ? data.data[i].longUrl : 'localhost:3000/' + data.data[i].shortUrl;
+                    $scope.getMeta(url, data.data[i]);
+                }
+
+                console.log('total for private: ' + data.count);
+                console.log('privateItems: ' + $scope.privateItems.length);
+            });
+        };
+        $scope.loadPrivateItems();
     });

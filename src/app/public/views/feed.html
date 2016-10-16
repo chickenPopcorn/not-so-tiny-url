@@ -51,14 +51,23 @@
                             </div>
                         </div>
                     </div>
-                    <div ng-show="busy">Loading data...</div>
+                    <div ng-show="busy">Loading feed...</div>
                 </div>
             </div>
         </div>
 
         <div class="col-md-4 col-sm-4 private-feed">
             <div class="card">
-                This is the private feed.
+                <div class="header">Private URLs</div>
+                <div class="list-group">
+                    <div ng-repeat="item in privateItems" class="list-group-item">
+                        <a ng-href="{{item.shortUrl}}" target="_blank">
+                            <p class="list-group-item-heading">{{item.title}}</p>
+                        </a>
+                        <p class="list-group-short-url">{{'http://localhost:3000/' + item.shortUrl}}</p>
+                        <p class="list-group-item-text">{{item.description}}</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

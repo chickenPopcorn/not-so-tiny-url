@@ -90,3 +90,20 @@
 .private-feed {
 
 }
+
+.private-feed .card .header {
+    color: #3658bb;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.list-group .list-group-item {
+    border-left-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-radius: 0;
+}
+
+.private-feed .card .list-group-short-url {
+    color: #e8e9ea;
+}
