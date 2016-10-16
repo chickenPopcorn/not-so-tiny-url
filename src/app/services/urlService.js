@@ -46,7 +46,7 @@ var getShortUrl = function(longUrl, callback) {
 var getLongUrl = function(shortUrl, callback) {
     redisClient.get(shortUrl, function(err, longUrl) {
         if (longUrl) {
-            //console.log("byebye mongo " + longUrl + " end");
+            // console.log("byebye mongo " + longUrl + " end");
             callback({
                 shortUrl: shortUrl,
                 longUrl: longUrl
@@ -56,8 +56,9 @@ var getLongUrl = function(shortUrl, callback) {
                 shortUrl: shortUrl
             }, function(err, data) {
                 callback(data);
-                redisClient.set(shortUrl, longUrl);
-                redisClient.set(longUrl, shortUrl);
+                // console.log(data);
+                redisClient.set(shortUrl, data.longUrl);
+                redisClient.set(data.longUrl, shortUrl);
             });
         }
     });
