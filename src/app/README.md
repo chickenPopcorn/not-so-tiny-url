@@ -13,6 +13,11 @@ lint command
 npm run --silent lint
 ```
 
+local codecoverage report
+```
+istanbul cover test/server-running.js 
+```
+
 docker build command
 ```
 docker build -t $imageName .
