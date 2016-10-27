@@ -1,13 +1,14 @@
 ### Installation Instruction for Mac
 
 - Install node.js version 6 using `brew install node`.
-- Make sure npm is install properly and cd into src folder.
-- Do `npm install` to install dependency.
-- Run `brew install redis` and then `brew services start redis` to start cache service.
+- Make sure npm has been installed properly and cd to the src folder.
+- Do `npm install` to install all the dependencies.
+- Run `brew install redis` if redis has not been installed.
+- Run `brew services start redis` to start the cache service.
 - Type `node server.js` or `npm start` to run the app.
 - The app listens on port `3000`.
 
-### Restful API
+### Restful APIs
 - POST requests:
 ```
 Base URL: localhost:3000/api/v1/urls
@@ -32,3 +33,18 @@ Base URL: localhost:3000/
 - It can be accessed by the command 
 `mongodb://<dbuser>:<dbpassword>@ds049466.mlab.com:49466/tinyurl`
 - The nodeJS server uses `mongoose` library to access data on mLab.
+
+### Testing
+Run the following command to start the testing.
+```
+npm test
+```
+
+### Local Code Coverage Report
+This is to check the coverage of the test cases against the whole code base. Run the following command to get the report.
+```
+local codecoverage report
+```
+
+### Continuous Integration
+We have integrated the testing and code coverage report into the Github repository. Every time we commit something, these two modules will be run automatically. One can find the results from the repo main page: https://github.com/chickenPopcorn/ASE-Group-Project.
