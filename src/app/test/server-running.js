@@ -147,6 +147,7 @@ describe('URL', function() {
 
     it('should return a short URL for google.com', function(done) {
         urlService.getShortUrl("http://www.google.com", function(json) {
+            console.log(json);
             assert.equal(json.status, 'ok');
             done();
         });
