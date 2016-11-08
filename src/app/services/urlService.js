@@ -24,7 +24,11 @@ var getShortUrl = function(longUrl, callback) {
                 longUrl: longUrl
             }, function(err, data) {
                 if (data) {
-                    callback(data);
+                    callback({
+                        status: 'ok',
+                        shortUrl: data.shortUrl,
+                        longUrl: data.longUrl
+                    });
                     redisClient.set(data.shortUrl, data.longUrl);
                     redisClient.set(data.longUrl, data.shortUrl);
                 } else {
