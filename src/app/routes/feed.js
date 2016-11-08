@@ -83,8 +83,8 @@ router.post("/post/unlike", jsonParser, function(req, res) {
     authService.getUser(req, function(user) {
         var userId = user._id;
         if (userId != -1) {
-            userUrlService.unlike(req.body.postId, userId, function () {
-                res.json({'status': 'ok'});
+            userUrlService.unlike(req.body.postId, userId, function (data) {
+                res.json(data);
             });
         } else {
             res.status(403).send({'status': 'failed', 'message': 'Not authorized.'});
