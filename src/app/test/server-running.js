@@ -9,7 +9,6 @@ var authService = require('../services/authService');
 var userUrlService = require('../services/userUrlService');
 var urlService = require('../services/urlService');
 
-
 var source = "";
 
 try {
@@ -46,9 +45,9 @@ describe('server request handling', function() {
 describe('User', function() {
     var url = 'http://localhost:3000';
     /*before(function(done) {
-        mongoose.connect("mongodb://user:user@ds049466.mlab.com:49466/tinyurl");
-        done();
-    });*/
+     mongoose.connect("mongodb://user:user@ds049466.mlab.com:49466/tinyurl");
+     done();
+     });*/
 
     it('should return error trying to sign up with the same email', function(done) {
         var user = {
@@ -56,32 +55,33 @@ describe('User', function() {
             password: 'test',
             fullname: 'CY'
         };
-        request(url)
-            .post('/auth/reg')
-            .send(user)
-            .end(function(err, res) {
-                if (err) {
-                    throw err;
-                }
-                res.should.have.property('status', 409);
-                done();
-            });
+
+        authService.reg(user.email, user.password, user.fullname, function(json) {
+            assert.equal(json.status, 409);
+            done();
+        });
     });
     it('should return error trying to sign in with the wrong combination of username and password', function(done) {
         var user = {
             email: 'dyorex@gmail.com',
             password: 'test'
         };
-        request(url)
-            .post('/auth/login')
-            .send(user)
-            .end(function(err, res) {
-                if (err) {
-                    throw err;
-                }
-                res.should.have.property('status', 401);
-                done();
-            });
+
+        authService.login(user.email, user.password, function(json) {
+            assert.equal(json.status, 401);
+            done();
+        });
+    });
+    it('should return status 200 if trying to sign in with the correct combination of username and password', function(done) {
+        var user = {
+            email: 'test@test.com',
+            password: 'test123'
+        };
+
+        authService.login(user.email, user.password, function(json) {
+            assert.equal(json.status, 200);
+            done();
+        });
     });
 });
 
