@@ -5,6 +5,10 @@ var fs = require('fs');
 var should = require('should');
 var request = require('supertest');
 var mongoose = require('mongoose');
+var authService = require('../services/authService');
+var userUrlService = require('../services/userUrlService');
+var urlService = require('../services/urlService');
+
 
 var source = "";
 
