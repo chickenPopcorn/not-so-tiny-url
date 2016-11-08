@@ -15,6 +15,7 @@ var getShortUrl = function(longUrl, callback) {
         if (shortUrl) {
             console.log("using cache");
             callback({
+                status: 'ok',
                 shortUrl: shortUrl,
                 longUrl: longUrl
             });
@@ -32,10 +33,15 @@ var getShortUrl = function(longUrl, callback) {
                             shortUrl: shortUrl,
                             longUrl: longUrl
                         });
-                        url.save();
-                        callback(url);
-                        redisClient.set(shortUrl, longUrl);
-                        redisClient.set(longUrl, shortUrl);
+                        url.save(function() {
+                            callback({
+                                status: 'ok',
+                                shortUrl: shortUrl,
+                                longUrl: longUrl
+                            });
+                            redisClient.set(shortUrl, longUrl);
+                            redisClient.set(longUrl, shortUrl);
+                        });
                     });
                 }
             });
@@ -48,6 +54,7 @@ var getLongUrl = function(shortUrl, callback) {
         if (longUrl) {
             // console.log("byebye mongo " + longUrl + " end");
             callback({
+                status: 'ok',
                 shortUrl: shortUrl,
                 longUrl: longUrl
             });
@@ -55,7 +62,11 @@ var getLongUrl = function(shortUrl, callback) {
             UrlModel.findOne({
                 shortUrl: shortUrl
             }, function(err, data) {
-                callback(data);
+                callback({
+                    status: 'ok',
+                    shortUrl: shortUrl,
+                    longUrl: data.longUrl
+                });
                 // console.log(data);
                 redisClient.set(shortUrl, data.longUrl);
                 redisClient.set(data.longUrl, shortUrl);

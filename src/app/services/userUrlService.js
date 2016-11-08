@@ -46,7 +46,7 @@ var getFeed = function(pageSize, lastId, isPublic, userId, callback) {
     actualQuery['public'] = isPublic;
 
     userUrlModel.find( countQuery ).count(function(err, count){
-        var json = { 'count': count, 'data': [] };
+        var json = { 'status': 'ok', 'count': count, 'data': [] };
         userUrlModel
             .find( actualQuery )
             .sort({ '_id': -1 })
@@ -125,13 +125,17 @@ var like = function(postId, userId, fullname, callback) {
             postId: postId,
             shortUrl: post.shortUrl
         });
-        likePost.save();
-        callback(likePost);
+        likePost.save(function() {
+            callback({ 'status': 'ok', 'data': likePost });
+        });
+
     });
 };
 
 var unlike = function(postId, userId, callback) {
-    likeModel.find({ postId: postId, userId: userId }).remove( callback );
+    likeModel.find({ postId: postId, userId: userId }).remove(function() {
+        callback({ 'status': 'ok' })
+    });
 };
 
 var getNumberOfLikes = function(postId, callback) {
