@@ -6,7 +6,7 @@
 
             <form ng-submit="signup()" name="signupForm"  novalidate>
                 <div class="form-group has-feedback" ng-class="{ 'has-error' : signupForm.email.$invalid && signupForm.email.$dirty }">
-                    <input auth-message class="form-control input-lg" type="text" id="email" name="email" ng-model="email" placeholder="Email" required autofocus>
+                    <input server-message class="form-control input-lg" type="text" id="email" name="email" ng-model="email" placeholder="Email" required autofocus>
                     <span class="ion-at form-control-feedback"></span>
                     <div class="help-block" ng-if="signupForm.email.$dirty" ng-messages="signupForm.email.$error">
                         <div ng-message="required">Please enter your email</div>

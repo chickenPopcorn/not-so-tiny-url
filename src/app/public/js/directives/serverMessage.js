@@ -2,7 +2,7 @@
  * Created by dyorex on 2016-10-14.
  */
 angular.module('tinyurlApp')
-    .directive('authMessage', function() {
+    .directive('serverMessage', function() {
         return {
             restrict: 'A',
             require: 'ngModel',
