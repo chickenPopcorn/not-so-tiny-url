@@ -23,7 +23,7 @@ router.post("/urls", jsonParser, function(req, res) {
                 res.json(json);
             });
         } else {
-            res.status(401).send(json);
+            res.status(400).send(json);
         }
     });
 });
