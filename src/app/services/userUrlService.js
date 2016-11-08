@@ -100,7 +100,7 @@ var getMeta = function(url, callback) {
 var getPostById = function(postId, callback) {
     redisClient.get(postId, function(err, post) {
         if (post) {
-            console.log("using cache: " + post);
+            // console.log("using cache: " + post);
             var json = JSON.parse(post);
             callback(json);
         } else {
@@ -110,7 +110,7 @@ var getPostById = function(postId, callback) {
                     return;
                 }
                 callback(postInDb);
-                console.log("stringify: " + JSON.stringify(postInDb));
+                // console.log("stringify: " + JSON.stringify(postInDb));
                 redisClient.set(postId, JSON.stringify(postInDb));
             });
         }
