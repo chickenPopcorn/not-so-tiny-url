@@ -6,6 +6,7 @@ var redis = require("redis");
 var jwt = require('jwt-simple');
 var moment = require('moment');
 var config = require('./config');
+var bcrypt = require('bcryptjs');
 
 var port = process.env.REDIS_PORT_6379_TCP_PORT;
 var host = process.env.REDIS_PORT_6379_TCP_ADDR;
@@ -68,8 +69,57 @@ var getUser = function(req, callback) {
     });
 };
 
+var reg = function(email, password, fullname, callback) {
+    userModel.findOne({ email: email }, function(err, existingUser) {
+        if (existingUser) {
+            callback({ status: 409, message: { email: 'Email is already taken.' } });
+            return;
+        }
+
+        var user = new userModel({
+            email: email,
+            password: password,
+            fullname: fullname
+        });
+
+        bcrypt.genSalt(10, function(err, salt) {
+            bcrypt.hash(user.password, salt, function(err, hash) {
+                user.password = hash;
+
+                user.save(function() {
+                    var token = createToken(user);
+                    callback({ status:200, token: token });
+                });
+            });
+        });
+    });
+};
+
+var login = function(email, password, callback) {
+    userModel.findOne({ email: email }, '+password', function(err, user) {
+        if (!user) {
+            callback({ status: 401, message: { email: 'This user does not exist.' } });
+            return;
+        }
+
+        bcrypt.compare(password, user.password, function(err, isMatch) {
+            if (!isMatch) {
+                callback({ status: 401, message: { password: 'The password is not correct.' } });
+                return;
+            }
+
+            user = user.toObject();
+            delete user.password;
+
+            var token = createToken(user);
+            callback({ status: 200, token: token, user: user });
+        });
+    });
+};
+
 module.exports = {
-    createToken: createToken,
     isAuthenticated: isAuthenticated,
-    getUser: getUser
+    getUser: getUser,
+    reg: reg,
+    login: login
 };
