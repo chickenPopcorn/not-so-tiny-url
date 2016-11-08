@@ -18,9 +18,11 @@ angular.module('tinyurlApp')
             $http.post("/api/v1/urls", {
                 longUrl: $scope.longUrl,
                 isPublic: false
-            }).success(function(data) {
-                $location.path("/urls/" + data.shortUrl);
+            }).then(function(response) {
+                $location.path("/urls/" + response.data.shortUrl);
                 $scope.longUrl = null;
+            }).catch(function(response) {
+
             });
         };
 

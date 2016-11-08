@@ -4,8 +4,15 @@ angular.module("tinyurlApp")
             $http.post("/api/v1/urls", {
                 longUrl: $scope.longUrl,
                 isPublic: $scope.isPublic
-            }).success(function(data) {
-                $location.path("/urls/" + data.shortUrl);
+            }).then(function(response) {
+                $location.path("/urls/" + response.data.shortUrl);
+            }).catch(function(response) {
+                $scope.errorMessage = {};
+                console.log(response.data);
+                angular.forEach(response.data.message, function(message, field) {
+                    $scope.homeForm[field].$setValidity('server', false);
+                    $scope.errorMessage[field] = response.data.message[field];
+                });
             });
         };
 

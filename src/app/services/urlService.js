@@ -6,11 +6,36 @@ var host = process.env.REDIS_PORT_6379_TCP_ADDR;
 
 var redisClient = redis.createClient(port, host);
 
-var getShortUrl = function(longUrl, callback) {
-    if (longUrl.indexOf('http') == -1) {
-        longUrl = "http://" + longUrl;
-    }
+var validateUrl = function(longUrl, callback) {
+    var http = require('http'),
+        url = require('url');
+    var options = {
+        method: 'HEAD',
+        host: url.parse(longUrl).host,
+        port: 80,
+        path: url.parse(longUrl).pathname
+    };
+    var req = http.request(options, function (r) {
+        callback({
+            status: 'ok',
+            data: r.headers
+        });
+    });
+    req.on('error', function(err) {
+        callback({
+            status: 'failed',
+            message: {'longUrl' : 'This is not a valid URL.'},
+            error: err
+        });
+    });
+    req.end();
+};
 
+var getShortUrl = function(longUrl, callback) {
+    // This part has been handled in the front-end, hence comment it.
+    /* if (longUrl.indexOf('http') == -1) {
+        longUrl = "http://" + longUrl;
+    } */
     redisClient.get(longUrl, function(err, shortUrl) {
         if (shortUrl) {
             console.log("using cache");
@@ -20,32 +45,38 @@ var getShortUrl = function(longUrl, callback) {
                 longUrl: longUrl
             });
         } else {
-            UrlModel.findOne({
-                longUrl: longUrl
-            }, function(err, data) {
-                if (data) {
-                    callback({
-                        status: 'ok',
-                        shortUrl: data.shortUrl,
-                        longUrl: data.longUrl
-                    });
-                    redisClient.set(data.shortUrl, data.longUrl);
-                    redisClient.set(data.longUrl, data.shortUrl);
+            validateUrl(longUrl, function(output) {
+                if (output.status != 'ok') {
+                    callback(output);
                 } else {
-                    generateShortUrl(function(shortUrl) {
-                        var url = new UrlModel({
-                            shortUrl: shortUrl,
-                            longUrl: longUrl
-                        });
-                        url.save(function() {
+                    UrlModel.findOne({
+                        longUrl: longUrl
+                    }, function(err, data) {
+                        if (data) {
                             callback({
                                 status: 'ok',
-                                shortUrl: shortUrl,
-                                longUrl: longUrl
+                                shortUrl: data.shortUrl,
+                                longUrl: data.longUrl
                             });
-                            redisClient.set(shortUrl, longUrl);
-                            redisClient.set(longUrl, shortUrl);
-                        });
+                            redisClient.set(data.shortUrl, data.longUrl);
+                            redisClient.set(data.longUrl, data.shortUrl);
+                        } else {
+                            generateShortUrl(function(shortUrl) {
+                                var url = new UrlModel({
+                                    shortUrl: shortUrl,
+                                    longUrl: longUrl
+                                });
+                                url.save(function() {
+                                    callback({
+                                        status: 'ok',
+                                        shortUrl: shortUrl,
+                                        longUrl: longUrl
+                                    });
+                                    redisClient.set(shortUrl, longUrl);
+                                    redisClient.set(longUrl, shortUrl);
+                                });
+                            });
+                        }
                     });
                 }
             });
@@ -66,6 +97,16 @@ var getLongUrl = function(shortUrl, callback) {
             UrlModel.findOne({
                 shortUrl: shortUrl
             }, function(err, data) {
+                if (err) {
+                    console.log(err);
+                    callback({
+                        status: 'failed',
+                        message: err
+                    });
+                    return;
+                }
+
+                console.log('data: ' + data);
                 callback({
                     status: 'ok',
                     shortUrl: shortUrl,
