@@ -8,6 +8,7 @@ var mongoose = require('mongoose');
 var authService = require('../services/authService');
 var userUrlService = require('../services/userUrlService');
 var urlService = require('../services/urlService');
+var statsService = require('../services/statsService');
 
 var source = "";
 
@@ -147,7 +148,7 @@ describe('URL', function() {
 
     it('should return a short URL for google.com', function(done) {
         urlService.getShortUrl("http://www.google.com", function(json) {
-            console.log(json);
+            // console.log(json);
             assert.equal(json.status, 'ok');
             done();
         });
@@ -158,6 +159,54 @@ describe('URL', function() {
             done();
         });
     });
+});
+
+describe('STATS', function() {
+    var shortUrl = 'a';
+
+    it('should return total number of clicks', function(done) {
+        statsService.getUrlInfo(shortUrl, "totalClicks", function(count) {
+            assert(count >= 4);
+            done();
+        });
+    });
+    it('should return clicks per hour', function(done) {
+        statsService.getUrlInfo(shortUrl, "hour", function(data) {
+            var expected = [ { _id: { year: 2016, month: 10, day: 17, hour: 22, minutes: 21 },
+                count: 3 },
+                { _id: { year: 2016, month: 11, day: 8, hour: 4, minutes: 23 },
+                    count: 1 } ];
+            assert.deepStrictEqual(data[0], expected[0]);
+            assert.deepStrictEqual(data[1], expected[1]);
+            done();
+        });
+    });
+    it('should return clicks per day', function(done) {
+        statsService.getUrlInfo(shortUrl, "day", function(data) {
+            var expected = [ { _id: { year: 2016, month: 10, day: 17, hour: 22 }, count: 3 },
+                { _id: { year: 2016, month: 11, day: 8, hour: 4 }, count: 1 } ];
+            assert.deepStrictEqual(data[0], expected[0]);
+            assert.deepStrictEqual(data[1], expected[1]);
+            done();
+        });
+    });
+    it('should return clicks per month', function(done) {
+        statsService.getUrlInfo(shortUrl, "month", function(data) {
+            var expected = [ { _id: { year: 2016, month: 10, day: 17 }, count: 3 },
+                { _id: { year: 2016, month: 11, day: 8 }, count: 1 } ];
+            assert.deepStrictEqual(data[0], expected[0]);
+            assert.deepStrictEqual(data[1], expected[1]);
+            done();
+        });
+    });
+    it('should return total number of clicks without defined request info type', function(done) {
+        statsService.getUrlInfo(shortUrl, "test", function(res) {
+            assert.strictEqual(res[0]._id, null);
+            assert(res[0].count >= 4);
+            done();
+        });
+    });
+
 });
 
 describe('APIs', function() {
