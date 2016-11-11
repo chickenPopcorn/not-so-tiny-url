@@ -106,15 +106,23 @@ var getLongUrl = function(shortUrl, callback) {
                     return;
                 }
 
-                console.log('data: ' + data);
-                callback({
-                    status: 'ok',
-                    shortUrl: shortUrl,
-                    longUrl: data.longUrl
-                });
-                // console.log(data);
-                redisClient.set(shortUrl, data.longUrl);
-                redisClient.set(data.longUrl, shortUrl);
+                if (data) {
+                    console.log('data: ' + data);
+                    callback({
+                        status: 'ok',
+                        shortUrl: shortUrl,
+                        longUrl: data.longUrl
+                    });
+                    // console.log(data);
+                    redisClient.set(shortUrl, data.longUrl);
+                    redisClient.set(data.longUrl, shortUrl);
+                } else {
+                    callback({
+                        status: 'failed',
+                        shortUrl: shortUrl,
+                        message: "The short URL does not exist."
+                    });
+                }
             });
         }
     });

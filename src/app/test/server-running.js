@@ -153,15 +153,28 @@ describe('URL', function() {
             done();
         });
     });
+    it('should return status "failed" when trying to get a short URL for an invalid URL like "http://abcedfghijk"', function(done) {
+        this.timeout(0);
+        urlService.getShortUrl("http://abcedfghijk", function(json) {
+            assert.equal(json.status, 'failed');
+            done();
+        });
+    });
     it('should return the long URL given a short URL', function(done) {
         urlService.getLongUrl("a", function(json) {
             assert.equal(json.status, 'ok');
             done();
         });
     });
+    it('should return status "failed" when trying to get the long URL of a non-existed short URL', function(done) {
+        urlService.getLongUrl("viueiwouoerjkj", function(json) {
+            assert.equal(json.status, 'failed');
+            done();
+        });
+    });
 });
 
-describe('STATS', function() {
+describe('Stats', function() {
     var shortUrl = 'a';
 
     it('should return total number of clicks', function(done) {
