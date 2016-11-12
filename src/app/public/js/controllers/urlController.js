@@ -1,5 +1,5 @@
 angular.module("tinyurlApp")
-    .controller("urlController", ["$scope", "$http", "$routeParams", function($scope, $http, $routeParams) {
+    .controller("urlController", ["$scope", "$http", "$routeParams", 'moment', function($scope, $http, $routeParams, moment) {
         $http.get("/api/v1/urls/" + $routeParams.shortUrl)
             .success(function(data) {
                 $scope.longUrl = data.longUrl;
@@ -32,33 +32,47 @@ angular.module("tinyurlApp")
         $scope.month = "month";
         $scope.time = $scope.hour;
 
+        var largest = 0;
         $scope.getTime = function(time) {
             $scope.lineLabels = [];
             $scope.lineData = [];
-
             $scope.time = time;
-
             $http.get("/api/v1/urls/" + $routeParams.shortUrl + "/" + time)
                 .success(function(data) {
                     data.forEach(function(item) {
+                        var localTime = moment
+                            .utc(item._id.month+"-"+item._id.day+" "+item._id.hour+":"+item._id.minutes,
+                                "MM-DD hh:mm").local();
                         var legend = "";
                         if (time === "hour") {
-                            if (item._id.minutes < 10) {
-                                item._id.minutes = "0" + item._id.minutes;
-                            }
-                            legend = item._id.hour + ":" + item._id.minutes;
+                            legend = localTime.format("hh:mm a");
                         }
                         if (time === "day") {
-                            legend = item._id.hour + ":00";
+                            legend = localTime.format("hh:mm a");
                         }
                         if (time === "month") {
-                            legend = item._id.month + "/" + item._id.day;
+                            legend = localTime.format("MM/DD");
                         }
                         $scope.lineLabels.push(legend);
+                        largest = largest > item.count ? largest: item.count
                         $scope.lineData.push(item.count);
+                        $scope.chartOptions = {
+                            scales:{
+                                yAxes:[{
+                                    ticks: {
+                                        max: largest*2,
+                                        min: 0,
+                                        stepSize: 1
+                                    }
+                                }]
+
+                            }
+                        };
                     });
                 });
         };
+
+
 
         $scope.getTime($scope.time);
     }]);
