@@ -1,15 +1,18 @@
 angular.module("tinyurlApp")
-    .controller("urlController", ["$scope", "$http", "$routeParams", 'moment', function($scope, $http, $routeParams, moment) {
+    .controller("urlController", ["$scope", "$http", "$routeParams", 'moment', 'socket', function($scope, $http, $routeParams, moment, socket) {
         $http.get("/api/v1/urls/" + $routeParams.shortUrl)
-            .success(function(data) {
+            .success(function (data) {
                 $scope.longUrl = data.longUrl;
                 $scope.shortUrl = data.shortUrl;
                 $scope.shortUrlToShow = "http://localhost:3000/" + data.shortUrl;
             });
-        $http.get("/api/v1/urls/" + $routeParams.shortUrl + "/totalClicks")
-            .success(function(data) {
-                $scope.totalClicks = data;
-            });
+        var renderTotalClicks = function () {
+            $http.get("/api/v1/urls/" + $routeParams.shortUrl + "/totalClicks")
+                .success(function (data) {
+                    $scope.totalClicks = data;
+                })
+            };
+
 
         var renderChart = function(chart, infos) {
             $scope[chart + "Labels"] = [];
@@ -39,10 +42,6 @@ angular.module("tinyurlApp")
                     });
                 });
         };
-        renderChart("doughnut", "referer");
-        renderChart("pie", "country");
-        renderChart("base", "platform");
-        renderChart("bar", "browser");
 
         $scope.hour = "hour";
         $scope.day = "day";
@@ -85,7 +84,26 @@ angular.module("tinyurlApp")
                 });
         };
 
+        var renderTime = function() {
+            $scope.getTime($scope.time);
+        };
+
+        function renderAll() {
+            renderTotalClicks();
+            renderChart("doughnut", "referer");
+            renderChart("pie", "country");
+            renderChart("base", "platform");
+            renderChart("bar", "browser");
+            renderTime();
+        };
+
+        renderAll();
+
+        socket.on('shortUrlVisited', function(visitedShortUrl) {
+            if ($scope.shortUrl === visitedShortUrl) {
+                    renderAll();
+                }
+        });
 
 
-        $scope.getTime($scope.time);
     }]);
