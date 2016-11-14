@@ -14,6 +14,23 @@ angular.module("tinyurlApp")
         var renderChart = function(chart, infos) {
             $scope[chart + "Labels"] = [];
             $scope[chart + "Data"] = [];
+            $scope[chart+"chartOptions"] =  {
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            min: 0,
+                            stepSize: 1
+                        },
+
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            min: 0,
+                            stepSize: 1
+                        }
+                    }]
+                }
+            };
             $http.get("/api/v1/urls/" + $routeParams.shortUrl + "/" + infos)
                 .success(function(data) {
                     data.forEach(function(info) {
@@ -31,12 +48,21 @@ angular.module("tinyurlApp")
         $scope.day = "day";
         $scope.month = "month";
         $scope.time = $scope.hour;
-
-        var largest = 0;
         $scope.getTime = function(time) {
             $scope.lineLabels = [];
             $scope.lineData = [];
             $scope.time = time;
+            $scope.chartOptions = {
+                scales:{
+                    yAxes:[{
+                        ticks: {
+                            stepSize: 1,
+                            min: 0
+                        }
+                    }]
+
+                }
+            };
             $http.get("/api/v1/urls/" + $routeParams.shortUrl + "/" + time)
                 .success(function(data) {
                     data.forEach(function(item) {
@@ -48,26 +74,13 @@ angular.module("tinyurlApp")
                             legend = localTime.format("hh:mm a");
                         }
                         if (time === "day") {
-                            legend = localTime.format("hh:mm a");
+                            legend = localTime.format("hh:00 a");
                         }
                         if (time === "month") {
                             legend = localTime.format("MM/DD");
                         }
                         $scope.lineLabels.push(legend);
-                        largest = largest > item.count ? largest: item.count
                         $scope.lineData.push(item.count);
-                        $scope.chartOptions = {
-                            scales:{
-                                yAxes:[{
-                                    ticks: {
-                                        max: largest*2,
-                                        min: 0,
-                                        stepSize: 1
-                                    }
-                                }]
-
-                            }
-                        };
                     });
                 });
         };
