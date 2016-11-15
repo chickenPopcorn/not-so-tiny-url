@@ -18,10 +18,6 @@ angular.module("tinyurlApp")
             $scope[chart + "Labels"] = [];
             $scope[chart + "Data"] = [];
             $scope[chart+"chartOptions"] =  {
-                scaleOverride: true,
-                scaleStartValue: 0,
-                scaleStepWidth: 10,
-                scaleSteps: 5,
                 scales:{
                     yAxes:[{
                         ticks: {
@@ -54,10 +50,6 @@ angular.module("tinyurlApp")
             $scope.lineData = [];
             $scope.time = time;
             $scope.chartOptions = {
-                scaleOverride: true,
-                scaleStartValue: 0,
-                scaleStepWidth: 10,
-                scaleSteps: 5,
                 scales:{
                     yAxes:[{
                         ticks: {
