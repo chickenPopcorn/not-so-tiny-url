@@ -18,18 +18,16 @@ angular.module("tinyurlApp")
             $scope[chart + "Labels"] = [];
             $scope[chart + "Data"] = [];
             $scope[chart+"chartOptions"] =  {
-                scales: {
-                    xAxes: [{
+                scales:{
+                    yAxes:[{
                         ticks: {
                             min: 0,
-                            stepSize: 1
-                        },
 
+                        }
                     }],
-                    yAxes: [{
+                    xAxes:[{
                         ticks: {
                             min: 0,
-                            stepSize: 1
                         }
                     }]
                 }
@@ -55,8 +53,8 @@ angular.module("tinyurlApp")
                 scales:{
                     yAxes:[{
                         ticks: {
-                            stepSize: 1,
-                            min: 0
+                            min: 0,
+
                         }
                     }]
 
