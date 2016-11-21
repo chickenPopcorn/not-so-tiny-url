@@ -3,6 +3,7 @@
  */
 var userUrlModel = require("../models/userUrlModel");
 var likeModel = require("../models/likeModel");
+var commentModel = require("../models/commentModel");
 var redis = require("redis");
 var MetaInspector = require('node-metainspector');
 
@@ -176,6 +177,89 @@ var hasLiked = function(postId, userId, callback) {
         });
 };
 
+var addComment = function(postId, userId, fullname, message, callback) {
+    if (userId == -1) {
+        callback({'status': 'failed', 'message': 'Not authorized.'});
+    } else {
+        getPostById(postId, function(post) {
+            var comment = new commentModel({
+                userId: userId,
+                fullname: fullname,
+                postId: postId,
+                shortUrl: post.shortUrl,
+                message: message,
+                isDelete: false
+            });
+            comment.save(function() {
+                callback({ 'status': 'ok', 'data': comment });
+            });
+
+        });
+    }
+};
+
+var getCommentById = function(commentId, callback) {
+    redisClient.get(commentId, function(err, comment) {
+        if (comment) {
+            // console.log("using cache: " + post);
+            var json = JSON.parse(comment);
+            callback(json);
+        } else {
+            commentModel.findById(commentId, function (err, commentInDb) {
+                if (err) {
+                    callback(err);
+                    return;
+                }
+                callback(commentInDb);
+                // console.log("stringify: " + JSON.stringify(postInDb));
+                redisClient.set(commentId, JSON.stringify(commentInDb));
+            });
+        }
+    });
+};
+
+var removeComment = function(commentId, userId, callback) {
+    if (userId == -1) {
+        callback({'status': 'failed', 'message': 'Not logged in.'});
+    } else {
+        getCommentById(commentId, function(comment) {
+            if (userId != comment.userId) {
+                callback({'status': 'failed', 'message': 'Not authorized.'});
+            } else {
+                commentModel.update({_id: commentId}, {
+                    isDeleted: true
+                }, function(err, affected, resp) {
+                    if (err) {
+                        callback(err);
+                        return;
+                    }
+
+                    console.log(resp);
+                    callback({ 'status': 'ok', 'data': resp });
+                })
+            }
+        });
+    }
+};
+
+var getComments = function(postId, callback) {
+    var json = {'status': 'ok', 'data': {} };
+
+    commentModel
+        .find( {postId: postId, isDeleted: false} )
+        .exec(function(err, comments){
+            if (err) {
+                json['status'] = 'failed';
+                json['data'] = err;
+                callback(json);
+                return;
+            }
+
+            json['data'] = comments;
+            callback(json);
+        });
+};
+
 module.exports = {
     add: add,
     getFeed: getFeed,
@@ -184,5 +268,8 @@ module.exports = {
     unlike: unlike,
     getPostById: getPostById,
     getNumberOfLikes: getNumberOfLikes,
-    hasLiked: hasLiked
+    hasLiked: hasLiked,
+    addComment: addComment,
+    removeComment: removeComment,
+    getComments: getComments
 };
