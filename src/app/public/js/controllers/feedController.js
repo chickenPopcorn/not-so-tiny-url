@@ -22,6 +22,7 @@ angular.module("tinyurlApp")
                 $scope.total = data.count;
                 for (var i = 0; i < data.data.length; i++) {
                     $scope.publicItems.push(data.data[i]);
+                    data.data[i].isDeletable = isPostDeletable(data.data[i]);
 
                     data.data[i].fullShortUrl = host + data.data[i].shortUrl;
                     var url = data.data[i].longUrl ? data.data[i].longUrl : data.data[i].fullShortUrl;
@@ -98,6 +99,7 @@ angular.module("tinyurlApp")
                 // console.log(data);
                 for (var i = 0; i < data.data.length; i++) {
                     $scope.privateItems.push(data.data[i]);
+                    data.data[i].isDeletable = isPostDeletable(data.data[i]);
 
                     var url = data.data[i].longUrl ? data.data[i].longUrl : 'localhost:3000/' + data.data[i].shortUrl;
                     $scope.getMeta(url, data.data[i]);
@@ -165,5 +167,23 @@ angular.module("tinyurlApp")
 
         var isCommentDeletable = function(comment) {
             return $rootScope.currentUser && $rootScope.currentUser._id != -1 && comment.userId == $rootScope.currentUser._id;
+        };
+
+        // remove post
+        $scope.removePost = function(item) {
+            console.log(item);
+            feedService.removePost(item._id).success(function() {
+                if (item.public) {
+                    var index = $scope.publicItems.indexOf(item);
+                    $scope.publicItems.splice(index, 1);
+                } else {
+                    var index = $scope.privateItems.indexOf(item);
+                    $scope.privateItems.splice(index, 1);
+                }
+            });
+        };
+
+        var isPostDeletable = function(item) {
+            return $rootScope.currentUser && $rootScope.currentUser._id != -1 && item.userId == $rootScope.currentUser._id;
         }
     });

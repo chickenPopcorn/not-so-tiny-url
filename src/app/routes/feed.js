@@ -141,4 +141,22 @@ router.get("/post/numOfComments/:id", function(req, res) {
     });
 });
 
+// remove post
+router.post("/post/removePost", jsonParser, function(req, res) {
+    authService.getUser(req, function(user) {
+        var userId = user._id;
+        if (userId != -1) {
+            userUrlService.removePost(req.body.postId, userId, function (data) {
+                if (data.status == 'ok') {
+                    res.json(data);
+                } else {
+                    res.status(403).send(data);
+                }
+            });
+        } else {
+            res.status(403).send({'status': 'failed', 'message': 'Not logged in.'});
+        }
+    });
+});
+
 module.exports = router;

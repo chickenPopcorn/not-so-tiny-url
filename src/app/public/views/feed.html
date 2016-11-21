@@ -51,6 +51,9 @@
                                 </span>
                                 <span><a ng-href="{{'/#/urls/' + item.shortUrl}}"><i class="fa fa-bar-chart fa-2x" aria-hidden="true"></i></a></span>
                                 <span share-buttons data-long-url="{{item.longUrl}}" data-short-url-to-show="{{item.fullShortUrl}}" class="share-buttons"></span>
+                                <span ng-if="item.isDeletable">
+                                    <a ng-click="removePost(item)" href=""><i class="fa fa-trash fa-2x" aria-hidden="true"></i></a>
+                                </span>
                             </div>
                         </div>
 
@@ -94,7 +97,7 @@
                         <a ng-href="{{item.shortUrl}}" target="_blank">
                             <p class="list-group-item-heading">{{item.title}}</p>
                         </a>
-                        <span class="list-group-short-url">{{'http://localhost:3000/' + item.shortUrl}}</span> <span><a ng-href="{{'/#/urls/' + item.shortUrl}}"><i class="fa fa-bar-chart" aria-hidden="true"></i></a></span>
+                        <span class="list-group-short-url">{{'http://localhost:3000/' + item.shortUrl}}</span> <span><a ng-href="{{'/#/urls/' + item.shortUrl}}"><i class="fa fa-bar-chart" aria-hidden="true"></i></a></span> <span ng-if="item.isDeletable"><a ng-click="removePost(item)" href=""><i class="fa fa-trash" aria-hidden="true"></i></a></span>
                         <p class="list-group-item-text">{{item.description}}</p>
                     </div>
                 </div>

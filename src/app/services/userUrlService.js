@@ -32,8 +32,8 @@ var add = function(userId, fullname, shortUrl, longUrl, isPublic, callback) {
 var getFeed = function(pageSize, lastId, isPublic, userId, callback) {
     // console.log('lastId: ' + lastId);
     pageSize = parseInt(pageSize);
-    var countQuery = {};
-    var actualQuery = {};
+    var countQuery = {isDeleted: {$ne: true}};
+    var actualQuery = {isDeleted: {$ne: true}};
     // console.log('userId: ' + userId);
     // console.log('lastId: ' + lastId);
     if (userId != -1) {
@@ -116,6 +116,30 @@ var getPostById = function(postId, callback) {
             });
         }
     });
+};
+
+var removePost = function(postId, userId, callback) {
+    if (userId == -1) {
+        callback({'status': 'failed', 'message': 'Not logged in.'});
+    } else {
+        getPostById(postId, function(post) {
+            if (userId != post.userId) {
+                callback({'status': 'failed', 'message': 'Not authorized.'});
+            } else {
+                userUrlModel.update({_id: postId}, {
+                    isDeleted: true
+                }, function(err, affected, resp) {
+                    if (err) {
+                        callback(err);
+                        return;
+                    }
+
+                    redisClient.del(postId);
+                    callback({ 'status': 'ok' });
+                })
+            }
+        });
+    }
 };
 
 var like = function(postId, userId, fullname, callback) {
@@ -235,6 +259,7 @@ var removeComment = function(commentId, userId, callback) {
                         return;
                     }
 
+                    redisClient.del(commentId);
                     callback({ 'status': 'ok' });
                 })
             }
@@ -292,5 +317,6 @@ module.exports = {
     addComment: addComment,
     removeComment: removeComment,
     getComments: getComments,
-    getNumberOfComments: getNumberOfComments
+    getNumberOfComments: getNumberOfComments,
+    removePost: removePost
 };

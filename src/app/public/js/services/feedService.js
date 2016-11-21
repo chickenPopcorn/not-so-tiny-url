@@ -47,6 +47,10 @@ angular.module('tinyurlApp')
 
             getNumberOfComments: function(postId) {
                 return $http.get('/feed/post/numOfComments/' + postId);
+            },
+
+            removePost: function(postId) {
+                return $http.post('/feed/post/removePost', { postId: postId });
             }
         }
     });
