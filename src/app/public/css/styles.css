@@ -75,7 +75,7 @@
     margin-top: 20px;
 }
 
-.public-feed .control-panel > div > span {
+.public-feed .control-panel > div > span, .public-feed .control-panel > div .share-buttons span {
     margin-right: 20px;
 }
 

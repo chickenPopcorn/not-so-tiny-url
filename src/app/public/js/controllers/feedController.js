@@ -3,6 +3,8 @@
  */
 angular.module("tinyurlApp")
     .controller("feedController", function($scope, $location, $auth, feedService, timeAgo) {
+        var host = 'http://localhost:3000/'; // TODO: should find a way not to hardcode this
+
         $scope.isLoggedIn = function() {
             return $auth.isAuthenticated();
         };
@@ -21,7 +23,8 @@ angular.module("tinyurlApp")
                 for (var i = 0; i < data.data.length; i++) {
                     $scope.publicItems.push(data.data[i]);
 
-                    var url = data.data[i].longUrl ? data.data[i].longUrl : 'localhost:3000/' + data.data[i].shortUrl;
+                    data.data[i].fullShortUrl = host + data.data[i].shortUrl;
+                    var url = data.data[i].longUrl ? data.data[i].longUrl : data.data[i].fullShortUrl;
                     $scope.getMeta(url, data.data[i]);
                     $scope.getNumberOfLikes(data.data[i]);
                     $scope.hasLiked(data.data[i]);
