@@ -75,7 +75,7 @@
     margin-top: 20px;
 }
 
-.public-feed .control-panel > div > span, .public-feed .control-panel > div .share-buttons span {
+.public-feed .control-panel > div > span {
     margin-right: 20px;
 }
 
@@ -106,4 +106,26 @@
 
 .private-feed .card .list-group-short-url {
     color: #e8e9ea;
+}
+
+.animate-show,
+.animate-hide {
+    -webkit-transition:all linear 1s;
+    -moz-transition:all linear 1s;
+    -ms-transition:all linear 1s;
+    -o-transition:all linear 1s;
+    transition:all linear 1s;
+}
+.animate-show.ng-hide-remove,
+.animate-hide.ng-hide-add.ng-hide-add-active {
+    opacity: 0;
+}
+.animate-hide.ng-hide-add,
+.animate-show.ng-hide-remove.ng-hide-remove-active {
+    opacity: 1;
+}
+
+.short-url-text {
+    font-size: 1.3em;
+    margin-right: 10px;
 }
