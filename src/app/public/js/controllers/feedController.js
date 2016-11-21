@@ -2,7 +2,7 @@
  * Created by dyorex on 2016-10-15.
  */
 angular.module("tinyurlApp")
-    .controller("feedController", function($scope, $location, $auth, feedService, timeAgo) {
+    .controller("feedController", function($scope, $location, $auth, $window, $rootScope, feedService, timeAgo) {
         var host = 'http://localhost:3000/'; // TODO: should find a way not to hardcode this
 
         $scope.isLoggedIn = function() {
@@ -28,6 +28,9 @@ angular.module("tinyurlApp")
                     $scope.getMeta(url, data.data[i]);
                     $scope.getNumberOfLikes(data.data[i]);
                     $scope.hasLiked(data.data[i]);
+
+                    data.data[i].displayComments = false;
+                    getNumberOfComments(data.data[i]);
                 }
                 $scope.busy = false;
 
@@ -105,4 +108,62 @@ angular.module("tinyurlApp")
             });
         };
         $scope.loadPrivateItems();
+
+        // get comments
+        var getComments = function(item) {
+            feedService.getComments(item._id).success(function(data) {
+                if (data.status == 'ok') {
+                    item.comments = data.data;
+
+                    for (var i = 0; i < data.data.length; i++) {
+                        data.data[i].isDeletable = isCommentDeletable(data.data[i]);
+                    }
+                }
+            });
+        };
+
+        // get number of comments
+        var getNumberOfComments = function(item) {
+            feedService.getNumberOfComments(item._id).success(function(data) {
+                if (data.status == 'ok') {
+                    item.numOfComments = data.data.count;
+                }
+            });
+        };
+
+        // add comment
+        $scope.addComment = function(item) {
+            if (item.newComment && item.newComment != '') {
+                feedService.addComment(item._id, item.newComment).success(function (data) {
+                    data.data.isDeletable = true;
+                    item.comments.push(data.data);
+                    item.newComment = '';
+                    item.numOfComments++;
+                });
+            }
+        };
+
+        // remove comment
+        $scope.removeComment = function(item, comment) {
+            console.log(comment);
+            feedService.removeComment(comment._id).success(function() {
+                var index = item.comments.indexOf(comment);
+                item.comments.splice(index, 1);
+                item.numOfComments--;
+            });
+        };
+
+        $scope.toggleComments = function(item) {
+            if (item.comments) {
+                // no need to load again
+            } else {
+                getComments(item);
+            }
+
+            item.displayComments = !item.displayComments;
+        };
+
+        var isCommentDeletable = function(comment) {
+            return $rootScope.currentUser && $rootScope.currentUser._id != -1 && comment.userId == $rootScope.currentUser._id;
+        }
     });

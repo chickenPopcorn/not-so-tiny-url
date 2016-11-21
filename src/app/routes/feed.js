@@ -133,4 +133,12 @@ router.get("/post/comments/:id", function(req, res) {
     });
 });
 
+// get number of comments for a post
+router.get("/post/numOfComments/:id", function(req, res) {
+    var postId = req.params.id;
+    userUrlService.getNumberOfComments(postId, function(data) {
+        res.json(data);
+    });
+});
+
 module.exports = router;

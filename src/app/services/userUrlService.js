@@ -188,7 +188,8 @@ var addComment = function(postId, userId, fullname, message, callback) {
                 postId: postId,
                 shortUrl: post.shortUrl,
                 message: message,
-                isDelete: false
+                isDeleted: false,
+                timestamp: Date.now()
             });
             comment.save(function() {
                 callback({ 'status': 'ok', 'data': comment });
@@ -246,7 +247,8 @@ var getComments = function(postId, callback) {
     var json = {'status': 'ok', 'data': {} };
 
     commentModel
-        .find( {postId: postId, isDeleted: false} )
+        .find( {postId: postId, isDeleted: {$ne: true}} )
+        .sort({ _id: 1 })
         .exec(function(err, comments){
             if (err) {
                 json['status'] = 'failed';
@@ -256,6 +258,25 @@ var getComments = function(postId, callback) {
             }
 
             json['data'] = comments;
+            callback(json);
+        });
+};
+
+var getNumberOfComments = function(postId, callback) {
+    var json = {'status': 'ok', 'data': {} };
+
+    commentModel
+        .find( {postId: postId, isDeleted: {$ne: true}} )
+        .count()
+        .exec(function(err, count){
+            if (err) {
+                json['status'] = 'failed';
+                json['data'] = err;
+                callback(json);
+                return;
+            }
+
+            json['data']['count'] = count;
             callback(json);
         });
 };
@@ -271,5 +292,6 @@ module.exports = {
     hasLiked: hasLiked,
     addComment: addComment,
     removeComment: removeComment,
-    getComments: getComments
+    getComments: getComments,
+    getNumberOfComments: getNumberOfComments
 };

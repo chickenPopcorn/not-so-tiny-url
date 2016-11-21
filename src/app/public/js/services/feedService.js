@@ -31,6 +31,22 @@ angular.module('tinyurlApp')
 
             getPrivateFeed: function(pageSize, lastId) {
                 return $http.get('/feed/private/' + pageSize + '/' + lastId);
+            },
+
+            getComments: function(postId) {
+                return $http.get('/feed/post/comments/' + postId);
+            },
+
+            addComment: function(postId, message) {
+                return $http.post('/feed/post/comment', { postId: postId, message: message });
+            },
+
+            removeComment: function(commentId) {
+                return $http.post('/feed/post/removeComment', { commentId: commentId });
+            },
+
+            getNumberOfComments: function(postId) {
+                return $http.get('/feed/post/numOfComments/' + postId);
             }
         }
     });

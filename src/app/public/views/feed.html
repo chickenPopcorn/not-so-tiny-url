@@ -46,9 +46,38 @@
                                         </a>
                                     </span>
                                 </span>
-                                <span><i class="fa fa-comment fa-2x" aria-hidden="true"></i></span>
+                                <span>
+                                    <a ng-click="toggleComments(item)" href=""><i class="fa fa-comment fa-2x" aria-hidden="true"></i> {{item.numOfComments}}</a>
+                                </span>
                                 <span><a ng-href="{{'/#/urls/' + item.shortUrl}}"><i class="fa fa-bar-chart fa-2x" aria-hidden="true"></i></a></span>
                                 <span share-buttons data-long-url="{{item.longUrl}}" data-short-url-to-show="{{item.fullShortUrl}}" class="share-buttons"></span>
+                            </div>
+                        </div>
+
+                        <div class="row comments" ng-show="item.displayComments">
+                            <div class="comment-box">
+                                <form ng-submit="addComment(item)">
+                                    <input placeholder="Write a comment..." type="text" class="form-control" name="newComment" ng-model="item.newComment" />
+                                </form>
+                            </div>
+                            <div class="comment-container">
+                                <div ng-repeat="comment in item.comments" class="comment">
+                                    <!--<div class="col-md-1 col-sm-1 col-xs-1">-->
+                                        <!--<div class="icon"><i class="fa fa-user fa-2x" aria-hidden="true"></i></div>-->
+                                    <!--</div>-->
+                                    <div>
+                                        <div>
+                                            <span class="user">{{comment.fullname ? comment.fullname : 'User_' + comment.userId}}</span>
+                                            <span class="mesasge">{{comment.message}}</span>
+                                            <span class="remove" ng-if="comment.isDeletable"><a href="" ng-click="removeComment(item, comment)"><i class="fa fa-remove" aria-hidden="true"></i></a></span>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="time">
+                                            <span>{{comment.timestamp | timeAgo}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </div>
                             </div>
                         </div>
                     </div>

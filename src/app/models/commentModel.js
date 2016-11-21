@@ -9,7 +9,8 @@ var commentModel = mongoose.model('Comment', new mongoose.Schema({
     postId: String,
     shortUrl: String,
     message: String,
-    isDeleted: Boolean
+    isDeleted: Boolean,
+    timestamp: String
 }));
 
 module.exports = commentModel;
