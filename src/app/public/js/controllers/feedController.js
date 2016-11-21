@@ -2,7 +2,7 @@
  * Created by dyorex on 2016-10-15.
  */
 angular.module("tinyurlApp")
-    .controller("feedController", function($scope, $location, $auth, $window, $rootScope, feedService, timeAgo) {
+    .controller("feedController", function($scope, $location, $auth, $window, $rootScope, feedService, timeAgo, ModalService) {
         var host = 'http://localhost:3000/'; // TODO: should find a way not to hardcode this
 
         $scope.isLoggedIn = function() {
@@ -147,11 +147,21 @@ angular.module("tinyurlApp")
 
         // remove comment
         $scope.removeComment = function(item, comment) {
-            console.log(comment);
-            feedService.removeComment(comment._id).success(function() {
-                var index = item.comments.indexOf(comment);
-                item.comments.splice(index, 1);
-                item.numOfComments--;
+            // console.log(comment);
+            ModalService.showModal({
+                templateUrl: '/public/views/fragments/deleteModal.html',
+                controller: "modalController"
+            }).then(function(modal) {
+                modal.element.modal();
+                modal.close.then(function(result) {
+                    if (result == 'Yes') {
+                        feedService.removeComment(comment._id).success(function() {
+                            var index = item.comments.indexOf(comment);
+                            item.comments.splice(index, 1);
+                            item.numOfComments--;
+                        });
+                    }
+                });
             });
         };
 
@@ -171,15 +181,25 @@ angular.module("tinyurlApp")
 
         // remove post
         $scope.removePost = function(item) {
-            console.log(item);
-            feedService.removePost(item._id).success(function() {
-                if (item.public) {
-                    var index = $scope.publicItems.indexOf(item);
-                    $scope.publicItems.splice(index, 1);
-                } else {
-                    var index = $scope.privateItems.indexOf(item);
-                    $scope.privateItems.splice(index, 1);
-                }
+            // console.log(item);
+            ModalService.showModal({
+                templateUrl: '/public/views/fragments/deleteModal.html',
+                controller: "modalController"
+            }).then(function(modal) {
+                modal.element.modal();
+                modal.close.then(function (result) {
+                    if (result == 'Yes') {
+                        feedService.removePost(item._id).success(function () {
+                            if (item.public) {
+                                var index = $scope.publicItems.indexOf(item);
+                                $scope.publicItems.splice(index, 1);
+                            } else {
+                                var index = $scope.privateItems.indexOf(item);
+                                $scope.privateItems.splice(index, 1);
+                            }
+                        });
+                    }
+                });
             });
         };
 

@@ -16,6 +16,7 @@
   "license": "MIT",
   "dependencies": {
     "angular-chart.js": "^1.0.3",
+    "angular-modal-service": "^0.10.1",
     "angular-moment": "^1.0.0",
     "angular-socialshare": "^2.3.3",
     "angular-timeago": "~0.4.3",
