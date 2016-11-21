@@ -19,10 +19,11 @@
 
 .card {
     background-color: white;
-    /* border: #dfe0e4 solid 1px; */
+    border: #eeeeee solid 1px;
     padding: 15px 25px;
     margin-bottom: 20px;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, .04),0 1px 5px rgba(0, 0, 0, .1);
+    border-radius: 3px;
+    /*box-shadow: 0 0 0 1px rgba(0, 0, 0, .04),0 1px 5px rgba(0, 0, 0, .1);*/
 }
 
 .public-feed {
@@ -38,8 +39,12 @@
     font-weight: bold;
 }
 
+.public-feed .card .remove {
+    float: right;
+}
+
 .public-feed .card .time {
-    color: #e8e9ea;
+    color: darkgrey;
 }
 
 .public-feed .card .post {
@@ -50,10 +55,16 @@
 .public-feed .sub-card .thumbnail {
     max-width: 715px;
     margin: 0 auto;
-    border-radius: 0;
-    box-shadow: 0 0 0 1px rgba(0, 0, 0, .04),0 1px 5px rgba(0, 0, 0, .1);
+    border-radius: 3px;
+    /*box-shadow: 0 0 0 1px rgba(0, 0, 0, .04),0 1px 5px rgba(0, 0, 0, .1);*/
     cursor: pointer;
     background-color: white;
+    padding: 0;
+    border: #eeeeee solid 1px;
+}
+
+.public-feed .sub-card .thumbnail .caption {
+    padding: 15px;
 }
 
 .public-feed .sub-card .thumbnail .title {
@@ -87,6 +98,31 @@
     color: #d92927;
 }
 
+.public-feed .comments {
+    max-width: 715px;
+    margin: 0 auto;
+    margin-top: 10px;
+    border-radius: 3px;
+    /*box-shadow: 0 0 0 1px rgba(0, 0, 0, .04),0 1px 5px rgba(0, 0, 0, .1);*/
+    background-color: white;
+    padding: 0;
+    /*border: #eeeeee solid 1px;*/
+}
+
+.public-feed .comments .comment-box {
+    margin-top: 12px;
+}
+
+.public-feed .comments .comment {
+    margin-top: 12px;
+    padding: 0 15px;
+}
+
+/*.public-feed .comments .form-control {*/
+    /*display: inline-block;*/
+    /*width: auto;*/
+/*}*/
+
 .private-feed {
 
 }
@@ -106,4 +142,26 @@
 
 .private-feed .card .list-group-short-url {
     color: #e8e9ea;
+}
+
+.animate-show,
+.animate-hide {
+    -webkit-transition:all linear 0.5s;
+    -moz-transition:all linear 0.5s;
+    -ms-transition:all linear 0.5s;
+    -o-transition:all linear 0.5s;
+    transition:all linear 0.5s;
+}
+.animate-show.ng-hide-remove,
+.animate-hide.ng-hide-add.ng-hide-add-active {
+    opacity: 0;
+}
+.animate-hide.ng-hide-add,
+.animate-show.ng-hide-remove.ng-hide-remove-active {
+    opacity: 1;
+}
+
+.short-url-text {
+    font-size: 1.3em;
+    margin-right: 10px;
 }

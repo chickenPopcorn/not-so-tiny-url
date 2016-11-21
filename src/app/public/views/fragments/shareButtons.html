@@ -1,0 +1,38 @@
+<span class="btn-holder" ng-click="toggleBtns()">
+    <a href=""><i class="fa fa-share fa-2x" aria-hidden="true"></i></a>
+    <span class="btns animate-show animate-hide" ng-show="showButtons">
+        <span class="twitter">
+            <a href=""
+               socialshare
+               socialshare-provider="twitter"
+               socialshare-text="I just created a tiny URL."
+               socialshare-url="{{shortUrlToShow}}"><i class="fa fa-twitter fa-2x" aria-hidden="true"></i></a>
+        </span>
+        <span class="facebook">
+            <a href=""
+               socialshare
+               socialshare-provider="facebook"
+               socialshare-url="{{longUrl}}"><i class="fa fa-facebook fa-2x" aria-hidden="true"></i></a>
+        </span>
+        <span class="google">
+            <a href=""
+               socialshare
+               socialshare-provider="google"
+               socialshare-url="{{longUrl}}"><i class="fa fa-google fa-2x" aria-hidden="true"></i></a>
+        </span>
+        <span class="pinterest">
+            <a href=""
+               socialshare
+               socialshare-provider="pinterest"
+               socialshare-text="I just created a tiny URL: {{shortUrlToShow}}"
+               socialshare-url="{{longUrl}}"><i class="fa fa-pinterest fa-2x" aria-hidden="true"></i></a>
+        </span>
+            <!--<span class="reddit">-->
+            <!--<a href=""-->
+            <!--socialshare-->
+            <!--socialshare-provider="reddit"-->
+            <!--socialshare-text="I just created a tiny URL: {{fullShortUrl}}"-->
+            <!--socialshare-url="{{longUrl}}"><i class="fa fa-reddit fa-2x" aria-hidden="true"></i></a>-->
+            <!--</span>-->
+    </span>
+</span>

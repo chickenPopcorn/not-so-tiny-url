@@ -6,7 +6,10 @@
         </div>
         <div class="row">
             <h4>Your short Url is: </h4>
-            <h3><a ng-href="{{shortUrl}}" target="_blank">{{shortUrlToShow}}</a></h3>
+            <div>
+                <span class="short-url-text"><a ng-href="{{shortUrl}}" target="_blank">{{shortUrlToShow}}</a></span>
+                <span share-buttons data-long-url="{{longUrl}}" data-short-url-to-show="{{shortUrlToShow}}"></span>
+            </div>
         </div>
     </div>
     <div class="col-md-3">

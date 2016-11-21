@@ -9,7 +9,8 @@ var userUrlModel = mongoose.model('UserUrl', new mongoose.Schema({
     shortUrl: String,
     longUrl: String,
     timestamp: String,
-    public: Boolean
+    public: Boolean,
+    isDeleted: Boolean
 }));
 
 module.exports = userUrlModel;

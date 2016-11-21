@@ -3,6 +3,7 @@
  */
 var userUrlModel = require("../models/userUrlModel");
 var likeModel = require("../models/likeModel");
+var commentModel = require("../models/commentModel");
 var redis = require("redis");
 var MetaInspector = require('node-metainspector');
 
@@ -31,8 +32,8 @@ var add = function(userId, fullname, shortUrl, longUrl, isPublic, callback) {
 var getFeed = function(pageSize, lastId, isPublic, userId, callback) {
     // console.log('lastId: ' + lastId);
     pageSize = parseInt(pageSize);
-    var countQuery = {};
-    var actualQuery = {};
+    var countQuery = {isDeleted: {$ne: true}};
+    var actualQuery = {isDeleted: {$ne: true}};
     // console.log('userId: ' + userId);
     // console.log('lastId: ' + lastId);
     if (userId != -1) {
@@ -117,6 +118,30 @@ var getPostById = function(postId, callback) {
     });
 };
 
+var removePost = function(postId, userId, callback) {
+    if (userId == -1) {
+        callback({'status': 'failed', 'message': 'Not logged in.'});
+    } else {
+        getPostById(postId, function(post) {
+            if (userId != post.userId) {
+                callback({'status': 'failed', 'message': 'Not authorized.'});
+            } else {
+                userUrlModel.update({_id: postId}, {
+                    isDeleted: true
+                }, function(err, affected, resp) {
+                    if (err) {
+                        callback(err);
+                        return;
+                    }
+
+                    redisClient.del(postId);
+                    callback({ 'status': 'ok' });
+                })
+            }
+        });
+    }
+};
+
 var like = function(postId, userId, fullname, callback) {
     getPostById(postId, function(post) {
         var likePost = new likeModel({
@@ -176,6 +201,110 @@ var hasLiked = function(postId, userId, callback) {
         });
 };
 
+var addComment = function(postId, userId, fullname, message, callback) {
+    if (userId == -1) {
+        callback({'status': 'failed', 'message': 'Not authorized.'});
+    } else {
+        getPostById(postId, function(post) {
+            var comment = new commentModel({
+                userId: userId,
+                fullname: fullname,
+                postId: postId,
+                shortUrl: post.shortUrl,
+                message: message,
+                isDeleted: false,
+                timestamp: Date.now()
+            });
+            comment.save(function() {
+                callback({ 'status': 'ok', 'data': comment });
+            });
+
+        });
+    }
+};
+
+var getCommentById = function(commentId, callback) {
+    redisClient.get(commentId, function(err, comment) {
+        if (comment) {
+            // console.log("using cache: " + post);
+            var json = JSON.parse(comment);
+            callback(json);
+        } else {
+            commentModel.findById(commentId, function (err, commentInDb) {
+                if (err) {
+                    callback(err);
+                    return;
+                }
+                callback(commentInDb);
+                // console.log("stringify: " + JSON.stringify(postInDb));
+                redisClient.set(commentId, JSON.stringify(commentInDb));
+            });
+        }
+    });
+};
+
+var removeComment = function(commentId, userId, callback) {
+    if (userId == -1) {
+        callback({'status': 'failed', 'message': 'Not logged in.'});
+    } else {
+        getCommentById(commentId, function(comment) {
+            if (userId != comment.userId) {
+                callback({'status': 'failed', 'message': 'Not authorized.'});
+            } else {
+                commentModel.update({_id: commentId}, {
+                    isDeleted: true
+                }, function(err, affected, resp) {
+                    if (err) {
+                        callback(err);
+                        return;
+                    }
+
+                    redisClient.del(commentId);
+                    callback({ 'status': 'ok' });
+                })
+            }
+        });
+    }
+};
+
+var getComments = function(postId, callback) {
+    var json = {'status': 'ok', 'data': {} };
+
+    commentModel
+        .find( {postId: postId, isDeleted: {$ne: true}} )
+        .sort({ _id: 1 })
+        .exec(function(err, comments){
+            if (err) {
+                json['status'] = 'failed';
+                json['data'] = err;
+                callback(json);
+                return;
+            }
+
+            json['data'] = comments;
+            callback(json);
+        });
+};
+
+var getNumberOfComments = function(postId, callback) {
+    var json = {'status': 'ok', 'data': {} };
+
+    commentModel
+        .find( {postId: postId, isDeleted: {$ne: true}} )
+        .count()
+        .exec(function(err, count){
+            if (err) {
+                json['status'] = 'failed';
+                json['data'] = err;
+                callback(json);
+                return;
+            }
+
+            json['data']['count'] = count;
+            callback(json);
+        });
+};
+
 module.exports = {
     add: add,
     getFeed: getFeed,
@@ -184,5 +313,10 @@ module.exports = {
     unlike: unlike,
     getPostById: getPostById,
     getNumberOfLikes: getNumberOfLikes,
-    hasLiked: hasLiked
+    hasLiked: hasLiked,
+    addComment: addComment,
+    removeComment: removeComment,
+    getComments: getComments,
+    getNumberOfComments: getNumberOfComments,
+    removePost: removePost
 };
