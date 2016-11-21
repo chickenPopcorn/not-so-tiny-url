@@ -235,8 +235,7 @@ var removeComment = function(commentId, userId, callback) {
                         return;
                     }
 
-                    console.log(resp);
-                    callback({ 'status': 'ok', 'data': resp });
+                    callback({ 'status': 'ok' });
                 })
             }
         });
