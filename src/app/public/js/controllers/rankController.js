@@ -7,7 +7,7 @@ angular.module("tinyurlApp")
         var getLongUrl = function (shortUrl, clicks) {
             $http.get('/api/v1/urls/' + shortUrl).then(function (res) {
                 $scope.topkUrls.push({ shortUrl: host + shortUrl, longUrl: res.data.longUrl, clicks: clicks });
-                console.log($scope.topkUrls);
+                // console.log($scope.topkUrls);
             });
         };
 
