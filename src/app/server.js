@@ -5,6 +5,7 @@ var RedirectRouter = require('./routes/redirect');
 var indexRouter = require("./routes/index");
 var authRouter = require("./routes/auth");
 var feedRouter = require("./routes/feed");
+var rankRouter = require("./routes/rank");
 var mongoose = require('mongoose');
 var useragent = require('express-useragent');
 var cors = require('cors');
@@ -32,6 +33,8 @@ app.use("/api/v1", restRouter);
 app.use("/auth", authRouter);
 
 app.use("/feed", feedRouter); // TODO: should maybe integrate these into /api/v1
+
+app.use("/rank", rankRouter); // TODO: should maybe integrate these into /api/v1
 
 app.use("/:shortUrl", (new RedirectRouter(io)).router);
 //colom means varaible after it
