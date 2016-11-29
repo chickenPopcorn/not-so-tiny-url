@@ -9,6 +9,7 @@ var authService = require('../services/authService');
 var userUrlService = require('../services/userUrlService');
 var urlService = require('../services/urlService');
 var statsService = require('../services/statsService');
+var rankUrlService = require('../services/rankUrlService');
 
 var source = "";
 
@@ -141,6 +142,40 @@ describe('Feed', function() {
             });
         });
     });
+});
+
+describe('Rank', function() {
+    var url = 'http://localhost:3000';
+
+    it('should return number of clicks for all urls', function (done) {
+        rankUrlService.getAllClicks(function (err, data) {
+            assert.equal(err, null);
+            assert(data != null);
+            done();
+        });
+    });
+    it('should return top k urls with the highest number of clicks', function (done) {
+        var k = 10;
+        rankUrlService.getTopKUrls(k, function(data) {
+            assert.equal(data.length, k);
+            done();
+        });
+    });
+    it('should return the number of clicks for a given shortUrl', function (done) {
+        var tinyUrl = 'a';
+        rankUrlService.getUrlClicks(tinyUrl, function(shortUrl, data) {
+            assert.equal(shortUrl, tinyUrl);
+            assert(data >= 0);
+            done();
+        });
+    });
+    it('should return the number of clicks for a given shortUrl', function (done) {
+        rankUrlService.saveUrlClicks(function(err) {
+            assert.equal(err, null);
+            done();
+        });
+    });
+
 });
 
 describe('URL', function() {
@@ -317,6 +352,56 @@ describe('APIs', function() {
         it('should return the number of likes for a certain post', function(done) {
             request(url)
                 .get('/feed/post/likes/58030715c387a023e0fb1cb1')
+                .send()
+                .end(function(err, res) {
+                    if (err) {
+                        throw err;
+                    }
+                    res.should.have.property('status', 200);
+                    done();
+                });
+        });
+    });
+    describe('Rank', function() {
+        it('should return number of clicks for all urls', function (done) {
+            request(url)
+                .get('/rank/getAllClicks')
+                .send()
+                .end(function(err, res) {
+                    if (err) {
+                        throw err;
+                    }
+                    res.should.have.property('status', 200);
+                    done();
+                });
+        });
+        it('should return top k urls with the highest number of clicks', function (done) {
+            request(url)
+                .get('/rank/getTopKUrls/10')
+                .send()
+                .end(function(err, res) {
+                    if (err) {
+                        throw err;
+                    }
+                    res.should.have.property('status', 200);
+                    done();
+                });
+        });
+        it('should return the number of clicks for a given shortUrl', function (done) {
+            request(url)
+                .get('/rank/getUrlClicks/a')
+                .send()
+                .end(function(err, res) {
+                    if (err) {
+                        throw err;
+                    }
+                    res.should.have.property('status', 200);
+                    done();
+                });
+        });
+        it('should return the number of clicks for a given shortUrl', function (done) {
+            request(url)
+                .get('/rank/saveUrlClicks')
                 .send()
                 .end(function(err, res) {
                     if (err) {
