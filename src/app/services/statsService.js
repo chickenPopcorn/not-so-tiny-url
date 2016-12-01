@@ -1,5 +1,6 @@
 var geoip = require("geoip-lite");
 var RequestModel = require("../models/requestModel");
+var rankUrlService = require('../services/rankUrlService');
 
 var logRequest = function (shortUrl, req) {
     var reqInfo = {};
@@ -19,7 +20,20 @@ var logRequest = function (shortUrl, req) {
     }
     reqInfo.timestamp = new Date();
     var request = new RequestModel(reqInfo);
-    request.save();
+    request.save(function(err, data) {
+        if (err != null) {
+            console.log(err);
+            return;
+        }
+        if (data.shortUrl.indexOf('/') == -1 && data.shortUrl.indexOf('_')) {
+            rankUrlService.updateUrlClicks(data.shortUrl, function (err, data) {
+                if (err != null) {
+                    console.log(err);
+                }
+            })
+        }
+    });
+
 };
 
 var getUrlInfo = function (shortUrl, info, callback) {

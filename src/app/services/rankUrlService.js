@@ -36,12 +36,13 @@ var getTopKUrls = function (k, callback) {
 
 var saveUrlClicks = function (callback) {
     UrlModel.find({}, function (err, data) {
-        //console.log(data);
-        //console.log(err);
         if (err != null) {
             callback(err);
             return;
         }
+
+        var count = 0;
+        // console.log("length:" + data.length);
         for(var i = 0; i < data.length; i++) {
             var shortUrl = data[i].shortUrl;
             getUrlClicks(shortUrl, function(shortUrl, clicks) {
@@ -50,30 +51,42 @@ var saveUrlClicks = function (callback) {
                 // console.log(shortUrl, clicks);
                 redisClient.hmset(hashClick, obj, function(err, data) {
                     if (err != null) {
-                        console.log(err);
                         callback(err);
+                        return;
                     }
                 });
+                count ++;
+                // console.log(count);
+                if (count === data.length) {
+                    callback(err);
+                }
             });
         }
-        callback(err);
     });
 };
 
-// var updateUrlClicks = function (shortUrl, callback) {
-//     redisClient.hget(hashClick, shortUrl, function(err, data) {
-//         var obj = {};
-//         obj[shortUrl] = data;
-//         redisClient.hmset(hashClick, obj, function(err, data) {
-//             if (err != null) {
-//                 console.log(err);
-//                 callback(err);
-//             } else {
-//                 callback(data);
-//             }
-//         });
-//     });
-// };
+var updateUrlClicks = function (shortUrl, callback) {
+    getUrlClicksCached(shortUrl, function(err, data) {
+        var obj = {};
+        var clicks = parseInt(data) + 1;
+        obj[shortUrl] = clicks;
+        redisClient.hmset(hashClick, obj, function(err, data) {
+            callback(shortUrl, clicks);
+        });
+    });
+};
+
+var getUrlClicksCached = function (shortUrl, callback) {
+    redisClient.hget(hashClick, shortUrl, function(err, data) {
+        if (err == null && data == null) {
+            getUrlClicks(shortUrl, function(shortUrl, data) {
+                callback(shortUrl, data);
+            });
+        } else {
+            callback(shortUrl, data);
+        }
+    });
+};
 
 var getUrlClicks = function (shortUrl, callback) {
     RequestModel.count({ shortUrl: shortUrl }, function (err, data) {
@@ -87,5 +100,7 @@ module.exports = {
     getUrlClicks: getUrlClicks,
     saveUrlClicks: saveUrlClicks,
     getAllClicks: getAllClicks,
-    getTopKUrls: getTopKUrls
+    getTopKUrls: getTopKUrls,
+    updateUrlClicks: updateUrlClicks,
+    getUrlClicksCached: getUrlClicksCached
 };

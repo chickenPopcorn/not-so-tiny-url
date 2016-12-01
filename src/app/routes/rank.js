@@ -4,9 +4,10 @@ var bodyParser = require('body-parser');
 var rankUrlService = require('../services/rankUrlService');
 
 router.get("/saveUrlClicks", function(req, res) {
-    rankUrlService.saveUrlClicks(function(err) {
+    rankUrlService.saveUrlClicks(function(err, data) {
         if (err != null) {
             res.status(403).json({'message': 'Save all Urls\' click information to Redis failed'});
+            return;
         }
         res.json({'message': 'Success'});
     });
@@ -14,7 +15,7 @@ router.get("/saveUrlClicks", function(req, res) {
 
 router.get("/getAllClicks", function(req, res) {
     rankUrlService.getAllClicks(function(err, data) {
-        res.json(data);
+        res.json({ err: err, data: data});
     });
 });
 
@@ -30,5 +31,16 @@ router.get("/getUrlClicks/:shortUrl", function(req, res) {
     });
 });
 
+router.get("/getUrlClicksCached/:shortUrl", function(req, res) {
+    rankUrlService.getUrlClicksCached(req.params.shortUrl, function(shortUrl, data) {
+        res.json({ shortUrl: shortUrl, clicks: data });
+    });
+});
+
+router.get("/updateUrlClicks/:shortUrl", function(req, res) {
+    rankUrlService.updateUrlClicks(req.params.shortUrl, function(shortUrl, data) {
+        res.json({shortUrl: shortUrl, clicks: data});
+    });
+});
 
 module.exports = router;
