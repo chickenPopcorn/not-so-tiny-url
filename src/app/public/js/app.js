@@ -21,6 +21,10 @@ app.config(function($routeProvider, $authProvider) {
         .when('/feed', {
             templateUrl: './public/views/feed.html',
             controller: 'feedController'
+        })
+        .when('/rank', {
+            templateUrl: './public/views/rank.html',
+            controller: 'rankController'
         });
 
     $authProvider.loginUrl = '/auth/login';

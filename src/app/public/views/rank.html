@@ -1,0 +1,31 @@
+<div class="container rank">
+    <div class="row flex">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="header">URL Ranking</div><br>
+                <div class="list-group table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Clicks</th>
+                                <th>TinyUrl</th>
+                                <th>Original Url</th>
+                            </tr>
+                        </thead>
+                        <tbody ng-repeat="url in topkUrls">
+                            <tr>
+                                <th>{{$index + 1}}</th>
+                                <td>{{url.clicks}}</td>
+                                <td><a ng-href="{{url.shortUrl}}">{{url.shortUrl}}</a></td>
+                                <td>{{url.longUrl}}</td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
