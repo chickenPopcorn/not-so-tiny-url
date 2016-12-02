@@ -2,9 +2,9 @@
  * Created by dyorex on 2016-10-14.
  */
 angular.module('tinyurlApp')
-    .controller('regController', function ($scope, $auth, $location) {
+    .controller('regController', function($scope, $auth, $location) {
 
-        $scope.signup = function () {
+        $scope.signup = function() {
             var user = {
                 email: $scope.email,
                 password: $scope.password,
@@ -12,12 +12,12 @@ angular.module('tinyurlApp')
             };
 
             $auth.signup(user)
-                .then(function (response) {
+                .then(function(response) {
                     $location.path('/login');
                 })
-                .catch(function (response) {
+                .catch(function(response) {
                     $scope.errorMessage = {};
-                    angular.forEach(response.data.message, function (message, field) {
+                    angular.forEach(response.data.message, function(message, field) {
                         $scope.signupForm[field].$setValidity('server', false);
                         $scope.errorMessage[field] = response.data.message[field];
                     });

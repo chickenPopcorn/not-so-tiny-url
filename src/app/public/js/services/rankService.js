@@ -1,16 +1,16 @@
 angular.module('tinyurlApp')
-    .factory('rankService', function ($http) {
+    .factory('rankService', function($http) {
         return {
-            saveUrlClicks: function () {
+            saveUrlClicks: function() {
                 return $http.get('/rank/saveUrlClicks/');
             },
-            getAllClicks: function () {
+            getAllClicks: function() {
                 return $http.get('/rank/getAllClicks/');
             },
-            getTopKUrls: function (k) {
+            getTopKUrls: function(k) {
                 return $http.get('/rank/getTopKUrls/' + k);
             },
-            getUrlClicks: function (shortUrl) {
+            getUrlClicks: function(shortUrl) {
                 return $http.get('/rank/getClicks/' + shortUrl);
             }
         };

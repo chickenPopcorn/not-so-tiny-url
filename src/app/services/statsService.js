@@ -2,16 +2,16 @@ var geoip = require('geoip-lite');
 var RequestModel = require('../models/requestModel');
 var rankUrlService = require('../services/rankUrlService');
 
-var logRequest = function (shortUrl, req) {
+var logRequest = function(shortUrl, req) {
     var reqInfo = {};
     reqInfo.shortUrl = shortUrl;
     reqInfo.referer = req.headers.referer || 'Unknown';
     reqInfo.platform = req.useragent.platform || 'Unknown';
     reqInfo.browser = req.useragent.browser || 'Unknown';
     var ip = req.headers['x-forwarded-for'] ||
-        req.connection.remoteAddress ||
-        req.socket.remoteAddress ||
-        req.connection.socket.remoteAddress;
+            req.connection.remoteAddress ||
+            req.socket.remoteAddress ||
+            req.connection.socket.remoteAddress;
     var geo = geoip.lookup(ip);
     if (geo) {
         reqInfo.country = geo.country;
@@ -20,13 +20,13 @@ var logRequest = function (shortUrl, req) {
     }
     reqInfo.timestamp = new Date();
     var request = new RequestModel(reqInfo);
-    request.save(function (err, data) {
+    request.save(function(err, data) {
         if (err != null) {
             console.log(err);
             return;
         }
         if (data.shortUrl.indexOf('/') == -1 && data.shortUrl.indexOf('_')) {
-            rankUrlService.updateUrlClicks(data.shortUrl, function (err, data) {
+            rankUrlService.updateUrlClicks(data.shortUrl, function(err, data) {
                 if (err != null) {
                     console.log(err);
                 }
@@ -36,9 +36,9 @@ var logRequest = function (shortUrl, req) {
 
 };
 
-var getUrlInfo = function (shortUrl, info, callback) {
+var getUrlInfo = function(shortUrl, info, callback) {
     if (info === 'totalClicks') {
-        RequestModel.count({shortUrl: shortUrl}, function (err, data) {
+        RequestModel.count({ shortUrl: shortUrl}, function(err, data) {
             callback(data);
         });
         return;
@@ -48,24 +48,24 @@ var getUrlInfo = function (shortUrl, info, callback) {
 
     if (info === 'hour') {
         groupId = {
-            year: {$year: '$timestamp'},
-            month: {$month: '$timestamp'},
-            day: {$dayOfMonth: '$timestamp'},
-            hour: {$hour: '$timestamp'},
-            minutes: {$minute: '$timestamp'}
+            year: { $year: '$timestamp'},
+            month: { $month: '$timestamp'},
+            day: { $dayOfMonth: '$timestamp'},
+            hour: { $hour: '$timestamp'},
+            minutes: { $minute: '$timestamp'}
         };
     } else if (info === 'day') {
         groupId = {
-            year: {$year: '$timestamp'},
-            month: {$month: '$timestamp'},
-            day: {$dayOfMonth: '$timestamp'},
-            hour: {$hour: '$timestamp'}
+            year: { $year: '$timestamp'},
+            month: { $month: '$timestamp'},
+            day: { $dayOfMonth: '$timestamp'},
+            hour: { $hour: '$timestamp'}
         };
     } else if (info === 'month') {
         groupId = {
-            year: {$year: '$timestamp'},
-            month: {$month: '$timestamp'},
-            day: {$dayOfMonth: '$timestamp'}
+            year: { $year: '$timestamp'},
+            month: { $month: '$timestamp'},
+            day: { $dayOfMonth: '$timestamp'}
         };
     } else {
         groupId = '$' + info;
@@ -90,7 +90,7 @@ var getUrlInfo = function (shortUrl, info, callback) {
                 }
             }
         }
-    ], function (err, data) {
+    ], function(err, data) {
         callback(data);
     });
 };
