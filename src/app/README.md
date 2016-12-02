@@ -15,7 +15,7 @@ npm run --silent lint
 
 local codecoverage report
 ```
-istanbul cover test/server-running.js 
+istanbul cover node_modules/.bin/_mocha test/ 
 ```
 
 docker build command
