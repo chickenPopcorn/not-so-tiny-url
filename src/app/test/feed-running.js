@@ -154,14 +154,15 @@ describe('Feed', function() {
             userUrlService.removePost(postId, "-1", function (json) {
                 assert.equal(json.status, 'failed');
                 assert.equal(json.message, 'Not logged in.');
-            });
-            userUrlService.removePost(postId, "58016eea901fbc0001a3b99a", function (json) {
-                assert.equal(json.status, 'ok');
-                userUrlModel.findByIdAndRemove(postId, function (err, postInDb) {
-                    if (err) throw err;
+                userUrlService.removePost(postId, "58016eea901fbc0001a3b99a", function (json) {
+                    assert.equal(json.status, 'ok');
+                    userUrlModel.findByIdAndRemove(postId, function (err, postInDb) {
+                        if (err) throw err;
+                    });
+                    done();
                 });
-                done();
             });
+
         });
     });
 });
