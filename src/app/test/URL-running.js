@@ -17,13 +17,13 @@ describe('URL', function() {
             done();
         });
     });
-    // it('should return status "failed" when trying to get a short URL for an invalid URL like "http://abcedfghijk"', function(done) {
-    //     this.timeout(0);
-    //     urlService.getShortUrl("http://abcedfghijk", function(json) {
-    //         assert.equal(json.status, 'failed');
-    //         done();
-    //     });
-    // });
+    it('should return status "failed" when trying to get a short URL for an invalid URL like "http://abcedfghijk"', function(done) {
+        this.timeout(0);
+        urlService.getShortUrl("http://abcedfghijk", function(json) {
+            assert.equal(json.status, 'failed');
+            done();
+        });
+    });
     it('should return the long URL given a short URL', function(done) {
         urlService.getLongUrl("a", function(json) {
             assert.equal(json.status, 'ok');
