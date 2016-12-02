@@ -99,7 +99,7 @@ var getMeta = function(url, callback) {
 };
 
 var getPostById = function(postId, callback) {
-    redisClient.get(postId, function(err, post) {
+    redisClient.get(postId.toString(), function(err, post) {
         if (post) {
             // console.log("using cache: " + post);
             var json = JSON.parse(post);
@@ -112,7 +112,7 @@ var getPostById = function(postId, callback) {
                 }
                 callback(postInDb);
                 // console.log("stringify: " + JSON.stringify(postInDb));
-                redisClient.set(postId, JSON.stringify(postInDb));
+                redisClient.set(postId.toString(), JSON.stringify(postInDb));
             });
         }
     });
@@ -133,8 +133,7 @@ var removePost = function(postId, userId, callback) {
                         callback(err);
                         return;
                     }
-
-                    redisClient.del(postId);
+                    redisClient.del(postId.toString());
                     callback({ 'status': 'ok' });
                 })
             }
@@ -224,7 +223,7 @@ var addComment = function(postId, userId, fullname, message, callback) {
 };
 
 var getCommentById = function(commentId, callback) {
-    redisClient.get(commentId, function(err, comment) {
+    redisClient.get(commentId.toString(), function(err, comment) {
         if (comment) {
             // console.log("using cache: " + post);
             var json = JSON.parse(comment);
@@ -237,7 +236,7 @@ var getCommentById = function(commentId, callback) {
                 }
                 callback(commentInDb);
                 // console.log("stringify: " + JSON.stringify(postInDb));
-                redisClient.set(commentId, JSON.stringify(commentInDb));
+                redisClient.set(commentId.toString(), JSON.stringify(commentInDb));
             });
         }
     });
@@ -247,7 +246,7 @@ var removeComment = function(commentId, userId, callback) {
     if (userId == -1) {
         callback({'status': 'failed', 'message': 'Not logged in.'});
     } else {
-        getCommentById(commentId, function(comment) {
+        getCommentById(commentId.toString(), function(comment) {
             if (userId != comment.userId) {
                 callback({'status': 'failed', 'message': 'Not authorized.'});
             } else {
@@ -259,7 +258,7 @@ var removeComment = function(commentId, userId, callback) {
                         return;
                     }
 
-                    redisClient.del(commentId);
+                    redisClient.del(commentId.toString());
                     callback({ 'status': 'ok' });
                 })
             }
