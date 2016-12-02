@@ -1,20 +1,20 @@
-var RequestModel = require("../models/requestModel");
-var UrlModel = require("../models/urlModel");
-var redis = require("redis");
+var RequestModel = require('../models/requestModel');
+var UrlModel = require('../models/urlModel');
+var redis = require('redis');
 var PriorityQueue = require('priorityqueuejs');
 
 var port = process.env.REDIS_PORT_6379_TCP_PORT;
 var host = process.env.REDIS_PORT_6379_TCP_ADDR;
 
 var redisClient = redis.createClient(port, host);
-var hashClick = "_clicks";
+var hashClick = '_clicks';
 
 
-var getAllClicks = function (callback) {
+var getAllClicks = function(callback) {
     redisClient.hgetall(hashClick, callback);
 };
 
-var getTopKUrls = function (k, callback) {
+var getTopKUrls = function(k, callback) {
     redisClient.hgetall(hashClick, function(err, data) {
         var queue = new PriorityQueue(function(a, b) {
             return a.clicks - b.clicks;
@@ -34,8 +34,8 @@ var getTopKUrls = function (k, callback) {
     });
 };
 
-var saveUrlClicks = function (callback) {
-    UrlModel.find({}, function (err, data) {
+var saveUrlClicks = function(callback) {
+    UrlModel.find({}, function(err, data) {
         if (err != null) {
             callback(err);
             return;
@@ -43,7 +43,7 @@ var saveUrlClicks = function (callback) {
 
         var count = 0;
         // console.log("length:" + data.length);
-        for(var i = 0; i < data.length; i++) {
+        for (var i = 0; i < data.length; i++) {
             var shortUrl = data[i].shortUrl;
             getUrlClicks(shortUrl, function(shortUrl, clicks) {
                 var obj = {};
@@ -55,7 +55,7 @@ var saveUrlClicks = function (callback) {
                         return;
                     }
                 });
-                count ++;
+                count++;
                 // console.log(count);
                 if (count === data.length) {
                     callback(err);
@@ -65,7 +65,7 @@ var saveUrlClicks = function (callback) {
     });
 };
 
-var updateUrlClicks = function (shortUrl, callback) {
+var updateUrlClicks = function(shortUrl, callback) {
     getUrlClicksCached(shortUrl, function(err, data) {
         var obj = {};
         var clicks = parseInt(data) + 1;
@@ -76,7 +76,7 @@ var updateUrlClicks = function (shortUrl, callback) {
     });
 };
 
-var getUrlClicksCached = function (shortUrl, callback) {
+var getUrlClicksCached = function(shortUrl, callback) {
     redisClient.hget(hashClick, shortUrl, function(err, data) {
         if (err == null && data == null) {
             getUrlClicks(shortUrl, function(shortUrl, data) {
@@ -88,8 +88,8 @@ var getUrlClicksCached = function (shortUrl, callback) {
     });
 };
 
-var getUrlClicks = function (shortUrl, callback) {
-    RequestModel.count({ shortUrl: shortUrl }, function (err, data) {
+var getUrlClicks = function(shortUrl, callback) {
+    RequestModel.count({ shortUrl: shortUrl }, function(err, data) {
         //console.log(data);
         callback(shortUrl, data);
     });

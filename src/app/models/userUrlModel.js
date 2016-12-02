@@ -1,7 +1,7 @@
 /**
  * Created by dyorex on 2016-10-14.
  */
-var mongoose = require("mongoose");
+var mongoose = require('mongoose');
 
 var userUrlModel = mongoose.model('UserUrl', new mongoose.Schema({
     userId: String,

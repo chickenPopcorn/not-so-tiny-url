@@ -1,4 +1,4 @@
-angular.module("tinyurlApp")
+angular.module('tinyurlApp')
     .factory('socket', function($rootScope) {
         var socket = io.connect('http://localhost:3000');
         return {
@@ -18,7 +18,7 @@ angular.module("tinyurlApp")
                             callback.apply(socket, args);
                         }
                     });
-                })
+                });
             }
         };
     });

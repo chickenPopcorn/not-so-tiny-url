@@ -15,20 +15,20 @@ angular.module('tinyurlApp')
         };
 
         $scope.submit = function() {
-            $http.post("/api/v1/urls", {
+            $http.post('/api/v1/urls', {
                 longUrl: $scope.longUrl,
                 isPublic: false
             }).then(function(response) {
-                $location.path("/urls/" + response.data.shortUrl);
+                $location.path('/urls/' + response.data.shortUrl);
                 $scope.longUrl = null;
             }).catch(function(response) {
 
             });
         };
 
-        $scope.$watch(function(){
+        $scope.$watch(function() {
             return $location.path();
-        }, function(value){
+        }, function(value) {
             // console.log(value);
             $scope.currentPath = value;
         });

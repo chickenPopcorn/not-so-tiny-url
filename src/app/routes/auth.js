@@ -3,8 +3,8 @@
  */
 var express = require('express');
 var router = express.Router();
-var userModel = require("../models/userModel");
-var authService = require("../services/authService");
+var userModel = require('../models/userModel');
+var authService = require('../services/authService');
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
 

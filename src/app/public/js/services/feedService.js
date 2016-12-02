@@ -52,5 +52,5 @@ angular.module('tinyurlApp')
             removePost: function(postId) {
                 return $http.post('/feed/post/removePost', { postId: postId });
             }
-        }
+        };
     });

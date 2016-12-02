@@ -1,7 +1,7 @@
 /**
  * Created by dyorex on 2016-11-21.
  */
-var mongoose = require("mongoose");
+var mongoose = require('mongoose');
 
 var commentModel = mongoose.model('Comment', new mongoose.Schema({
     userId: String,

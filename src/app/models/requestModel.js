@@ -1,4 +1,4 @@
-var mongoose = require("mongoose");
+var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var RequestSchema = new Schema({
@@ -10,4 +10,4 @@ var RequestSchema = new Schema({
     timestamp: Date
 });
 
-module.exports = mongoose.model("RequestModel", RequestSchema);
+module.exports = mongoose.model('RequestModel', RequestSchema);

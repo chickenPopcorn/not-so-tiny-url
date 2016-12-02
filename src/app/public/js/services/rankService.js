@@ -13,5 +13,5 @@ angular.module('tinyurlApp')
             getUrlClicks: function(shortUrl) {
                 return $http.get('/rank/getClicks/' + shortUrl);
             }
-        }
+        };
     });
