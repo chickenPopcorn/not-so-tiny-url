@@ -168,10 +168,28 @@ describe('Rank', function() {
             done();
         });
     });
-    it('should return the number of clicks for a given shortUrl', function (done) {
+    it('should get the number of clicks for shortUrls in MongoDB then save it in Redis', function (done) {
         rankUrlService.saveUrlClicks(function(err) {
             assert.equal(err, null);
             done();
+        });
+    });
+    it('should return the number of clicks for a given shortUrl saved in Redis', function (done) {
+        var tinyUrl = 'a';
+        rankUrlService.getUrlClicksCached(tinyUrl, function(shortUrl, data) {
+            assert.equal(shortUrl, tinyUrl);
+            assert(data >= 0);
+            done();
+        });
+    });
+    it('should update the number of clicks for a given shortUrl saved in Redis', function (done) {
+        var tinyUrl = 'a';
+        rankUrlService.getUrlClicks(tinyUrl, function(shortUrl, data) {
+            var prev = shortUrl;
+            rankUrlService.updateUrlClicks(shortUrl, function(shortUrl, data) {
+                assert.equal(prev, shortUrl);
+                done();
+            });
         });
     });
 
@@ -398,7 +416,7 @@ describe('APIs', function() {
                     done();
                 });
         });
-        it('should return the number of clicks for a given shortUrl', function (done) {
+        it('should get the number of clicks for shortUrls in MongoDB then save it in Redis', function (done) {
             request(url)
                 .get('/rank/saveUrlClicks')
                 .send()
@@ -410,5 +428,30 @@ describe('APIs', function() {
                     done();
                 });
         });
+        it('should return the number of clicks for a given shortUrl in Redis', function (done) {
+            request(url)
+                .get('/rank/getUrlClicksCached/a')
+                .send()
+                .end(function(err, res) {
+                    if (err) {
+                        throw err;
+                    }
+                    res.should.have.property('status', 200);
+                    done();
+                });
+        });
+        it('should update the number of clicks for a given shortUrl saved in Redis', function (done) {
+            request(url)
+                .get('/rank/updateUrlClicks/a')
+                .send()
+                .end(function(err, res) {
+                    if (err) {
+                        throw err;
+                    }
+                    res.should.have.property('status', 200);
+                    done();
+                });
+        });
+
     });
 });

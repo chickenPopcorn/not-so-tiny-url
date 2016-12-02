@@ -107,7 +107,7 @@ var getLongUrl = function(shortUrl, callback) {
                 }
 
                 if (data) {
-                    console.log('data: ' + data);
+                    // console.log('data: ' + data);
                     callback({
                         status: 'ok',
                         shortUrl: shortUrl,
