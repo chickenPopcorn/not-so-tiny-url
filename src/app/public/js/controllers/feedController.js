@@ -1,8 +1,8 @@
 /**
  * Created by dyorex on 2016-10-15.
  */
-angular.module("tinyurlApp")
-    .controller("feedController", function($scope, $location, $auth, $window, $rootScope, feedService, timeAgo, ModalService) {
+angular.module('tinyurlApp')
+    .controller('feedController', function($scope, $location, $auth, $window, $rootScope, feedService, timeAgo, ModalService) {
         var host = 'http://localhost:3000/'; // TODO: should find a way not to hardcode this
 
         $scope.isLoggedIn = function() {
@@ -43,7 +43,7 @@ angular.module("tinyurlApp")
         $scope.getMeta = function(url, item) {
             feedService.getMeta(url).success(function(data) {
                 if (data && data.result.status == 'ok') {
-                    item.rootUrl = data.meta.rootUrl.replace(/.*?:\/\//g, "");
+                    item.rootUrl = data.meta.rootUrl.replace(/.*?:\/\//g, '');
                     item.title = data.meta.title;
                     item.description = data.meta.description;
 
@@ -136,7 +136,7 @@ angular.module("tinyurlApp")
         // add comment
         $scope.addComment = function(item) {
             if (item.newComment && item.newComment != '') {
-                feedService.addComment(item._id, item.newComment).success(function (data) {
+                feedService.addComment(item._id, item.newComment).success(function(data) {
                     data.data.isDeletable = true;
                     item.comments.push(data.data);
                     item.newComment = '';
@@ -150,7 +150,7 @@ angular.module("tinyurlApp")
             // console.log(comment);
             ModalService.showModal({
                 templateUrl: '/public/views/fragments/deleteModal.html',
-                controller: "modalController"
+                controller: 'modalController'
             }).then(function(modal) {
                 modal.element.modal();
                 modal.close.then(function(result) {
@@ -184,12 +184,12 @@ angular.module("tinyurlApp")
             // console.log(item);
             ModalService.showModal({
                 templateUrl: '/public/views/fragments/deleteModal.html',
-                controller: "modalController"
+                controller: 'modalController'
             }).then(function(modal) {
                 modal.element.modal();
-                modal.close.then(function (result) {
+                modal.close.then(function(result) {
                     if (result == 'Yes') {
-                        feedService.removePost(item._id).success(function () {
+                        feedService.removePost(item._id).success(function() {
                             if (item.public) {
                                 var index = $scope.publicItems.indexOf(item);
                                 $scope.publicItems.splice(index, 1);
@@ -205,5 +205,5 @@ angular.module("tinyurlApp")
 
         var isPostDeletable = function(item) {
             return $rootScope.currentUser && $rootScope.currentUser._id != -1 && item.userId == $rootScope.currentUser._id;
-        }
+        };
     });

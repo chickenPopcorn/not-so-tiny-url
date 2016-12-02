@@ -1,5 +1,5 @@
-var UrlModel = require("../models/urlModel");
-var redis = require("redis");
+var UrlModel = require('../models/urlModel');
+var redis = require('redis');
 
 var port = process.env.REDIS_PORT_6379_TCP_PORT;
 var host = process.env.REDIS_PORT_6379_TCP_ADDR;
@@ -15,7 +15,7 @@ var validateUrl = function(longUrl, callback) {
         port: 80,
         path: url.parse(longUrl).pathname
     };
-    var req = http.request(options, function (r) {
+    var req = http.request(options, function(r) {
         callback({
             status: 'ok',
             data: r.headers
@@ -38,7 +38,7 @@ var getShortUrl = function(longUrl, callback) {
     } */
     redisClient.get(longUrl, function(err, shortUrl) {
         if (shortUrl) {
-            console.log("using cache");
+            console.log('using cache');
             callback({
                 status: 'ok',
                 shortUrl: shortUrl,
@@ -120,7 +120,7 @@ var getLongUrl = function(shortUrl, callback) {
                     callback({
                         status: 'failed',
                         shortUrl: shortUrl,
-                        message: "The short URL does not exist."
+                        message: 'The short URL does not exist.'
                     });
                 }
             });
@@ -136,10 +136,10 @@ var generateShortUrl = function(callback) {
 };
 
 var convertTo62 = function(id) {
-    var code = "abcdefghijklmnopqrstuvwxzy";
+    var code = 'abcdefghijklmnopqrstuvwxzy';
     code += code.toUpperCase();
     code += '0123456789';
-    var shortUrl = "";
+    var shortUrl = '';
     while (id > 0) {
         shortUrl += code[(id - 1) % 62];
         id = parseInt(id / 62);

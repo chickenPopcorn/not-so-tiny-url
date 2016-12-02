@@ -1,4 +1,4 @@
-var mongoose = require("mongoose");
+var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var UrlSchema = new Schema({
@@ -6,6 +6,6 @@ var UrlSchema = new Schema({
     longUrl: String
 });
 
-var urlModel = mongoose.model("UrlModel", UrlSchema);
+var urlModel = mongoose.model('UrlModel', UrlSchema);
 
 module.exports = urlModel;

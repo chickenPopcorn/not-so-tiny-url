@@ -1,10 +1,10 @@
 /**
  * Created by dyorex on 2016-10-15.
  */
-var userUrlModel = require("../models/userUrlModel");
-var likeModel = require("../models/likeModel");
-var commentModel = require("../models/commentModel");
-var redis = require("redis");
+var userUrlModel = require('../models/userUrlModel');
+var likeModel = require('../models/likeModel');
+var commentModel = require('../models/commentModel');
+var redis = require('redis');
 var MetaInspector = require('node-metainspector');
 
 var port = process.env.REDIS_PORT_6379_TCP_PORT;
@@ -41,18 +41,18 @@ var getFeed = function(pageSize, lastId, isPublic, userId, callback) {
         actualQuery['userId'] = userId;
     }
     if (lastId != -1) {
-        actualQuery['_id'] = { $lt: lastId }
+        actualQuery['_id'] = { $lt: lastId };
     }
     countQuery['public'] = isPublic;
     actualQuery['public'] = isPublic;
 
-    userUrlModel.find( countQuery ).count(function(err, count){
+    userUrlModel.find(countQuery).count(function(err, count) {
         var json = { 'status': 'ok', 'count': count, 'data': [] };
         userUrlModel
-            .find( actualQuery )
+            .find(actualQuery)
             .sort({ '_id': -1 })
             .limit(pageSize)
-            .exec(function(err, data){
+            .exec(function(err, data) {
                 if (err) {
                     callback(err);
                     return;
@@ -70,7 +70,7 @@ var getMeta = function(url, callback) {
 
     var json = { 'result': { 'status': 'ok'}, 'meta': {} };
 
-    client.on("fetch", function() {
+    client.on('fetch', function() {
         json['meta']['url'] = url;
         json['meta']['rootUrl'] = client.rootUrl;
         json['meta']['title'] = client.title;
@@ -80,14 +80,14 @@ var getMeta = function(url, callback) {
         // console.log(client.images);
         var length = client.images.length;
         json['meta']['images'] = [];
-        for (var i=0; i<length; i++) {
+        for (var i = 0; i < length; i++) {
             json['meta']['images'].push(client.images[i]);
         }
 
         callback(json);
     });
 
-    client.on("error", function(err) {
+    client.on('error', function(err) {
         console.log(err);
         json['result']['status'] = 'failed';
         json['result']['error'] = err;
@@ -105,7 +105,7 @@ var getPostById = function(postId, callback) {
             var json = JSON.parse(post);
             callback(json);
         } else {
-            userUrlModel.findById(postId, function (err, postInDb) {
+            userUrlModel.findById(postId, function(err, postInDb) {
                 if (err) {
                     callback(err);
                     return;
@@ -135,7 +135,7 @@ var removePost = function(postId, userId, callback) {
                     }
                     redisClient.del(postId.toString());
                     callback({ 'status': 'ok' });
-                })
+                });
             }
         });
     }
@@ -158,7 +158,7 @@ var like = function(postId, userId, fullname, callback) {
 
 var unlike = function(postId, userId, callback) {
     likeModel.find({ postId: postId, userId: userId }).remove(function() {
-        callback({ 'status': 'ok' })
+        callback({ 'status': 'ok' });
     });
 };
 
@@ -166,9 +166,9 @@ var getNumberOfLikes = function(postId, callback) {
     var json = {'status': 'ok', 'data': {} };
 
     likeModel
-        .find( {postId: postId} )
+        .find({postId: postId})
         .count()
-        .exec(function(err, count){
+        .exec(function(err, count) {
             if (err) {
                 json['status'] = 'failed';
                 json['data'] = err;
@@ -185,9 +185,9 @@ var hasLiked = function(postId, userId, callback) {
     var json = {'status': 'ok', 'data': {} };
 
     likeModel
-        .find( {postId: postId, userId: userId} )
+        .find({postId: postId, userId: userId})
         .count()
-        .exec(function(err, count){
+        .exec(function(err, count) {
             if (err) {
                 json['status'] = 'failed';
                 json['data'] = err;
@@ -229,7 +229,7 @@ var getCommentById = function(commentId, callback) {
             var json = JSON.parse(comment);
             callback(json);
         } else {
-            commentModel.findById(commentId, function (err, commentInDb) {
+            commentModel.findById(commentId, function(err, commentInDb) {
                 if (err) {
                     callback(err);
                     return;
@@ -260,7 +260,7 @@ var removeComment = function(commentId, userId, callback) {
 
                     redisClient.del(commentId.toString());
                     callback({ 'status': 'ok' });
-                })
+                });
             }
         });
     }
@@ -270,9 +270,9 @@ var getComments = function(postId, callback) {
     var json = {'status': 'ok', 'data': {} };
 
     commentModel
-        .find( {postId: postId, isDeleted: {$ne: true}} )
+        .find({postId: postId, isDeleted: {$ne: true}})
         .sort({ _id: 1 })
-        .exec(function(err, comments){
+        .exec(function(err, comments) {
             if (err) {
                 json['status'] = 'failed';
                 json['data'] = err;
@@ -289,9 +289,9 @@ var getNumberOfComments = function(postId, callback) {
     var json = {'status': 'ok', 'data': {} };
 
     commentModel
-        .find( {postId: postId, isDeleted: {$ne: true}} )
+        .find({postId: postId, isDeleted: {$ne: true}})
         .count()
-        .exec(function(err, count){
+        .exec(function(err, count) {
             if (err) {
                 json['status'] = 'failed';
                 json['data'] = err;

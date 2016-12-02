@@ -1,57 +1,57 @@
-angular.module("tinyurlApp")
-    .controller("urlController", ["$scope", "$http", "$routeParams", 'moment', 'socket', function($scope, $http, $routeParams, moment, socket) {
-        $http.get("/api/v1/urls/" + $routeParams.shortUrl)
-            .success(function (data) {
+angular.module('tinyurlApp')
+    .controller('urlController', ['$scope', '$http', '$routeParams', 'moment', 'socket', function($scope, $http, $routeParams, moment, socket) {
+        $http.get('/api/v1/urls/' + $routeParams.shortUrl)
+            .success(function(data) {
                 $scope.longUrl = data.longUrl;
                 $scope.shortUrl = data.shortUrl;
-                $scope.shortUrlToShow = "http://localhost:3000/" + data.shortUrl;
+                $scope.shortUrlToShow = 'http://localhost:3000/' + data.shortUrl;
             });
-        var renderTotalClicks = function () {
-            $http.get("/api/v1/urls/" + $routeParams.shortUrl + "/totalClicks")
-                .success(function (data) {
+        var renderTotalClicks = function() {
+            $http.get('/api/v1/urls/' + $routeParams.shortUrl + '/totalClicks')
+                .success(function(data) {
                     $scope.totalClicks = data;
-                })
+                });
             };
 
 
         var renderChart = function(chart, infos) {
-            $scope[chart + "Labels"] = [];
-            $scope[chart + "Data"] = [];
-            $scope[chart+"chartOptions"] =  {
-                scales:{
-                    yAxes:[{
+            $scope[chart + 'Labels'] = [];
+            $scope[chart + 'Data'] = [];
+            $scope[chart + 'chartOptions'] = {
+                scales: {
+                    yAxes: [{
                         ticks: {
                             min: 0,
 
                         }
                     }],
-                    xAxes:[{
+                    xAxes: [{
                         ticks: {
                             min: 0,
                         }
                     }]
                 }
             };
-            $http.get("/api/v1/urls/" + $routeParams.shortUrl + "/" + infos)
+            $http.get('/api/v1/urls/' + $routeParams.shortUrl + '/' + infos)
                 .success(function(data) {
                     data.forEach(function(info) {
-                        $scope[chart + "Labels"].push(info._id);
-                        $scope[chart + "Data"].push(info.count);
+                        $scope[chart + 'Labels'].push(info._id);
+                        $scope[chart + 'Data'].push(info.count);
                     });
                 });
         };
 
-        $scope.hour = "hour";
-        $scope.day = "day";
-        $scope.month = "month";
+        $scope.hour = 'hour';
+        $scope.day = 'day';
+        $scope.month = 'month';
         $scope.time = $scope.hour;
         $scope.getTime = function(time) {
             $scope.lineLabels = [];
             $scope.lineData = [];
             $scope.time = time;
             $scope.chartOptions = {
-                scales:{
-                    yAxes:[{
+                scales: {
+                    yAxes: [{
                         ticks: {
                             min: 0,
 
@@ -60,21 +60,21 @@ angular.module("tinyurlApp")
 
                 }
             };
-            $http.get("/api/v1/urls/" + $routeParams.shortUrl + "/" + time)
+            $http.get('/api/v1/urls/' + $routeParams.shortUrl + '/' + time)
                 .success(function(data) {
                     data.forEach(function(item) {
                         var localTime = moment
-                            .utc(item._id.month+"-"+item._id.day+" "+item._id.hour+":"+item._id.minutes,
-                                "MM-DD hh:mm").local();
-                        var legend = "";
-                        if (time === "hour") {
-                            legend = localTime.format("hh:mm a");
+                            .utc(item._id.month + '-'+ item._id.day + ' '+ item._id.hour + ':'+ item._id.minutes,
+                                'MM-DD hh:mm').local();
+                        var legend = '';
+                        if (time === 'hour') {
+                            legend = localTime.format('hh:mm a');
                         }
-                        if (time === "day") {
-                            legend = localTime.format("hh:00 a");
+                        if (time === 'day') {
+                            legend = localTime.format('hh:00 a');
                         }
-                        if (time === "month") {
-                            legend = localTime.format("MM/DD");
+                        if (time === 'month') {
+                            legend = localTime.format('MM/DD');
                         }
                         $scope.lineLabels.push(legend);
                         $scope.lineData.push(item.count);
@@ -88,10 +88,10 @@ angular.module("tinyurlApp")
 
         function renderAll() {
             renderTotalClicks();
-            renderChart("doughnut", "referer");
-            renderChart("pie", "country");
-            renderChart("base", "platform");
-            renderChart("bar", "browser");
+            renderChart('doughnut', 'referer');
+            renderChart('pie', 'country');
+            renderChart('base', 'platform');
+            renderChart('bar', 'browser');
             renderTime();
         };
 

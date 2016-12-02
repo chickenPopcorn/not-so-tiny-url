@@ -13,7 +13,7 @@ angular.module('tinyurlApp')
             },
             link: function(scope, element, attrs) {
                 scope.showButtons = false;
-                scope.toggleBtns = function () {
+                scope.toggleBtns = function() {
                     scope.showButtons = !scope.showButtons;
                 };
                 /* if (scope.item == false) {
@@ -36,5 +36,5 @@ angular.module('tinyurlApp')
                     });
                 } */
             }
-        }
+        };
     });

@@ -1,8 +1,8 @@
 /**
  * Created by dyorex on 2016-10-14.
  */
-var userModel = require("../models/userModel");
-var redis = require("redis");
+var userModel = require('../models/userModel');
+var redis = require('redis');
 var jwt = require('jwt-simple');
 var moment = require('moment');
 var config = require('./config');
@@ -44,7 +44,7 @@ var isAuthenticated = function(req, res, next) {
 
         req.user = user;
         next();
-    })
+    });
 };
 
 var getUser = function(req, callback) {
@@ -88,7 +88,7 @@ var reg = function(email, password, fullname, callback) {
 
                 user.save(function() {
                     var token = createToken(user);
-                    callback({ status:200, token: token });
+                    callback({ status: 200, token: token });
                 });
             });
         });

@@ -13,7 +13,7 @@ angular.module('tinyurlApp')
 
             $auth.signup(user)
                 .then(function(response) {
-                    $location.path("/login");
+                    $location.path('/login');
                 })
                 .catch(function(response) {
                     $scope.errorMessage = {};

@@ -1,11 +1,11 @@
-angular.module("tinyurlApp")
-    .controller("homeController", ["$scope", "$http", "$location", "$auth", function($scope, $http, $location, $auth) {
+angular.module('tinyurlApp')
+    .controller('homeController', ['$scope', '$http', '$location', '$auth', function($scope, $http, $location, $auth) {
         $scope.submit = function() {
-            $http.post("/api/v1/urls", {
+            $http.post('/api/v1/urls', {
                 longUrl: $scope.longUrl,
                 isPublic: $scope.isPublic
             }).then(function(response) {
-                $location.path("/urls/" + response.data.shortUrl);
+                $location.path('/urls/' + response.data.shortUrl);
             }).catch(function(response) {
                 $scope.errorMessage = {};
                 console.log(response.data);

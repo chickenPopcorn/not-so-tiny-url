@@ -14,8 +14,8 @@ module.exports = function RedirectRouter(io) {
                 statsService.logRequest(shortUrl, req);
                 io.emit('shortUrlVisited', shortUrl);
             } else {
-                res.sendFile("404.html", {
-                    root: path.join(__dirname, "../public/views")
+                res.sendFile('404.html', {
+                    root: path.join(__dirname, '../public/views')
                 });
             }
         });

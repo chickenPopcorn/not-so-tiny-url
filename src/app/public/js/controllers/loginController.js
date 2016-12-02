@@ -11,7 +11,7 @@ angular.module('tinyurlApp')
                     $rootScope.currentUser = JSON.parse($window.localStorage.currentUser);
                     console.log($rootScope.currentUser);
 
-                    $location.path("/");
+                    $location.path('/');
                 })
                 .catch(function(response) {
                     $scope.errorMessage = {};

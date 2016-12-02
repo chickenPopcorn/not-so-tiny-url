@@ -8,8 +8,8 @@ angular.module('tinyurlApp')
             require: 'ngModel',
             link: function(scope, element, attrs, ctrl) {
                 element.on('keydown', function() {
-                    ctrl.$setValidity('server', true)
+                    ctrl.$setValidity('server', true);
                 });
             }
-        }
+        };
     });

@@ -8,7 +8,7 @@ var jsonParser = bodyParser.json();
 var userUrlService = require('../services/userUrlService');
 var authService = require('../services/authService');
 
-router.get("/public/:pageSize/:lastId", function(req, res) {
+router.get('/public/:pageSize/:lastId', function(req, res) {
     var pageSize = req.params.pageSize;
     var lastId = req.params.lastId;
     userUrlService.getFeed(pageSize, lastId, true, -1, function(data) {
@@ -16,12 +16,12 @@ router.get("/public/:pageSize/:lastId", function(req, res) {
     });
 });
 
-router.get("/private/:pageSize/:lastId", function(req, res) {
+router.get('/private/:pageSize/:lastId', function(req, res) {
     var pageSize = req.params.pageSize;
     var lastId = req.params.lastId;
     authService.getUser(req, function(user) {
         if (user._id != -1) {
-            userUrlService.getFeed(pageSize, lastId, false, user._id, function (data) {
+            userUrlService.getFeed(pageSize, lastId, false, user._id, function(data) {
                 res.json(data);
             });
         } else {
@@ -30,33 +30,33 @@ router.get("/private/:pageSize/:lastId", function(req, res) {
     });
 });
 
-router.get("/meta/:url", function(req, res) {
+router.get('/meta/:url', function(req, res) {
     var url = req.params.url;
     userUrlService.getMeta(url, function(data) {
         res.json(data);
     });
 });
 
-router.get("/post/:id", function(req, res) {
+router.get('/post/:id', function(req, res) {
     var postId = req.params.id;
     userUrlService.getPostById(postId, function(data) {
         res.json(data);
     });
 });
 
-router.get("/post/likes/:id", function(req, res) {
+router.get('/post/likes/:id', function(req, res) {
     var postId = req.params.id;
     userUrlService.getNumberOfLikes(postId, function(data) {
         res.json(data);
     });
 });
 
-router.get("/post/liked/:id", function(req, res) {
+router.get('/post/liked/:id', function(req, res) {
     var postId = req.params.id;
     authService.getUser(req, function(user) {
         var userId = user._id;
         if (userId != -1) {
-            userUrlService.hasLiked(postId, userId, function (data) {
+            userUrlService.hasLiked(postId, userId, function(data) {
                 res.json(data);
             });
         } else {
@@ -65,12 +65,12 @@ router.get("/post/liked/:id", function(req, res) {
     });
 });
 
-router.post("/post/like", jsonParser, function(req, res) {
+router.post('/post/like', jsonParser, function(req, res) {
     authService.getUser(req, function(user) {
         var userId = user._id;
         var fullname = user.fullname;
         if (userId != -1) {
-            userUrlService.like(req.body.postId, userId, fullname, function (data) {
+            userUrlService.like(req.body.postId, userId, fullname, function(data) {
                 res.json(data);
             });
         } else {
@@ -79,11 +79,11 @@ router.post("/post/like", jsonParser, function(req, res) {
     });
 });
 
-router.post("/post/unlike", jsonParser, function(req, res) {
+router.post('/post/unlike', jsonParser, function(req, res) {
     authService.getUser(req, function(user) {
         var userId = user._id;
         if (userId != -1) {
-            userUrlService.unlike(req.body.postId, userId, function (data) {
+            userUrlService.unlike(req.body.postId, userId, function(data) {
                 res.json(data);
             });
         } else {
@@ -93,12 +93,12 @@ router.post("/post/unlike", jsonParser, function(req, res) {
 });
 
 // add comment
-router.post("/post/comment", jsonParser, function(req, res) {
+router.post('/post/comment', jsonParser, function(req, res) {
     authService.getUser(req, function(user) {
         var userId = user._id;
         var fullname = user.fullname;
         if (userId != -1) {
-            userUrlService.addComment(req.body.postId, userId, fullname, req.body.message, function (data) {
+            userUrlService.addComment(req.body.postId, userId, fullname, req.body.message, function(data) {
                 res.json(data);
             });
         } else {
@@ -108,11 +108,11 @@ router.post("/post/comment", jsonParser, function(req, res) {
 });
 
 // remove comment
-router.post("/post/removeComment", jsonParser, function(req, res) {
+router.post('/post/removeComment', jsonParser, function(req, res) {
     authService.getUser(req, function(user) {
         var userId = user._id;
         if (userId != -1) {
-            userUrlService.removeComment(req.body.commentId, userId, function (data) {
+            userUrlService.removeComment(req.body.commentId, userId, function(data) {
                 if (data.status == 'ok') {
                     res.json(data);
                 } else {
@@ -126,7 +126,7 @@ router.post("/post/removeComment", jsonParser, function(req, res) {
 });
 
 // get comments for a post
-router.get("/post/comments/:id", function(req, res) {
+router.get('/post/comments/:id', function(req, res) {
     var postId = req.params.id;
     userUrlService.getComments(postId, function(data) {
         res.json(data);
@@ -134,7 +134,7 @@ router.get("/post/comments/:id", function(req, res) {
 });
 
 // get number of comments for a post
-router.get("/post/numOfComments/:id", function(req, res) {
+router.get('/post/numOfComments/:id', function(req, res) {
     var postId = req.params.id;
     userUrlService.getNumberOfComments(postId, function(data) {
         res.json(data);
@@ -142,11 +142,11 @@ router.get("/post/numOfComments/:id", function(req, res) {
 });
 
 // remove post
-router.post("/post/removePost", jsonParser, function(req, res) {
+router.post('/post/removePost', jsonParser, function(req, res) {
     authService.getUser(req, function(user) {
         var userId = user._id;
         if (userId != -1) {
-            userUrlService.removePost(req.body.postId, userId, function (data) {
+            userUrlService.removePost(req.body.postId, userId, function(data) {
                 if (data.status == 'ok') {
                     res.json(data);
                 } else {
