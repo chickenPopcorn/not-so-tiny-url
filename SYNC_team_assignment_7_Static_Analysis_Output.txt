@@ -1,0 +1,594 @@
+﻿Tester: ClosureLinter [OSS] 
+- ensures that all of your project's JavaScript code follows the guidelines in the Google JavaScript Style Guide. It can also automatically fix many common errors
+
+
+In app folder:
+----- server.js -----
+Line 5, E:0131: Single-quoted string preferred over double-quoted string.
+Line 6, E:0131: Single-quoted string preferred over double-quoted string.
+Line 7, E:0131: Single-quoted string preferred over double-quoted string.
+Line 8, E:0131: Single-quoted string preferred over double-quoted string.
+Line 16, E:0220: No docs found for member 'mongoose.Promise'
+Line 16, E:0110: Line too long (132 characters).
+Line 17, E:0131: Single-quoted string preferred over double-quoted string.
+Line 21, E:0131: Single-quoted string preferred over double-quoted string.
+Line 22, E:0131: Single-quoted string preferred over double-quoted string.
+Line 25, E:0131: Single-quoted string preferred over double-quoted string.
+Line 26, E:0131: Single-quoted string preferred over double-quoted string.
+Line 31, E:0131: Single-quoted string preferred over double-quoted string.
+Line 33, E:0131: Single-quoted string preferred over double-quoted string.
+Line 35, E:0131: Single-quoted string preferred over double-quoted string.
+Line 37, E:0131: Single-quoted string preferred over double-quoted string.
+Line 39, E:0131: Single-quoted string preferred over double-quoted string.
+Line 42, E:0131: Single-quoted string preferred over double-quoted string.
+Found 17 errors, including 0 new errors, in 1 file (0 files OK).
+
+
+
+
+In models folder:
+----- commentModel.js -----
+Line 4, E:0131: Single-quoted string preferred over double-quoted string.
+Line 16, E:0220: No docs found for member 'module.exports'
+Line 16, E:0300: File does not end with new line.  (module.exports = commentModel;)
+----- likeModel.js -----
+Line 4, E:0131: Single-quoted string preferred over double-quoted string.
+Line 13, E:0220: No docs found for member 'module.exports'
+Line 13, E:0300: File does not end with new line.  (module.exports = likeModel;)
+----- requestModel.js -----
+Line 1, E:0131: Single-quoted string preferred over double-quoted string.
+Line 13, E:0220: No docs found for member 'module.exports'
+Line 13, E:0131: Single-quoted string preferred over double-quoted string.
+Line 13, E:0300: File does not end with new line.  (module.exports = mongoose.model("RequestModel", RequestSchema);)
+----- urlModel.js -----
+Line 1, E:0131: Single-quoted string preferred over double-quoted string.
+Line 9, E:0131: Single-quoted string preferred over double-quoted string.
+Line 11, E:0220: No docs found for member 'module.exports'
+----- userModel.js -----
+Line 4, E:0131: Single-quoted string preferred over double-quoted string.
+Line 13, E:0220: No docs found for member 'module.exports'
+----- userUrlModel.js -----
+Line 4, E:0131: Single-quoted string preferred over double-quoted string.
+Line 16, E:0220: No docs found for member 'module.exports'
+Line 16, E:0300: File does not end with new line.  (module.exports = userUrlModel;)
+Found 18 errors, including 0 new errors, in 6 files (0 files OK).
+
+
+
+
+In routes folder:
+----- auth.js -----
+Line 6, E:0131: Single-quoted string preferred over double-quoted string.
+Line 7, E:0131: Single-quoted string preferred over double-quoted string.
+Line 23, E:0110: Line too long (90 characters).
+Line 32, E:0220: No docs found for member 'module.exports'
+----- feed.js -----
+Line 11, E:0131: Single-quoted string preferred over double-quoted string.
+Line 19, E:0131: Single-quoted string preferred over double-quoted string.
+Line 24, E:0001: Extra space after "function"
+Line 24, E:0110: Line too long (87 characters).
+Line 33, E:0131: Single-quoted string preferred over double-quoted string.
+Line 40, E:0131: Single-quoted string preferred over double-quoted string.
+Line 47, E:0131: Single-quoted string preferred over double-quoted string.
+Line 54, E:0131: Single-quoted string preferred over double-quoted string.
+Line 59, E:0001: Extra space after "function"
+Line 63, E:0110: Line too long (85 characters).
+Line 68, E:0131: Single-quoted string preferred over double-quoted string.
+Line 73, E:0001: Extra space after "function"
+Line 73, E:0110: Line too long (84 characters).
+Line 77, E:0110: Line too long (85 characters).
+Line 82, E:0131: Single-quoted string preferred over double-quoted string.
+Line 86, E:0001: Extra space after "function"
+Line 90, E:0110: Line too long (85 characters).
+Line 96, E:0131: Single-quoted string preferred over double-quoted string.
+Line 101, E:0001: Extra space after "function"
+Line 101, E:0110: Line too long (108 characters).
+Line 105, E:0110: Line too long (85 characters).
+Line 111, E:0131: Single-quoted string preferred over double-quoted string.
+Line 115, E:0001: Extra space after "function"
+Line 115, E:0110: Line too long (86 characters).
+Line 123, E:0110: Line too long (84 characters).
+Line 129, E:0131: Single-quoted string preferred over double-quoted string.
+Line 137, E:0131: Single-quoted string preferred over double-quoted string.
+Line 145, E:0131: Single-quoted string preferred over double-quoted string.
+Line 149, E:0001: Extra space after "function"
+Line 157, E:0110: Line too long (84 characters).
+Line 162, E:0220: No docs found for member 'module.exports'
+Line 162, E:0300: File does not end with new line.  (module.exports = router;)
+----- index.js -----
+Line 5, E:0131: Single-quoted string preferred over double-quoted string.
+Line 6, E:0131: Single-quoted string preferred over double-quoted string.
+Line 10, E:0220: No docs found for member 'module.exports'
+----- rank.js -----
+Line 6, E:0131: Single-quoted string preferred over double-quoted string.
+Line 9, E:0110: Line too long (99 characters).
+Line 16, E:0131: Single-quoted string preferred over double-quoted string.
+Line 22, E:0131: Single-quoted string preferred over double-quoted string.
+Line 28, E:0131: Single-quoted string preferred over double-quoted string.
+Line 34, E:0131: Single-quoted string preferred over double-quoted string.
+Line 35, E:0110: Line too long (85 characters).
+Line 40, E:0131: Single-quoted string preferred over double-quoted string.
+Line 41, E:0110: Line too long (82 characters).
+Line 46, E:0220: No docs found for member 'module.exports'
+Line 46, E:0300: File does not end with new line.  (module.exports = router;)
+----- redirect.js -----
+Line 7, E:0220: No docs found for member 'module.exports'
+Line 17, E:0131: Single-quoted string preferred over double-quoted string.
+Line 18, E:0131: Single-quoted string preferred over double-quoted string.
+----- rest.js -----
+Line 10, E:0131: Single-quoted string preferred over double-quoted string.
+Line 14, E:0001: Extra space after "function"
+Line 17, E:0110: Line too long (103 characters).
+Line 18, E:0001: Extra space after "function"
+Line 18, E:0110: Line too long (115 characters).
+Line 31, E:0131: Single-quoted string preferred over double-quoted string.
+Line 38, E:0131: Single-quoted string preferred over double-quoted string.
+Line 39, E:0110: Line too long (82 characters).
+Line 44, E:0220: No docs found for member 'module.exports'
+Found 62 errors, including 0 new errors, in 6 files (0 files OK).
+
+
+
+
+In services folder:
+----- authService.js -----
+Line 4, E:0131: Single-quoted string preferred over double-quoted string.
+Line 5, E:0131: Single-quoted string preferred over double-quoted string.
+Line 47, E:0010: Missing semicolon at end of line
+Line 75, E:0110: Line too long (85 characters).
+Line 91, E:0002: Missing space after ":"
+Line 101, E:0110: Line too long (87 characters).
+Line 107, E:0110: Line too long (97 characters).
+Line 120, E:0220: No docs found for member 'module.exports'
+Line 125, E:0300: File does not end with new line.  (};)
+----- config.js -----
+Line 5, E:0110: Line too long (95 characters).
+Line 6, E:0300: File does not end with new line.  (};)
+----- rankUrlService.js -----
+Line 1, E:0131: Single-quoted string preferred over double-quoted string.
+Line 2, E:0131: Single-quoted string preferred over double-quoted string.
+Line 3, E:0131: Single-quoted string preferred over double-quoted string.
+Line 10, E:0131: Single-quoted string preferred over double-quoted string.
+Line 13, E:0001: Extra space after "function"
+Line 17, E:0001: Extra space after "function"
+Line 37, E:0001: Extra space after "function"
+Line 38, E:0001: Extra space after "function"
+Line 46, E:0002: Missing space before "("
+Line 58, E:0001: Extra space before "++"
+Line 68, E:0001: Extra space after "function"
+Line 79, E:0001: Extra space after "function"
+Line 91, E:0001: Extra space after "function"
+Line 92, E:0001: Extra space after "function"
+Line 99, E:0220: No docs found for member 'module.exports'
+Line 106, E:0300: File does not end with new line.  (};)
+----- statsService.js -----
+Line 1, E:0131: Single-quoted string preferred over double-quoted string.
+Line 2, E:0131: Single-quoted string preferred over double-quoted string.
+Line 5, E:0001: Extra space after "function"
+Line 8, E:0131: Single-quoted string preferred over double-quoted string.
+Line 9, E:0131: Single-quoted string preferred over double-quoted string.
+Line 10, E:0131: Single-quoted string preferred over double-quoted string.
+Line 11, E:0131: Single-quoted string preferred over double-quoted string.
+Line 19, E:0131: Single-quoted string preferred over double-quoted string.
+Line 29, E:0001: Extra space after "function"
+Line 33, E:0010: Missing semicolon at end of line
+Line 39, E:0001: Extra space after "function"
+Line 40, E:0131: Single-quoted string preferred over double-quoted string.
+Line 41, E:0001: Extra space after "function"
+Line 47, E:0131: Single-quoted string preferred over double-quoted string.
+Line 49, E:0131: Single-quoted string preferred over double-quoted string.
+Line 51, E:0131: Single-quoted string preferred over double-quoted string.
+Line 52, E:0131: Single-quoted string preferred over double-quoted string.
+Line 53, E:0131: Single-quoted string preferred over double-quoted string.
+Line 54, E:0131: Single-quoted string preferred over double-quoted string.
+Line 55, E:0131: Single-quoted string preferred over double-quoted string.
+Line 56, E:0010: Missing semicolon at end of line
+Line 57, E:0131: Single-quoted string preferred over double-quoted string.
+Line 59, E:0131: Single-quoted string preferred over double-quoted string.
+Line 60, E:0131: Single-quoted string preferred over double-quoted string.
+Line 61, E:0131: Single-quoted string preferred over double-quoted string.
+Line 62, E:0131: Single-quoted string preferred over double-quoted string.
+Line 63, E:0010: Missing semicolon at end of line
+Line 64, E:0131: Single-quoted string preferred over double-quoted string.
+Line 66, E:0131: Single-quoted string preferred over double-quoted string.
+Line 67, E:0131: Single-quoted string preferred over double-quoted string.
+Line 68, E:0131: Single-quoted string preferred over double-quoted string.
+Line 69, E:0010: Missing semicolon at end of line
+Line 71, E:0131: Single-quoted string preferred over double-quoted string.
+Line 93, E:0001: Extra space after "function"
+Line 98, E:0220: No docs found for member 'module.exports'
+Line 101, E:0300: File does not end with new line.  (};)
+----- urlService.js -----
+Line 1, E:0131: Single-quoted string preferred over double-quoted string.
+Line 2, E:0131: Single-quoted string preferred over double-quoted string.
+Line 18, E:0001: Extra space after "function"
+Line 41, E:0131: Single-quoted string preferred over double-quoted string.
+Line 123, E:0131: Single-quoted string preferred over double-quoted string.
+Line 139, E:0131: Single-quoted string preferred over double-quoted string.
+Line 142, E:0131: Single-quoted string preferred over double-quoted string.
+Line 150, E:0220: No docs found for member 'module.exports'
+----- userUrlService.js -----
+Line 4, E:0131: Single-quoted string preferred over double-quoted string.
+Line 5, E:0131: Single-quoted string preferred over double-quoted string.
+Line 6, E:0131: Single-quoted string preferred over double-quoted string.
+Line 7, E:0131: Single-quoted string preferred over double-quoted string.
+Line 44, E:0010: Missing semicolon at end of line
+Line 49, E:0001: Extra space after "("
+Line 49, E:0001: Extra space before ")"
+Line 49, E:0002: Missing space before "{"
+Line 52, E:0001: Extra space after "("
+Line 52, E:0001: Extra space before ")"
+Line 55, E:0002: Missing space before "{"
+Line 73, E:0131: Single-quoted string preferred over double-quoted string.
+Line 83, E:0002: Missing space before "="
+Line 83, E:0002: Missing space after "="
+Line 83, E:0002: Missing space before "<"
+Line 83, E:0002: Missing space after "<"
+Line 90, E:0131: Single-quoted string preferred over double-quoted string.
+Line 108, E:0001: Extra space after "function"
+Line 138, E:0010: Missing semicolon at end of line
+Line 161, E:0010: Missing semicolon at end of line
+Line 169, E:0001: Extra space after "("
+Line 169, E:0001: Extra space before ")"
+Line 171, E:0002: Missing space before "{"
+Line 188, E:0001: Extra space after "("
+Line 188, E:0001: Extra space before ")"
+Line 190, E:0002: Missing space before "{"
+Line 232, E:0001: Extra space after "function"
+Line 239, E:0110: Line too long (83 characters).
+Line 263, E:0010: Missing semicolon at end of line
+Line 273, E:0001: Extra space after "("
+Line 273, E:0001: Extra space before ")"
+Line 275, E:0002: Missing space before "{"
+Line 292, E:0001: Extra space after "("
+Line 292, E:0001: Extra space before ")"
+Line 294, E:0002: Missing space before "{"
+Line 307, E:0220: No docs found for member 'module.exports'
+Line 321, E:0300: File does not end with new line.  (};)
+Found 108 errors, including 9 new errors, in 6 files (0 files OK).
+
+
+
+
+In test folder:
+----- API-running.js -----
+Line 13, E:0110: Line too long (88 characters).
+Line 30, E:0110: Line too long (120 characters).
+Line 73, E:0110: Line too long (105 characters).
+Line 85, E:0110: Line too long (83 characters).
+Line 99, E:0001: Extra space after "function"
+Line 111, E:0001: Extra space after "function"
+Line 111, E:0110: Line too long (90 characters).
+Line 123, E:0001: Extra space after "function"
+Line 123, E:0110: Line too long (87 characters).
+Line 135, E:0001: Extra space after "function"
+Line 135, E:0110: Line too long (110 characters).
+Line 147, E:0001: Extra space after "function"
+Line 147, E:0110: Line too long (96 characters).
+Line 159, E:0001: Extra space after "function"
+Line 159, E:0110: Line too long (102 characters).
+Line 173, E:0300: File does not end with new line.  (});)
+----- URL-running.js -----
+Line 14, E:0131: Single-quoted string preferred over double-quoted string.
+Line 20, E:0110: Line too long (132 characters).
+Line 22, E:0131: Single-quoted string preferred over double-quoted string.
+Line 28, E:0131: Single-quoted string preferred over double-quoted string.
+Line 33, E:0110: Line too long (115 characters).
+Line 34, E:0131: Single-quoted string preferred over double-quoted string.
+----- feed-running.js -----
+Line 10, E:0131: Single-quoted string preferred over double-quoted string.
+Line 16, E:0001: Extra space after "function"
+Line 17, E:0001: Extra space after "function"
+Line 22, E:0001: Extra space after "function"
+Line 23, E:0131: Single-quoted string preferred over double-quoted string.
+Line 23, E:0001: Extra space after "function"
+Line 28, E:0001: Extra space after "function"
+Line 28, E:0110: Line too long (92 characters).
+Line 29, E:0001: Extra space after "function"
+Line 29, E:0110: Line too long (91 characters).
+Line 34, E:0001: Extra space after "function"
+Line 35, E:0001: Extra space after "function"
+Line 35, E:0110: Line too long (85 characters).
+Line 40, E:0001: Extra space after "function"
+Line 41, E:0001: Extra space after "function"
+Line 41, E:0110: Line too long (85 characters).
+Line 43, E:0001: Extra space after "function"
+Line 43, E:0110: Line too long (113 characters).
+Line 44, E:0001: Extra space after "function"
+Line 44, E:0110: Line too long (94 characters).
+Line 52, E:0001: Extra space after "function"
+Line 53, E:0001: Extra space after "function"
+Line 53, E:0110: Line too long (85 characters).
+Line 55, E:0001: Extra space after "function"
+Line 55, E:0110: Line too long (103 characters).
+Line 56, E:0001: Extra space after "function"
+Line 56, E:0110: Line too long (94 characters).
+Line 64, E:0001: Extra space after "function"
+Line 65, E:0001: Extra space after "function"
+Line 65, E:0110: Line too long (85 characters).
+Line 71, E:0001: Extra space after "function"
+Line 72, E:0001: Extra space after "function"
+Line 77, E:0001: Extra space after "function"
+Line 78, E:0001: Extra space after "function"
+Line 78, E:0110: Line too long (105 characters).
+Line 84, E:0001: Extra space after "function"
+Line 85, E:0001: Extra space after "function"
+Line 85, E:0110: Line too long (105 characters).
+Line 91, E:0131: Single-quoted string preferred over double-quoted string.
+Line 92, E:0001: Extra space after "function"
+Line 93, E:0131: Single-quoted string preferred over double-quoted string.
+Line 93, E:0001: Extra space after "function"
+Line 93, E:0110: Line too long (133 characters).
+Line 101, E:0001: Extra space after "function"
+Line 102, E:0001: Extra space after "function"
+Line 108, E:0001: Extra space after "function"
+Line 109, E:0001: Extra space after "function"
+Line 109, E:0110: Line too long (93 characters).
+Line 115, E:0001: Extra space after "function"
+Line 116, E:0001: Extra space after "function"
+Line 118, E:0131: Single-quoted string preferred over double-quoted string.
+Line 122, E:0001: Extra space after "function"
+Line 123, E:0001: Extra space after "function"
+Line 125, E:0131: Single-quoted string preferred over double-quoted string.
+Line 126, E:0131: Single-quoted string preferred over double-quoted string.
+Line 131, E:0001: Extra space after "function"
+Line 132, E:0001: Extra space after "function"
+Line 132, E:0110: Line too long (88 characters).
+Line 139, E:0001: Extra space after "function"
+Line 140, E:0001: Extra space after "function"
+Line 140, E:0110: Line too long (88 characters).
+Line 146, E:0131: Single-quoted string preferred over double-quoted string.
+Line 147, E:0001: Extra space after "function"
+Line 147, E:0110: Line too long (97 characters).
+Line 148, E:0131: Single-quoted string preferred over double-quoted string.
+Line 148, E:0131: Single-quoted string preferred over double-quoted string.
+Line 148, E:0131: Single-quoted string preferred over double-quoted string.
+Line 148, E:0131: Single-quoted string preferred over double-quoted string.
+Line 148, E:0001: Extra space after "function"
+Line 148, E:0110: Line too long (126 characters).
+Line 150, E:0131: Single-quoted string preferred over double-quoted string.
+Line 151, E:0131: Single-quoted string preferred over double-quoted string.
+Line 152, E:0131: Single-quoted string preferred over double-quoted string.
+Line 154, E:0131: Single-quoted string preferred over double-quoted string.
+Line 154, E:0001: Extra space after "function"
+Line 157, E:0131: Single-quoted string preferred over double-quoted string.
+Line 157, E:0001: Extra space after "function"
+Line 157, E:0110: Line too long (95 characters).
+Line 159, E:0001: Extra space after "function"
+Line 159, E:0110: Line too long (85 characters).
+----- login-running.js -----
+Line 12, E:0110: Line too long (84 characters).
+Line 19, E:0110: Line too long (82 characters).
+Line 24, E:0110: Line too long (116 characters).
+Line 35, E:0110: Line too long (126 characters).
+----- rank-running.js -----
+Line 12, E:0001: Extra space after "function"
+Line 13, E:0001: Extra space after "function"
+Line 18, E:0001: Extra space after "function"
+Line 18, E:0110: Line too long (86 characters).
+Line 25, E:0001: Extra space after "function"
+Line 25, E:0110: Line too long (83 characters).
+Line 33, E:0001: Extra space after "function"
+Line 33, E:0110: Line too long (106 characters).
+Line 39, E:0001: Extra space after "function"
+Line 39, E:0110: Line too long (98 characters).
+Line 47, E:0001: Extra space after "function"
+Line 47, E:0110: Line too long (98 characters).
+----- server-running.js -----
+Line 13, E:0131: Single-quoted string preferred over double-quoted string.
+Line 19, E:0131: Single-quoted string preferred over double-quoted string.
+Line 25, E:0001: Extra space after "function"
+Line 26, E:0001: Extra space after "function"
+Line 32, E:0001: Extra space after "function"
+Line 33, E:0001: Extra space after "function"
+Line 35, E:0001: Extra space after "function"
+Line 38, E:0001: Extra space after "function"
+----- stats-running.js -----
+Line 14, E:0131: Single-quoted string preferred over double-quoted string.
+Line 20, E:0131: Single-quoted string preferred over double-quoted string.
+Line 37, E:0131: Single-quoted string preferred over double-quoted string.
+Line 52, E:0131: Single-quoted string preferred over double-quoted string.
+Line 64, E:0110: Line too long (97 characters).
+Line 65, E:0131: Single-quoted string preferred over double-quoted string.
+Line 72, E:0300: File does not end with new line.  (});)
+Found 133 errors, including 0 new errors, in 7 files (0 files OK).
+
+
+In public/js folder:
+----- app.js -----
+Line 1, E:0131: Single-quoted string preferred over double-quoted string.
+Line 1, E:0131: Single-quoted string preferred over double-quoted string.
+Line 1, E:0131: Single-quoted string preferred over double-quoted string.
+Line 1, E:0110: Line too long (242 characters).
+Line 5, E:0131: Single-quoted string preferred over double-quoted string.
+Line 6, E:0131: Single-quoted string preferred over double-quoted string.
+Line 7, E:0131: Single-quoted string preferred over double-quoted string.
+Line 9, E:0131: Single-quoted string preferred over double-quoted string.
+Line 10, E:0131: Single-quoted string preferred over double-quoted string.
+Line 11, E:0131: Single-quoted string preferred over double-quoted string.
+Found 10 errors, including 0 new errors, in 1 file (0 files OK).
+
+
+
+
+
+
+In public/js/controllers folder:
+----- feedController.js -----
+Line 4, E:0131: Single-quoted string preferred over double-quoted string.
+Line 5, E:0131: Single-quoted string preferred over double-quoted string.
+Line 5, E:0110: Line too long (127 characters).
+Line 6, E:0110: Line too long (92 characters).
+Line 19, E:0110: Line too long (117 characters).
+Line 28, E:0110: Line too long (102 characters).
+Line 46, E:0131: Single-quoted string preferred over double-quoted string.
+Line 104, E:0110: Line too long (118 characters).
+Line 121, E:0110: Line too long (84 characters).
+Line 139, E:0001: Extra space after "function"
+Line 139, E:0110: Line too long (91 characters).
+Line 153, E:0131: Single-quoted string preferred over double-quoted string.
+Line 158, E:0110: Line too long (83 characters).
+Line 179, E:0110: Line too long (126 characters).
+Line 187, E:0131: Single-quoted string preferred over double-quoted string.
+Line 190, E:0001: Extra space after "function"
+Line 192, E:0001: Extra space after "function"
+Line 207, E:0110: Line too long (123 characters).
+Line 208, E:0011: Missing semicolon after function assigned to a variable
+Line 209, E:0300: File does not end with new line.  (    });)
+----- homeController.js -----
+Line 1, E:0131: Single-quoted string preferred over double-quoted string.
+Line 2, E:0131: Single-quoted string preferred over double-quoted string.
+Line 2, E:0131: Single-quoted string preferred over double-quoted string.
+Line 2, E:0131: Single-quoted string preferred over double-quoted string.
+Line 2, E:0131: Single-quoted string preferred over double-quoted string.
+Line 2, E:0131: Single-quoted string preferred over double-quoted string.
+Line 2, E:0110: Line too long (119 characters).
+Line 4, E:0131: Single-quoted string preferred over double-quoted string.
+Line 8, E:0131: Single-quoted string preferred over double-quoted string.
+Line 12, E:0110: Line too long (81 characters).
+----- loginController.js -----
+Line 5, E:0110: Line too long (92 characters).
+Line 10, E:0110: Line too long (90 characters).
+Line 11, E:0110: Line too long (90 characters).
+Line 14, E:0131: Single-quoted string preferred over double-quoted string.
+Line 18, E:0110: Line too long (85 characters).
+Line 20, E:0110: Line too long (82 characters).
+Line 25, E:0300: File does not end with new line.  (    });)
+----- modalController.js -----
+Line 8, E:0110: Line too long (81 characters).
+Line 11, E:0300: File does not end with new line.  (    });)
+----- navController.js -----
+Line 5, E:0110: Line too long (85 characters).
+Line 18, E:0131: Single-quoted string preferred over double-quoted string.
+Line 22, E:0131: Single-quoted string preferred over double-quoted string.
+Line 29, E:0002: Missing space before "{"
+Line 31, E:0002: Missing space before "{"
+Line 36, E:0300: File does not end with new line.  (    });)
+----- rankController.js -----
+Line 1, E:0131: Single-quoted string preferred over double-quoted string.
+Line 2, E:0131: Single-quoted string preferred over double-quoted string.
+Line 2, E:0110: Line too long (100 characters).
+Line 3, E:0110: Line too long (92 characters).
+Line 6, E:0131: Single-quoted string preferred over double-quoted string.
+Line 8, E:0001: Extra space after "function"
+Line 9, E:0001: Extra space after "function"
+Line 10, E:0110: Line too long (111 characters).
+Line 24, E:0001: Extra space after "function"
+Line 29, E:0001: Extra space after "function"
+Line 33, E:0002: Missing space before "("
+Line 41, E:0002: Missing space before "("
+Line 48, E:0300: File does not end with new line.  (    });)
+----- regController.js -----
+Line 16, E:0131: Single-quoted string preferred over double-quoted string.
+Line 20, E:0110: Line too long (85 characters).
+Line 22, E:0110: Line too long (82 characters).
+Line 28, E:0300: File does not end with new line.  (    });)
+----- urlController.js -----
+Line 1, E:0131: Single-quoted string preferred over double-quoted string.
+Line 2, E:0131: Single-quoted string preferred over double-quoted string.
+Line 2, E:0131: Single-quoted string preferred over double-quoted string.
+Line 2, E:0131: Single-quoted string preferred over double-quoted string.
+Line 2, E:0131: Single-quoted string preferred over double-quoted string.
+Line 2, E:0110: Line too long (144 characters).
+Line 3, E:0131: Single-quoted string preferred over double-quoted string.
+Line 4, E:0001: Extra space after "function"
+Line 7, E:0131: Single-quoted string preferred over double-quoted string.
+Line 7, E:0110: Line too long (81 characters).
+Line 9, E:0001: Extra space after "function"
+Line 10, E:0131: Single-quoted string preferred over double-quoted string.
+Line 10, E:0131: Single-quoted string preferred over double-quoted string.
+Line 11, E:0001: Extra space after "function"
+Line 13, E:0010: Missing semicolon at end of line
+Line 18, E:0131: Single-quoted string preferred over double-quoted string.
+Line 19, E:0131: Single-quoted string preferred over double-quoted string.
+Line 20, E:0002: Missing space before "+"
+Line 20, E:0002: Missing space after "+"
+Line 20, E:0131: Single-quoted string preferred over double-quoted string.
+Line 20, E:0001: Extra space after "="
+Line 21, E:0002: Missing space after ":"
+Line 22, E:0002: Missing space before "["
+Line 28, E:0002: Missing space before "["
+Line 35, E:0131: Single-quoted string preferred over double-quoted string.
+Line 35, E:0131: Single-quoted string preferred over double-quoted string.
+Line 38, E:0131: Single-quoted string preferred over double-quoted string.
+Line 39, E:0131: Single-quoted string preferred over double-quoted string.
+Line 44, E:0131: Single-quoted string preferred over double-quoted string.
+Line 45, E:0131: Single-quoted string preferred over double-quoted string.
+Line 46, E:0131: Single-quoted string preferred over double-quoted string.
+Line 53, E:0002: Missing space after ":"
+Line 54, E:0002: Missing space before "["
+Line 63, E:0131: Single-quoted string preferred over double-quoted string.
+Line 63, E:0131: Single-quoted string preferred over double-quoted string.
+Line 67, E:0002: Missing space before "+"
+Line 67, E:0002: Missing space after "+"
+Line 67, E:0131: Single-quoted string preferred over double-quoted string.
+Line 67, E:0002: Missing space before "+"
+Line 67, E:0002: Missing space after "+"
+Line 67, E:0002: Missing space before "+"
+Line 67, E:0002: Missing space after "+"
+Line 67, E:0131: Single-quoted string preferred over double-quoted string.
+Line 67, E:0002: Missing space before "+"
+Line 67, E:0002: Missing space after "+"
+Line 67, E:0002: Missing space before "+"
+Line 67, E:0002: Missing space after "+"
+Line 67, E:0131: Single-quoted string preferred over double-quoted string.
+Line 67, E:0002: Missing space before "+"
+Line 67, E:0002: Missing space after "+"
+Line 67, E:0110: Line too long (104 characters).
+Line 68, E:0131: Single-quoted string preferred over double-quoted string.
+Line 69, E:0131: Single-quoted string preferred over double-quoted string.
+Line 70, E:0131: Single-quoted string preferred over double-quoted string.
+Line 71, E:0131: Single-quoted string preferred over double-quoted string.
+Line 73, E:0131: Single-quoted string preferred over double-quoted string.
+Line 74, E:0131: Single-quoted string preferred over double-quoted string.
+Line 76, E:0131: Single-quoted string preferred over double-quoted string.
+Line 77, E:0131: Single-quoted string preferred over double-quoted string.
+Line 91, E:0131: Single-quoted string preferred over double-quoted string.
+Line 91, E:0131: Single-quoted string preferred over double-quoted string.
+Line 92, E:0131: Single-quoted string preferred over double-quoted string.
+Line 92, E:0131: Single-quoted string preferred over double-quoted string.
+Line 93, E:0131: Single-quoted string preferred over double-quoted string.
+Line 93, E:0131: Single-quoted string preferred over double-quoted string.
+Line 94, E:0131: Single-quoted string preferred over double-quoted string.
+Line 94, E:0131: Single-quoted string preferred over double-quoted string.
+Found 129 errors, including 1 new error, in 8 files (0 files OK).
+
+
+
+
+In public/js/directives folder:
+----- httpPrefix.js -----
+Line 8, E:0001: Extra space after "function"
+Line 10, E:0110: Line too long (106 characters).
+Line 12, E:0120: Binary operator must go on previous line "&&"
+Line 12, E:0110: Line too long (91 characters).
+Line 24, E:0010: Missing semicolon at end of line
+Line 25, E:0300: File does not end with new line.  (});)
+----- serverMessage.js -----
+Line 11, E:0010: Missing semicolon at end of line
+Line 14, E:0010: Missing semicolon at end of line
+Line 15, E:0300: File does not end with new line.  (    });)
+----- shareButtons.js -----
+Line 16, E:0001: Extra space after "function"
+Line 26, E:0110: Line too long (92 characters).
+Line 39, E:0010: Missing semicolon at end of line
+Line 40, E:0300: File does not end with new line.  (    });)
+Found 13 errors, including 4 new errors, in 3 files (0 files OK).
+
+
+
+
+In public/js/services folder:
+----- feedService.js -----
+Line 41, E:0110: Line too long (94 characters).
+Line 45, E:0110: Line too long (88 characters).
+Line 55, E:0010: Missing semicolon at end of line
+Line 56, E:0300: File does not end with new line.  (    });)
+----- rankService.js -----
+Line 16, E:0010: Missing semicolon at end of line
+Line 17, E:0300: File does not end with new line.  (    });)
+----- statsService.js -----
+Line 1, E:0131: Single-quoted string preferred over double-quoted string.
+Line 21, E:0010: Missing semicolon at end of line
+Line 24, E:0300: File does not end with new line.  (    });)
+Found 9 errors, including 3 new errors, in 3 files (0 files OK).

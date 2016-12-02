@@ -1,0 +1,23 @@
+﻿Code Inspection Report
+
+
+Pair A (Tianci Zhong & Ruicong Xie) - inspect all the js files in test folder
+Reader: Ruicong Xie
+Recorder: Tianci Zhong
+Where: API-running.js, URL-running.js, feed-running.js, login-running.js, rank-running.js, server-running.js, stats-running.js
+2 Issues: Coding Style Issue, Test Case Coverage Issue 
+Notes Taken: Did not find major code issue causing technical issue while running the application. Nonetheless, in addition to the coding style problems found by the ClosureLinter static checker, we also realized that previous test cases in the test file is not good enough to test the major functionalities of the application. Old test cases did not cover the functionalities like delete, post and share on the main feed page. Also, all the test cases are put into one single file, which makes test cases look unorganized. 
+Action Taken: Divide the old test file into multiple smaller test files. Each test file corresponds to different major parts/functionalities of the application. Rewrite and reorganize old test cases. Added more unit test cases to cover more of the application. Double-checking the coding style problem reported by the static checker with the corresponding lines in the application codes. 
+Status: This test case issue had been fixed. Working on the coding style issue. 
+New Problem Found: Did not found new problems so far. 
+
+
+Part B (Yue Cen & Jiaxin Su) - inspect all the js files in public/js/controllers folder
+Reader: Yue Cen
+Recorder: Jiaxin Su
+Where:  feedController.js, homeController.js, loginController.js, modalController.js, navController.js, rankController.js, regController.js, urlController.js, 
+1 Issue: Coding Style Issue 
+Note Taken: Did not find major code issue causing technical issue while running the application. However, based on the ClosureLinter static checker, these files have coding style problem, such as “Line too long”, “Single-quoted string preferred over double-quoted string”, and “Extra space after ‘function’”. 
+Action Taken: Double checking the corresponding lines in the application. Working on fixing the coding style problem. 
+Status: In progress. 
+New Problem Found: Did not found new problems so far.
