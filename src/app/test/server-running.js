@@ -21,21 +21,21 @@ try {
 }
 
 // unit test for server http response to 200 ok
-describe('server request handling', function() {
-    it('server http response should return 200', function(done) {
-        http.get('http://localhost:3000', function(res) {
+describe('server request handling', function () {
+    it('server http response should return 200', function (done) {
+        http.get('http://localhost:3000', function (res) {
             assert.equal(200, res.statusCode);
             done();
         });
     });
 
-    it('should be the same file as index.html', function(done) {
-        http.get('http://localhost:3000', function(res) {
+    it('should be the same file as index.html', function (done) {
+        http.get('http://localhost:3000', function (res) {
             var data = '';
-            res.on('data', function(chunk) {
+            res.on('data', function (chunk) {
                 data += chunk;
             });
-            res.on('end', function() {
+            res.on('end', function () {
                 assert.equal(source.toString(), data);
                 done();
             });

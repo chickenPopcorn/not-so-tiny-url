@@ -6,9 +6,9 @@ var path = require('path');
 
 module.exports = function RedirectRouter(io) {
     var router = express.Router();
-    router.get('*', function(req, res) {
+    router.get('*', function (req, res) {
         var shortUrl = req.originalUrl.slice(1);
-        urlService.getLongUrl(shortUrl, function(url) {
+        urlService.getLongUrl(shortUrl, function (url) {
             if (url) {
                 res.redirect(url.longUrl);
                 statsService.logRequest(shortUrl, req);

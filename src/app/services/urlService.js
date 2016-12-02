@@ -6,7 +6,7 @@ var host = process.env.REDIS_PORT_6379_TCP_ADDR;
 
 var redisClient = redis.createClient(port, host);
 
-var validateUrl = function(longUrl, callback) {
+var validateUrl = function (longUrl, callback) {
     var http = require('http'),
         url = require('url');
     var options = {
@@ -15,28 +15,28 @@ var validateUrl = function(longUrl, callback) {
         port: 80,
         path: url.parse(longUrl).pathname
     };
-    var req = http.request(options, function(r) {
+    var req = http.request(options, function (r) {
         callback({
             status: 'ok',
             data: r.headers
         });
     });
-    req.on('error', function(err) {
+    req.on('error', function (err) {
         callback({
             status: 'failed',
-            message: {'longUrl' : 'This is not a valid URL.'},
+            message: {'longUrl': 'This is not a valid URL.'},
             error: err
         });
     });
     req.end();
 };
 
-var getShortUrl = function(longUrl, callback) {
+var getShortUrl = function (longUrl, callback) {
     // This part has been handled in the front-end, hence comment it.
     /* if (longUrl.indexOf('http') == -1) {
-        longUrl = "http://" + longUrl;
-    } */
-    redisClient.get(longUrl, function(err, shortUrl) {
+     longUrl = "http://" + longUrl;
+     } */
+    redisClient.get(longUrl, function (err, shortUrl) {
         if (shortUrl) {
             console.log('using cache');
             callback({
@@ -45,13 +45,13 @@ var getShortUrl = function(longUrl, callback) {
                 longUrl: longUrl
             });
         } else {
-            validateUrl(longUrl, function(output) {
+            validateUrl(longUrl, function (output) {
                 if (output.status != 'ok') {
                     callback(output);
                 } else {
                     UrlModel.findOne({
                         longUrl: longUrl
-                    }, function(err, data) {
+                    }, function (err, data) {
                         if (data) {
                             callback({
                                 status: 'ok',
@@ -61,12 +61,12 @@ var getShortUrl = function(longUrl, callback) {
                             redisClient.set(data.shortUrl, data.longUrl);
                             redisClient.set(data.longUrl, data.shortUrl);
                         } else {
-                            generateShortUrl(function(shortUrl) {
+                            generateShortUrl(function (shortUrl) {
                                 var url = new UrlModel({
                                     shortUrl: shortUrl,
                                     longUrl: longUrl
                                 });
-                                url.save(function() {
+                                url.save(function () {
                                     callback({
                                         status: 'ok',
                                         shortUrl: shortUrl,
@@ -84,8 +84,8 @@ var getShortUrl = function(longUrl, callback) {
     });
 };
 
-var getLongUrl = function(shortUrl, callback) {
-    redisClient.get(shortUrl, function(err, longUrl) {
+var getLongUrl = function (shortUrl, callback) {
+    redisClient.get(shortUrl, function (err, longUrl) {
         if (longUrl) {
             // console.log("byebye mongo " + longUrl + " end");
             callback({
@@ -96,7 +96,7 @@ var getLongUrl = function(shortUrl, callback) {
         } else {
             UrlModel.findOne({
                 shortUrl: shortUrl
-            }, function(err, data) {
+            }, function (err, data) {
                 if (err) {
                     console.log(err);
                     callback({
@@ -129,13 +129,13 @@ var getLongUrl = function(shortUrl, callback) {
 
 };
 
-var generateShortUrl = function(callback) {
-    UrlModel.count({}, function(err, num) {
+var generateShortUrl = function (callback) {
+    UrlModel.count({}, function (err, num) {
         callback(convertTo62(num + 1));
     });
 };
 
-var convertTo62 = function(id) {
+var convertTo62 = function (id) {
     var code = 'abcdefghijklmnopqrstuvwxzy';
     code += code.toUpperCase();
     code += '0123456789';
