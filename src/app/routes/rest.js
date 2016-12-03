@@ -14,10 +14,12 @@ router.post('/urls', jsonParser, function(req, res) {
             authService.getUser(req, function(user) {
                 // console.log('user: ' + user);
                 if (user._id != -1) {
-                    var isPublic = typeof req.body.isPublic === 'undefined' ? true : req.body.isPublic;
-                    userUrlService.add(user._id, user.fullname, json.shortUrl, longUrl, isPublic, function(data) {
-                        console.log(data);
-                    });
+                    var isPublic = typeof req.body.isPublic === 'undefined' ?
+                        true : req.body.isPublic;
+                    userUrlService.add(user._id, user.fullname, json.shortUrl,
+                        longUrl, isPublic, function(data) {
+                            console.log(data);
+                        });
                 }
 
                 res.json(json);
@@ -36,9 +38,10 @@ router.get('/urls/:shortUrl', function(req, res) {
 });
 
 router.get('/urls/:shortUrl/:info', function(req, res) {
-    statsService.getUrlInfo(req.params.shortUrl, req.params.info, function(data) {
-        res.json(data);
-    });
+    statsService.getUrlInfo(req.params.shortUrl, req.params.info,
+        function(data) {
+            res.json(data);
+        });
 });
 
 module.exports = router;

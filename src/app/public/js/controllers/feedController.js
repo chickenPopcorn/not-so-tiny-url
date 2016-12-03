@@ -1,9 +1,11 @@
 /**
  * Created by dyorex on 2016-10-15.
  */
-angular.module('tinyurlApp')
-    .controller('feedController', function($scope, $location, $auth, $window, $rootScope, feedService, timeAgo, ModalService) {
-        var host = 'http://localhost:3000/'; // TODO: should find a way not to hardcode this
+angular.module('tinyurlApp').controller('feedController',
+    function($scope, $location, $auth, $window, $rootScope, feedService,
+              timeAgo, ModalService) {
+        var host = 'http://localhost:3000/'; // TODO: should find a way not to
+                                             // hardcode this
 
         $scope.isLoggedIn = function() {
             return $auth.isAuthenticated();
@@ -16,7 +18,8 @@ angular.module('tinyurlApp')
             if ($scope.busy) return;
             $scope.busy = true;
 
-            var lastId = $scope.publicItems.length == 0 ? -1 : $scope.publicItems[$scope.publicItems.length - 1]._id;
+            var lastId = $scope.publicItems.length == 0 ? -1 :
+                $scope.publicItems[$scope.publicItems.length - 1]._id;
             feedService.getFeed(4, lastId).success(function(data) {
                 // console.log(data);
                 $scope.total = data.count;
@@ -25,7 +28,8 @@ angular.module('tinyurlApp')
                     data.data[i].isDeletable = isPostDeletable(data.data[i]);
 
                     data.data[i].fullShortUrl = host + data.data[i].shortUrl;
-                    var url = data.data[i].longUrl ? data.data[i].longUrl : data.data[i].fullShortUrl;
+                    var url = data.data[i].longUrl ? data.data[i].longUrl :
+                        data.data[i].fullShortUrl;
                     $scope.getMeta(url, data.data[i]);
                     $scope.getNumberOfLikes(data.data[i]);
                     $scope.hasLiked(data.data[i]);
@@ -101,7 +105,8 @@ angular.module('tinyurlApp')
                     $scope.privateItems.push(data.data[i]);
                     data.data[i].isDeletable = isPostDeletable(data.data[i]);
 
-                    var url = data.data[i].longUrl ? data.data[i].longUrl : 'localhost:3000/' + data.data[i].shortUrl;
+                    var url = data.data[i].longUrl ? data.data[i].longUrl :
+                    'localhost:3000/' + data.data[i].shortUrl;
                     $scope.getMeta(url, data.data[i]);
                 }
 
@@ -118,7 +123,8 @@ angular.module('tinyurlApp')
                     item.comments = data.data;
 
                     for (var i = 0; i < data.data.length; i++) {
-                        data.data[i].isDeletable = isCommentDeletable(data.data[i]);
+                        data.data[i].isDeletable =
+                            isCommentDeletable(data.data[i]);
                     }
                 }
             });
@@ -136,12 +142,13 @@ angular.module('tinyurlApp')
         // add comment
         $scope.addComment = function(item) {
             if (item.newComment && item.newComment != '') {
-                feedService.addComment(item._id, item.newComment).success(function(data) {
-                    data.data.isDeletable = true;
-                    item.comments.push(data.data);
-                    item.newComment = '';
-                    item.numOfComments++;
-                });
+                feedService.addComment(item._id, item.newComment).
+                    success(function(data) {
+                        data.data.isDeletable = true;
+                        item.comments.push(data.data);
+                        item.newComment = '';
+                        item.numOfComments++;
+                    });
             }
         };
 
@@ -155,11 +162,12 @@ angular.module('tinyurlApp')
                 modal.element.modal();
                 modal.close.then(function(result) {
                     if (result == 'Yes') {
-                        feedService.removeComment(comment._id).success(function() {
-                            var index = item.comments.indexOf(comment);
-                            item.comments.splice(index, 1);
-                            item.numOfComments--;
-                        });
+                        feedService.removeComment(comment._id).
+                            success(function() {
+                                var index = item.comments.indexOf(comment);
+                                item.comments.splice(index, 1);
+                                item.numOfComments--;
+                            });
                     }
                 });
             });
@@ -176,7 +184,8 @@ angular.module('tinyurlApp')
         };
 
         var isCommentDeletable = function(comment) {
-            return $rootScope.currentUser && $rootScope.currentUser._id != -1 && comment.userId == $rootScope.currentUser._id;
+            return $rootScope.currentUser && $rootScope.currentUser._id != -1 &&
+                comment.userId == $rootScope.currentUser._id;
         };
 
         // remove post
@@ -204,6 +213,7 @@ angular.module('tinyurlApp')
         };
 
         var isPostDeletable = function(item) {
-            return $rootScope.currentUser && $rootScope.currentUser._id != -1 && item.userId == $rootScope.currentUser._id;
+            return $rootScope.currentUser && $rootScope.currentUser._id != -1 &&
+                item.userId == $rootScope.currentUser._id;
         };
     });

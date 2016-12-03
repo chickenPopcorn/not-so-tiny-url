@@ -1,8 +1,8 @@
 /**
  * Created by dyorex on 2016-10-14.
  */
-angular.module('tinyurlApp')
-    .controller('regController', function($scope, $auth, $location) {
+angular.module('tinyurlApp').
+    controller('regController', function($scope, $auth, $location) {
 
         $scope.signup = function() {
             var user = {
@@ -11,18 +11,18 @@ angular.module('tinyurlApp')
                 fullname: $scope.fullname
             };
 
-            $auth.signup(user)
-                .then(function(response) {
-                    $location.path('/login');
-                })
-                .catch(function(response) {
-                    $scope.errorMessage = {};
-                    angular.forEach(response.data.message, function(message, field) {
+            $auth.signup(user).then(function(response) {
+                $location.path('/login');
+            }).catch(function(response) {
+                $scope.errorMessage = {};
+                angular.forEach(response.data.message,
+                    function(message, field) {
                         $scope.signupForm[field].$setValidity('server', false);
-                        $scope.errorMessage[field] = response.data.message[field];
+                        $scope.errorMessage[field] =
+                            response.data.message[field];
                     });
-                    console.log(response.data);
-                });
+                console.log(response.data);
+            });
         };
 
     });

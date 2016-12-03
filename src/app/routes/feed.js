@@ -21,9 +21,10 @@ router.get('/private/:pageSize/:lastId', function(req, res) {
     var lastId = req.params.lastId;
     authService.getUser(req, function(user) {
         if (user._id != -1) {
-            userUrlService.getFeed(pageSize, lastId, false, user._id, function(data) {
-                res.json(data);
-            });
+            userUrlService.getFeed(pageSize, lastId, false, user._id,
+                function(data) {
+                    res.json(data);
+                });
         } else {
             res.status(403).json({'message': 'No private feed'});
         }
@@ -60,7 +61,8 @@ router.get('/post/liked/:id', function(req, res) {
                 res.json(data);
             });
         } else {
-            res.status(403).send({'status': 'failed', 'message': 'Not authorized.'});
+            res.status(403).
+                send({'status': 'failed', 'message': 'Not authorized.'});
         }
     });
 });
@@ -70,11 +72,13 @@ router.post('/post/like', jsonParser, function(req, res) {
         var userId = user._id;
         var fullname = user.fullname;
         if (userId != -1) {
-            userUrlService.like(req.body.postId, userId, fullname, function(data) {
-                res.json(data);
-            });
+            userUrlService.like(req.body.postId, userId, fullname,
+                function(data) {
+                    res.json(data);
+                });
         } else {
-            res.status(403).send({'status': 'failed', 'message': 'Not authorized.'});
+            res.status(403).
+                send({'status': 'failed', 'message': 'Not authorized.'});
         }
     });
 });
@@ -87,7 +91,8 @@ router.post('/post/unlike', jsonParser, function(req, res) {
                 res.json(data);
             });
         } else {
-            res.status(403).send({'status': 'failed', 'message': 'Not authorized.'});
+            res.status(403).
+                send({'status': 'failed', 'message': 'Not authorized.'});
         }
     });
 });
@@ -98,11 +103,13 @@ router.post('/post/comment', jsonParser, function(req, res) {
         var userId = user._id;
         var fullname = user.fullname;
         if (userId != -1) {
-            userUrlService.addComment(req.body.postId, userId, fullname, req.body.message, function(data) {
-                res.json(data);
-            });
+            userUrlService.addComment(req.body.postId, userId, fullname,
+                req.body.message, function(data) {
+                    res.json(data);
+                });
         } else {
-            res.status(403).send({'status': 'failed', 'message': 'Not authorized.'});
+            res.status(403).
+                send({'status': 'failed', 'message': 'Not authorized.'});
         }
     });
 });
@@ -112,15 +119,17 @@ router.post('/post/removeComment', jsonParser, function(req, res) {
     authService.getUser(req, function(user) {
         var userId = user._id;
         if (userId != -1) {
-            userUrlService.removeComment(req.body.commentId, userId, function(data) {
-                if (data.status == 'ok') {
-                    res.json(data);
-                } else {
-                    res.status(403).send(data);
-                }
-            });
+            userUrlService.removeComment(req.body.commentId, userId,
+                function(data) {
+                    if (data.status == 'ok') {
+                        res.json(data);
+                    } else {
+                        res.status(403).send(data);
+                    }
+                });
         } else {
-            res.status(403).send({'status': 'failed', 'message': 'Not logged in.'});
+            res.status(403).
+                send({'status': 'failed', 'message': 'Not logged in.'});
         }
     });
 });
@@ -154,7 +163,8 @@ router.post('/post/removePost', jsonParser, function(req, res) {
                 }
             });
         } else {
-            res.status(403).send({'status': 'failed', 'message': 'Not logged in.'});
+            res.status(403).
+                send({'status': 'failed', 'message': 'Not logged in.'});
         }
     });
 });

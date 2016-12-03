@@ -24,7 +24,7 @@ var validateUrl = function(longUrl, callback) {
     req.on('error', function(err) {
         callback({
             status: 'failed',
-            message: {'longUrl' : 'This is not a valid URL.'},
+            message: {'longUrl': 'This is not a valid URL.'},
             error: err
         });
     });
@@ -34,8 +34,8 @@ var validateUrl = function(longUrl, callback) {
 var getShortUrl = function(longUrl, callback) {
     // This part has been handled in the front-end, hence comment it.
     /* if (longUrl.indexOf('http') == -1) {
-        longUrl = "http://" + longUrl;
-    } */
+     longUrl = "http://" + longUrl;
+     } */
     redisClient.get(longUrl, function(err, shortUrl) {
         if (shortUrl) {
             console.log('using cache');

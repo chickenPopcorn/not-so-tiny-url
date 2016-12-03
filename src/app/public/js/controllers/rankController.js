@@ -1,13 +1,18 @@
-angular.module('tinyurlApp')
-    .controller('rankController', function($scope, $http, $auth, $window, $rootScope, rankService) {
-        var host = 'http://localhost:3000/'; // TODO: should find a way not to hardcode this
+angular.module('tinyurlApp').controller('rankController',
+    function($scope, $http, $auth, $window, $rootScope, rankService) {
+        var host = 'http://localhost:3000/'; // TODO: should find a way not to
+                                             // hardcode this
 
         $scope.topkUrls = [];
         console.log('create');
 
         var getLongUrl = function(shortUrl, clicks) {
             $http.get('/api/v1/urls/' + shortUrl).then(function(res) {
-                $scope.topkUrls.push({ shortUrl: host + shortUrl, longUrl: res.data.longUrl, clicks: clicks });
+                $scope.topkUrls.push({
+                    shortUrl: host + shortUrl,
+                    longUrl: res.data.longUrl,
+                    clicks: clicks
+                });
                 console.log($scope.topkUrls);
             });
         };

@@ -1,8 +1,8 @@
 /**
  * Created by dyorex on 2016-10-14.
  */
-angular.module('tinyurlApp')
-    .controller('navController', function($scope, $auth, $window, $location, $http) {
+angular.module('tinyurlApp').controller('navController',
+    function($scope, $auth, $window, $location, $http) {
 
         $scope.logout = function() {
             $auth.logout();

@@ -2,16 +2,10 @@
  * Created by dyorex on 2016-10-14.
  */
 var userModel = require('../models/userModel');
-var redis = require('redis');
 var jwt = require('jwt-simple');
 var moment = require('moment');
 var config = require('./config');
 var bcrypt = require('bcryptjs');
-
-var port = process.env.REDIS_PORT_6379_TCP_PORT;
-var host = process.env.REDIS_PORT_6379_TCP_ADDR;
-
-var redisClient = redis.createClient(port, host);
 
 var createToken = function(user) {
     var payload = {
@@ -25,7 +19,7 @@ var createToken = function(user) {
 
 var isAuthenticated = function(req, res, next) {
     if (!(req.headers && req.headers.authorization)) {
-        return res.status(400).send({ message: 'No Token.' });
+        return res.status(400).send({message: 'No Token.'});
     }
 
     var header = req.headers.authorization.split(' ');
@@ -34,12 +28,12 @@ var isAuthenticated = function(req, res, next) {
     var now = moment().unix();
 
     if (now > payload.exp) {
-        return res.status(401).send({ message: 'Token has expired.' });
+        return res.status(401).send({message: 'Token has expired.'});
     }
 
     userModel.findById(payload.sub, function(err, user) {
         if (!user) {
-            return res.status(400).send({ message: 'User does not exist.' });
+            return res.status(400).send({message: 'User does not exist.'});
         }
 
         req.user = user;
@@ -49,7 +43,7 @@ var isAuthenticated = function(req, res, next) {
 
 var getUser = function(req, callback) {
     if (!(req.headers && req.headers.authorization)) {
-        callback({ '_id': -1 });
+        callback({'_id': -1});
         return;
     }
 
@@ -70,9 +64,10 @@ var getUser = function(req, callback) {
 };
 
 var reg = function(email, password, fullname, callback) {
-    userModel.findOne({ email: email }, function(err, existingUser) {
+    userModel.findOne({email: email}, function(err, existingUser) {
         if (existingUser) {
-            callback({ status: 409, message: { email: 'Email is already taken.' } });
+            callback(
+                {status: 409, message: {email: 'Email is already taken.'}});
             return;
         }
 
@@ -88,7 +83,7 @@ var reg = function(email, password, fullname, callback) {
 
                 user.save(function() {
                     var token = createToken(user);
-                    callback({ status: 200, token: token });
+                    callback({status: 200, token: token});
                 });
             });
         });
@@ -96,15 +91,19 @@ var reg = function(email, password, fullname, callback) {
 };
 
 var login = function(email, password, callback) {
-    userModel.findOne({ email: email }, '+password', function(err, user) {
+    userModel.findOne({email: email}, '+password', function(err, user) {
         if (!user) {
-            callback({ status: 401, message: { email: 'This user does not exist.' } });
+            callback(
+                {status: 401, message: {email: 'This user does not exist.'}});
             return;
         }
 
         bcrypt.compare(password, user.password, function(err, isMatch) {
             if (!isMatch) {
-                callback({ status: 401, message: { password: 'The password is not correct.' } });
+                callback({
+                    status: 401,
+                    message: {password: 'The password is not correct.'}
+                });
                 return;
             }
 
@@ -112,7 +111,7 @@ var login = function(email, password, callback) {
             delete user.password;
 
             var token = createToken(user);
-            callback({ status: 200, token: token, user: user });
+            callback({status: 200, token: token, user: user});
         });
     });
 };
