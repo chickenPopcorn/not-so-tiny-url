@@ -15,7 +15,8 @@ var source = '';
 try {
     console.log(__dirname);
     source = fs.readFileSync(__dirname + '/../public/views/index.html', 'utf8');
-} catch (e) {
+}
+catch (e) {
     console.error('error reading index.txt: ' + e.message);
     return;
 }

@@ -20,7 +20,7 @@ var getTopKUrls = function(k, callback) {
             return a.clicks - b.clicks;
         });
         for (var key in data) {
-            queue.enq({ shortUrl: key, clicks: data[key]});
+            queue.enq({shortUrl: key, clicks: data[key]});
         }
         var result = [];
         for (var i = 0; i < k; i++) {
@@ -89,7 +89,7 @@ var getUrlClicksCached = function(shortUrl, callback) {
 };
 
 var getUrlClicks = function(shortUrl, callback) {
-    RequestModel.count({ shortUrl: shortUrl }, function(err, data) {
+    RequestModel.count({shortUrl: shortUrl}, function(err, data) {
         //console.log(data);
         callback(shortUrl, data);
     });

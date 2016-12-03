@@ -61,12 +61,13 @@ describe('Stats', function() {
             done();
         });
     });
-    it('should return total number of clicks without defined request info type', function(done) {
-        statsService.getUrlInfo(shortUrl, 'test', function(res) {
-            assert.strictEqual(res[0]._id, null);
-            assert(res[0].count >= 4);
-            done();
+    it('should return total number of clicks without defined request info type',
+        function(done) {
+            statsService.getUrlInfo(shortUrl, 'test', function(res) {
+                assert.strictEqual(res[0]._id, null);
+                assert(res[0].count >= 4);
+                done();
+            });
         });
-    });
 
 });

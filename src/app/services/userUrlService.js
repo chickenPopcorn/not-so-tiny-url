@@ -25,7 +25,7 @@ var add = function(userId, fullname, shortUrl, longUrl, isPublic, callback) {
         userUrl.save();
         callback(userUrl);
     } else {
-        callback({ message: 'No userId.' });
+        callback({message: 'No userId.'});
     }
 };
 
@@ -41,18 +41,15 @@ var getFeed = function(pageSize, lastId, isPublic, userId, callback) {
         actualQuery['userId'] = userId;
     }
     if (lastId != -1) {
-        actualQuery['_id'] = { $lt: lastId };
+        actualQuery['_id'] = {$lt: lastId};
     }
     countQuery['public'] = isPublic;
     actualQuery['public'] = isPublic;
 
     userUrlModel.find(countQuery).count(function(err, count) {
-        var json = { 'status': 'ok', 'count': count, 'data': [] };
-        userUrlModel
-            .find(actualQuery)
-            .sort({ '_id': -1 })
-            .limit(pageSize)
-            .exec(function(err, data) {
+        var json = {'status': 'ok', 'count': count, 'data': []};
+        userUrlModel.find(actualQuery).sort({'_id': -1}).limit(pageSize).
+            exec(function(err, data) {
                 if (err) {
                     callback(err);
                     return;
@@ -66,9 +63,9 @@ var getFeed = function(pageSize, lastId, isPublic, userId, callback) {
 
 var getMeta = function(url, callback) {
     url = decodeURIComponent(url);
-    var client = new MetaInspector(url, { timeout: 5000 });
+    var client = new MetaInspector(url, {timeout: 5000});
 
-    var json = { 'result': { 'status': 'ok'}, 'meta': {} };
+    var json = {'result': {'status': 'ok'}, 'meta': {}};
 
     client.on('fetch', function() {
         json['meta']['url'] = url;
@@ -134,7 +131,7 @@ var removePost = function(postId, userId, callback) {
                         return;
                     }
                     redisClient.del(postId.toString());
-                    callback({ 'status': 'ok' });
+                    callback({'status': 'ok'});
                 });
             }
         });
@@ -150,44 +147,39 @@ var like = function(postId, userId, fullname, callback) {
             shortUrl: post.shortUrl
         });
         likePost.save(function() {
-            callback({ 'status': 'ok', 'data': likePost });
+            callback({'status': 'ok', 'data': likePost});
         });
 
     });
 };
 
 var unlike = function(postId, userId, callback) {
-    likeModel.find({ postId: postId, userId: userId }).remove(function() {
-        callback({ 'status': 'ok' });
+    likeModel.find({postId: postId, userId: userId}).remove(function() {
+        callback({'status': 'ok'});
     });
 };
 
 var getNumberOfLikes = function(postId, callback) {
-    var json = {'status': 'ok', 'data': {} };
+    var json = {'status': 'ok', 'data': {}};
 
-    likeModel
-        .find({postId: postId})
-        .count()
-        .exec(function(err, count) {
-            if (err) {
-                json['status'] = 'failed';
-                json['data'] = err;
-                callback(json);
-                return;
-            }
-
-            json['data']['count'] = count;
+    likeModel.find({postId: postId}).count().exec(function(err, count) {
+        if (err) {
+            json['status'] = 'failed';
+            json['data'] = err;
             callback(json);
-        });
+            return;
+        }
+
+        json['data']['count'] = count;
+        callback(json);
+    });
 };
 
 var hasLiked = function(postId, userId, callback) {
-    var json = {'status': 'ok', 'data': {} };
+    var json = {'status': 'ok', 'data': {}};
 
-    likeModel
-        .find({postId: postId, userId: userId})
-        .count()
-        .exec(function(err, count) {
+    likeModel.find({postId: postId, userId: userId}).count().
+        exec(function(err, count) {
             if (err) {
                 json['status'] = 'failed';
                 json['data'] = err;
@@ -215,7 +207,7 @@ var addComment = function(postId, userId, fullname, message, callback) {
                 timestamp: Date.now()
             });
             comment.save(function() {
-                callback({ 'status': 'ok', 'data': comment });
+                callback({'status': 'ok', 'data': comment});
             });
 
         });
@@ -236,7 +228,8 @@ var getCommentById = function(commentId, callback) {
                 }
                 callback(commentInDb);
                 // console.log("stringify: " + JSON.stringify(postInDb));
-                redisClient.set(commentId.toString(), JSON.stringify(commentInDb));
+                redisClient.set(commentId.toString(),
+                    JSON.stringify(commentInDb));
             });
         }
     });
@@ -259,7 +252,7 @@ var removeComment = function(commentId, userId, callback) {
                     }
 
                     redisClient.del(commentId.toString());
-                    callback({ 'status': 'ok' });
+                    callback({'status': 'ok'});
                 });
             }
         });
@@ -267,12 +260,10 @@ var removeComment = function(commentId, userId, callback) {
 };
 
 var getComments = function(postId, callback) {
-    var json = {'status': 'ok', 'data': {} };
+    var json = {'status': 'ok', 'data': {}};
 
-    commentModel
-        .find({postId: postId, isDeleted: {$ne: true}})
-        .sort({ _id: 1 })
-        .exec(function(err, comments) {
+    commentModel.find({postId: postId, isDeleted: {$ne: true}}).sort({_id: 1}).
+        exec(function(err, comments) {
             if (err) {
                 json['status'] = 'failed';
                 json['data'] = err;
@@ -286,12 +277,10 @@ var getComments = function(postId, callback) {
 };
 
 var getNumberOfComments = function(postId, callback) {
-    var json = {'status': 'ok', 'data': {} };
+    var json = {'status': 'ok', 'data': {}};
 
-    commentModel
-        .find({postId: postId, isDeleted: {$ne: true}})
-        .count()
-        .exec(function(err, count) {
+    commentModel.find({postId: postId, isDeleted: {$ne: true}}).count().
+        exec(function(err, count) {
             if (err) {
                 json['status'] = 'failed';
                 json['data'] = err;
