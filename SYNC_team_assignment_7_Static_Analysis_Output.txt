@@ -1,6 +1,317 @@
-﻿Tester: ClosureLinter [OSS] 
+﻿December 5th Static Analysis Result:
+Javascript Tester: ClosureLinter [OSS]
 - ensures that all of your project's JavaScript code follows the guidelines in the Google JavaScript Style Guide. It can also automatically fix many common errors
 
+In app folder:
+----- server.js -----
+Line 16, E:0220: No docs found for member 'mongoose.Promise'
+Line 16, E:0110: Line too long (132 characters).
+Found 2 errors, including 0 new errors, in 1 file (0 files OK).
+
+
+In models folder:
+-----commentModel.js -----
+Line 16, E:0220: No docs found for member 'module.exports'
+----- likeModel.js -----
+Line 13, E:0220: No docs found for member 'module.exports'
+----- requestModel.js -----
+Line 13, E:0220: No docs found for member 'module.exports'
+----- urlModel.js -----
+Line 11, E:0220: No docs found for member 'module.exports'
+----- userModel.js -----
+Line 13, E:0220: No docs found for member 'module.exports'
+----- userUrlModel.js -----
+Line 16, E:0220: No docs found for member 'module.exports'
+Found 6 errors, including 0 new errors, in 6 files (0 files OK).
+
+
+In routes folder:
+----- auth.js -----
+Line 33, E:0220: No docs found for member 'module.exports'
+----- feed.js -----
+Line 174, E:0220: No docs found for member 'module.exports'
+----- index.js -----
+Line 10, E:0220: No docs found for member 'module.exports'
+----- rank.js -----
+Line 10, E:0110: Line too long (82 characters).
+Line 49, E:0220: No docs found for member 'module.exports'
+----- redirect.js -----
+Line 7, E:0220: No docs found for member 'module.exports'
+----- rest.js -----
+Line 47, E:0220: No docs found for member 'module.exports'
+Found 7 errors, including 0 new errors, in 6 files (0 files OK).
+
+
+In services folder:
+----- authService.js -----
+Line 119, E:0220: No docs found for member 'module.exports'
+----- rankUrlService.js -----
+Line 99, E:0220: No docs found for member 'module.exports'
+----- statsService.js -----
+Line 98, E:0220: No docs found for member 'module.exports'
+----- urlService.js -----
+Line 150, E:0220: No docs found for member 'module.exports'
+----- userUrlService.js -----
+Line 296, E:0220: No docs found for member 'module.exports'
+Found 5 errors, including 0 new errors, in 5 files (1 file OK).
+
+
+In test folder:
+----- API-running.js -----
+Line 95, E:0131: Single-quoted string preferred over double-quoted string.
+Line 95, E:0131: Single-quoted string preferred over double-quoted string.
+Line 128, E:0110: Line too long (89 characters).
+Line 130, E:0110: Line too long (85 characters).
+Line 139, E:0110: Line too long (85 characters).
+Line 148, E:0110: Line too long (81 characters).
+Line 149, E:0131: Single-quoted string preferred over double-quoted string.
+Line 149, E:0131: Single-quoted string preferred over double-quoted string.
+Line 183, E:0131: Single-quoted string preferred over double-quoted string.
+Line 183, E:0131: Single-quoted string preferred over double-quoted string.
+Line 215, E:0131: Single-quoted string preferred over double-quoted string.
+Line 215, E:0131: Single-quoted string preferred over double-quoted string.
+Line 247, E:0131: Single-quoted string preferred over double-quoted string.
+Line 247, E:0131: Single-quoted string preferred over double-quoted string.
+Line 296, E:0110: Line too long (85 characters).
+Line 298, E:0110: Line too long (81 characters).
+Line 307, E:0110: Line too long (99 characters).
+Line 309, E:0110: Line too long (86 characters).
+Line 344, E:0110: Line too long (103 characters).
+Found 19 errors, including 0 new errors, in 1 file (6 files OK).
+
+
+In public/js folder:
+----- app.js -----
+Line 1, E:0131: Single-quoted string preferred over double-quoted string.
+Line 1, E:0131: Single-quoted string preferred over double-quoted string.
+Line 1, E:0131: Single-quoted string preferred over double-quoted string.
+Line 1, E:0110: Line too long (242 characters).
+Line 5, E:0131: Single-quoted string preferred over double-quoted string.
+Line 6, E:0131: Single-quoted string preferred over double-quoted string.
+Line 7, E:0131: Single-quoted string preferred over double-quoted string.
+Line 9, E:0131: Single-quoted string preferred over double-quoted string.
+Line 10, E:0131: Single-quoted string preferred over double-quoted string.
+Line 11, E:0131: Single-quoted string preferred over double-quoted string.
+Found 10 errors, including 0 new errors, in 1 file (0 files OK).
+
+
+In public/js/controllers folder:
+----- feedController.js -----
+Line 187, E:0110: Line too long (81 characters).
+Found 1 error, including 0 new errors, in 1 file (7 files OK).
+
+
+In public/js/directives folder:
+3 files checked, no errors found.
+
+
+In public/js/services folder:
+3 files checked, no errors found.
+
+
+CSS Tester - Scss-lint Tester
+In public/css folder:
+styles.css:2:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:2:5 [W] PropertySortOrder: Properties should be ordered margin, width
+styles.css:3:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:7:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:7:5 [W] PropertySortOrder: Properties should be ordered margin, max-width
+styles.css:8:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:12:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:13:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:17:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:21:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:21:23 [W] ColorKeyword: Color `white` should be written in hexadecimal form as `#ffffff`
+styles.css:21:23 [W] ColorVariable: Color literals like `white` should only be used in variable declarations; they should be referred to via variable everywhere else.
+styles.css:22:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:22:13 [W] ColorVariable: Color literals like `#eeeeee` should only be used in variable declarations; they should be referred to via variable everywhere else.
+styles.css:22:13 [W] HexLength: Color `#eeeeee` should be written as `#eee`
+styles.css:23:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:23:5 [W] PropertySortOrder: Properties should be ordered background-color, border, border-radius, margin-bottom, padding
+styles.css:24:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:25:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:26:5 [W] Comment: Use `//` comments everywhere
+styles.css:29:1 [W] EmptyRule: Empty rule
+styles.css:33:1 [W] MergeableSelector: Merge rule `.public-feed .card .icon` with rule on line 29
+styles.css:34:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:34:12 [W] ColorKeyword: Color `darkgrey` should be written in hexadecimal form as `#a9a9a9`
+styles.css:34:12 [W] ColorVariable: Color literals like `darkgrey` should only be used in variable declarations; they should be referred to via variable everywhere else.
+styles.css:37:1 [W] MergeableSelector: Merge rule `.public-feed .card .user` with rule on line 29
+styles.css:38:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:38:12 [W] ColorVariable: Color literals like `#3658bb` should only be used in variable declarations; they should be referred to via variable everywhere else.
+styles.css:39:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:42:1 [W] MergeableSelector: Merge rule `.public-feed .card .remove` with rule on line 29
+styles.css:43:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:46:1 [W] MergeableSelector: Merge rule `.public-feed .card .time` with rule on line 29
+styles.css:47:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:47:12 [W] ColorKeyword: Color `darkgrey` should be written in hexadecimal form as `#a9a9a9`
+styles.css:47:12 [W] ColorVariable: Color literals like `darkgrey` should only be used in variable declarations; they should be referred to via variable everywhere else.
+styles.css:50:1 [W] MergeableSelector: Merge rule `.public-feed .card .post` with rule on line 29
+styles.css:51:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:51:5 [W] PropertySortOrder: Properties should be ordered margin-bottom, margin-top
+styles.css:52:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:55:1 [W] MergeableSelector: Merge rule `.public-feed .sub-card .thumbnail` with rule on line 29
+styles.css:56:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:56:5 [W] PropertySortOrder: Properties should be ordered background-color, border, border-radius, cursor, margin, max-width, padding
+styles.css:57:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:58:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:59:5 [W] Comment: Use `//` comments everywhere
+styles.css:60:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:61:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:61:23 [W] ColorKeyword: Color `white` should be written in hexadecimal form as `#ffffff`
+styles.css:61:23 [W] ColorVariable: Color literals like `white` should only be used in variable declarations; they should be referred to via variable everywhere else.
+styles.css:62:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:63:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:63:13 [W] HexLength: Color `#eeeeee` should be written as `#eee`
+styles.css:63:13 [W] ColorVariable: Color literals like `#eeeeee` should only be used in variable declarations; they should be referred to via variable everywhere else.
+styles.css:66:1 [W] SelectorDepth: Selector should have depth of applicability no greater than 3, but was 4
+styles.css:66:1 [W] MergeableSelector: Merge rule `.public-feed .sub-card .thumbnail .caption` with rule on line 29
+styles.css:67:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:70:1 [W] SelectorDepth: Selector should have depth of applicability no greater than 3, but was 4
+styles.css:70:1 [W] MergeableSelector: Merge rule `.public-feed .sub-card .thumbnail .title` with rule on line 29
+styles.css:71:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:72:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:75:1 [W] MergeableSelector: Merge rule `.public-feed .sub-card .thumbnail .root-url` with rule on line 29
+styles.css:75:1 [W] SelectorDepth: Selector should have depth of applicability no greater than 3, but was 4
+styles.css:76:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:76:5 [W] PropertySortOrder: Properties should be ordered font-size, margin-top, text-transform
+styles.css:77:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:78:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:78:16 [W] LeadingZero: `0.8` should be written without a leading zero as `.8`
+styles.css:81:1 [W] MergeableSelector: Merge rule `.public-feed .sub-card .thumbnail .root-url a` with rule on line 29
+styles.css:81:1 [W] SelectorDepth: Selector should have depth of applicability no greater than 3, but was 5
+styles.css:82:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:82:12 [W] ColorVariable: Color literals like `#a3a6ad` should only be used in variable declarations; they should be referred to via variable everywhere else.
+styles.css:85:1 [W] MergeableSelector: Merge rule `.public-feed .control-panel` with rule on line 29
+styles.css:86:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:89:1 [W] SelectorDepth: Selector should have depth of applicability no greater than 3, but was 4
+styles.css:89:1 [W] MergeableSelector: Merge rule `.public-feed .control-panel > div > span` with rule on line 29
+styles.css:90:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:93:1 [W] SingleLinePerSelector: Each selector in a comma sequence should be on its own single line
+styles.css:93:1 [W] SelectorDepth: Selector should have depth of applicability no greater than 3, but was 4
+styles.css:94:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:94:12 [W] ColorVariable: Color literals like `#777777` should only be used in variable declarations; they should be referred to via variable everywhere else.
+styles.css:94:12 [W] HexLength: Color `#777777` should be written as `#777`
+styles.css:97:1 [W] SingleLinePerSelector: Each selector in a comma sequence should be on its own single line
+styles.css:97:1 [W] SingleLinePerSelector: Each selector in a comma sequence should be on its own single line
+styles.css:97:1 [W] SelectorDepth: Selector should have depth of applicability no greater than 3, but was 4
+styles.css:98:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:98:12 [W] ColorVariable: Color literals like `#d92927` should only be used in variable declarations; they should be referred to via variable everywhere else.
+styles.css:101:1 [W] MergeableSelector: Merge rule `.public-feed .comments` with rule on line 29
+styles.css:102:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:102:5 [W] PropertySortOrder: Properties should be ordered background-color, border-radius, margin, margin-top, max-width, padding
+styles.css:103:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:104:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:105:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:106:5 [W] Comment: Use `//` comments everywhere
+styles.css:107:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:107:23 [W] ColorVariable: Color literals like `white` should only be used in variable declarations; they should be referred to via variable everywhere else.
+styles.css:107:23 [W] ColorKeyword: Color `white` should be written in hexadecimal form as `#ffffff`
+styles.css:108:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:109:5 [W] Comment: Use `//` comments everywhere
+styles.css:112:1 [W] MergeableSelector: Merge rule `.public-feed .comments .comment-box` with rule on line 29
+styles.css:113:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:116:1 [W] MergeableSelector: Merge rule `.public-feed .comments .comment` with rule on line 29
+styles.css:117:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:118:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:121:1 [W] Comment: Use `//` comments everywhere
+styles.css:122:5 [W] Comment: Use `//` comments everywhere
+styles.css:123:5 [W] Comment: Use `//` comments everywhere
+styles.css:124:1 [W] Comment: Use `//` comments everywhere
+styles.css:126:1 [W] EmptyRule: Empty rule
+styles.css:130:1 [W] MergeableSelector: Merge rule `.private-feed .card .header` with rule on line 126
+styles.css:131:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:131:12 [W] ColorVariable: Color literals like `#3658bb` should only be used in variable declarations; they should be referred to via variable everywhere else.
+styles.css:132:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:133:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:137:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:137:5 [W] PropertySortOrder: Properties should be ordered border-bottom-width, border-left-width, border-radius, border-right-width
+styles.css:138:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:139:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:140:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:143:1 [W] MergeableSelector: Merge rule `.private-feed .card .list-group-short-url` with rule on line 126
+styles.css:144:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:144:12 [W] ColorVariable: Color literals like `#e8e9ea` should only be used in variable declarations; they should be referred to via variable everywhere else.
+styles.css:149:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:149:5 [W] VendorPrefix: Avoid vendor prefixes.
+styles.css:149:5 [W] PropertySortOrder: Properties should be ordered -moz-transition, -ms-transition, -o-transition, -webkit-transition, transition
+styles.css:149:5 [W] SpaceAfterPropertyColon: Colon after property should be followed by one space
+styles.css:149:24 [W] LeadingZero: `0.5` should be written without a leading zero as `.5`
+styles.css:150:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:150:5 [W] SpaceAfterPropertyColon: Colon after property should be followed by one space
+styles.css:150:5 [W] VendorPrefix: Avoid vendor prefixes.
+styles.css:150:21 [W] LeadingZero: `0.5` should be written without a leading zero as `.5`
+styles.css:151:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:151:5 [W] SpaceAfterPropertyColon: Colon after property should be followed by one space
+styles.css:151:5 [W] VendorPrefix: Avoid vendor prefixes.
+styles.css:151:20 [W] LeadingZero: `0.5` should be written without a leading zero as `.5`
+styles.css:152:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:152:5 [W] SpaceAfterPropertyColon: Colon after property should be followed by one space
+styles.css:152:5 [W] VendorPrefix: Avoid vendor prefixes.
+styles.css:152:19 [W] LeadingZero: `0.5` should be written without a leading zero as `.5`
+styles.css:153:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:153:5 [W] SpaceAfterPropertyColon: Colon after property should be followed by one space
+styles.css:153:16 [W] LeadingZero: `0.5` should be written without a leading zero as `.5`
+styles.css:154:1 [W] EmptyLineBetweenBlocks: Rule declaration should be followed by an empty line
+styles.css:157:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:158:1 [W] EmptyLineBetweenBlocks: Rule declaration should be followed by an empty line
+styles.css:161:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:165:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+styles.css:166:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
+
+
+HTML Tester - :
+In views folder:
+---------- views/feed.html ----------
+      L1 |<div class="container feed">
+          ^ Doctype must be declared first. (doctype-first)
+
+
+---------- views/home.html ----------
+      L1 |<div class="row">
+          ^ Doctype must be declared first. (doctype-first)
+
+
+---------- views/login.html ----------
+      L1 |<div class="container">
+          ^ Doctype must be declared first. (doctype-first)
+
+
+---------- views/rank.html ----------
+      L1 |<div class="container rank">
+          ^ Doctype must be declared first. (doctype-first)
+
+
+---------- views/reg.html ----------
+      L1 |<div class="container">
+          ^ Doctype must be declared first. (doctype-first)
+
+
+---------- views/url.html ----------
+      L1 |<div class="row">
+          ^ Doctype must be declared first. (doctype-first)
+
+
+---------- views/fragments/deleteModal.html ----------
+      L1 |<div class="modal fade">
+          ^ Doctype must be declared first. (doctype-first)
+
+
+---------- views/fragments/shareButtons.html ----------
+      L1 |<span class="btn-holder" ng-click="toggleBtns()">
+          ^ Doctype must be declared first. (doctype-first)
+
+
+Scanned 10 files, found 8 errors in 8 files (84 ms)
+
+
+
+
+
+
+December 2nd Static Analysis Result:
+Tester: ClosureLinter [OSS]
+- ensures that all of your project's JavaScript code follows the guidelines in the Google JavaScript Style Guide. It can also automatically fix many common errors
 
 In app folder:
 ----- server.js -----
