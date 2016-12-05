@@ -1,168 +1,156 @@
 .center-form {
-    width: 315px;
-    margin: 5% auto;
+  margin: 5% auto;
+  width: 315px;
 }
 
 .feed {
-    max-width: 1015px;
-    margin: 0 auto;
+  margin: 0 auto;
+  max-width: 1015px;
 }
 
 .flex {
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .fa-2x {
-    font-size: 1.4em;
+  font-size: 1.4em;
 }
 
 .card {
-    background-color: white;
-    border: #eeeeee solid 1px;
-    padding: 15px 25px;
-    margin-bottom: 20px;
-    border-radius: 3px;
-    /*box-shadow: 0 0 0 1px rgba(0, 0, 0, .04),0 1px 5px rgba(0, 0, 0, .1);*/
-}
-
-.public-feed {
-
+  background-color: #fff;
+  border: #eee solid 1px;
+  border-radius: 3px;
+  margin-bottom: 20px;
+  padding: 15px 25px;
 }
 
 .public-feed .card .icon {
-    color: darkgrey;
+  color: #a9a9a9;
 }
 
 .public-feed .card .user {
-    color: #3658bb;
-    font-weight: bold;
+  color: #3658bb;
+  font-weight: bold;
 }
 
 .public-feed .card .remove {
-    float: right;
+  float: right;
 }
 
 .public-feed .card .time {
-    color: darkgrey;
+  color: #a9a9a9;
 }
 
 .public-feed .card .post {
-    margin-top: 15px;
-    margin-bottom: 15px;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 .public-feed .sub-card .thumbnail {
-    max-width: 715px;
-    margin: 0 auto;
-    border-radius: 3px;
-    /*box-shadow: 0 0 0 1px rgba(0, 0, 0, .04),0 1px 5px rgba(0, 0, 0, .1);*/
-    cursor: pointer;
-    background-color: white;
-    padding: 0;
-    border: #eeeeee solid 1px;
+  background-color: #fff;
+  border: #eee solid 1px;
+  border-radius: 3px;
+  cursor: pointer;
+  margin: 0 auto;
+  max-width: 715px;
+  padding: 0;
 }
 
 .public-feed .sub-card .thumbnail .caption {
-    padding: 15px;
+  padding: 15px;
 }
 
 .public-feed .sub-card .thumbnail .title {
-    font-size: 1.4em;
-    margin-bottom: 10px;
+  font-size: 1.4em;
+  margin-bottom: 10px;
 }
 
 .public-feed .sub-card .thumbnail .root-url {
-    margin-top: 20px;
-    text-transform: uppercase;
-    font-size: 0.8em;
+  margin-top: 20px;
+  text-transform: uppercase;
+  font-size: .8em;
 }
 
 .public-feed .sub-card .thumbnail .root-url a {
-    color: #a3a6ad;
+  color: #a3a6ad;
 }
 
 .public-feed .control-panel {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .public-feed .control-panel > div > span {
-    margin-right: 20px;
+  margin-right: 20px;
 }
 
-.public-feed .control-panel span a:link, .public-feed .control-panel span a:visited {
-    color: #777777;
+.public-feed .control-panel span a:link,
+.public-feed .control-panel span a:visited {
+  color: #777;
 }
 
-.public-feed .control-panel span a:hover, .public-feed .control-panel .liked a:link, .public-feed .control-panel .liked a:visited {
-    color: #d92927;
+.public-feed .control-panel span a:hover,
+.public-feed .control-panel .liked a:link,
+.public-feed .control-panel .liked a:visited {
+  color: #d92927;
 }
 
 .public-feed .comments {
-    max-width: 715px;
-    margin: 0 auto;
-    margin-top: 10px;
-    border-radius: 3px;
-    /*box-shadow: 0 0 0 1px rgba(0, 0, 0, .04),0 1px 5px rgba(0, 0, 0, .1);*/
-    background-color: white;
-    padding: 0;
-    /*border: #eeeeee solid 1px;*/
+  background-color: #fff;
+  border-radius: 3px;
+  margin: 0 auto;
+  margin-top: 10px;
+  max-width: 715px;
+  padding: 0;
 }
 
 .public-feed .comments .comment-box {
-    margin-top: 12px;
+  margin-top: 12px;
 }
 
 .public-feed .comments .comment {
-    margin-top: 12px;
-    padding: 0 15px;
-}
-
-/*.public-feed .comments .form-control {*/
-    /*display: inline-block;*/
-    /*width: auto;*/
-/*}*/
-
-.private-feed {
-
+  margin-top: 12px;
+  padding: 0 15px;
 }
 
 .private-feed .card .header {
-    color: #3658bb;
-    font-weight: bold;
-    margin-bottom: 20px;
+  color: #3658bb;
+  font-weight: bold;
+  margin-bottom: 20px;
 }
 
 .list-group .list-group-item {
-    border-left-width: 0;
-    border-right-width: 0;
-    border-bottom-width: 0;
-    border-radius: 0;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-radius: 0;
+  border-right-width: 0;
 }
 
 .private-feed .card .list-group-short-url {
-    color: #e8e9ea;
+  color: #e8e9ea;
 }
 
 .animate-show,
 .animate-hide {
-    -webkit-transition:all linear 0.5s;
-    -moz-transition:all linear 0.5s;
-    -ms-transition:all linear 0.5s;
-    -o-transition:all linear 0.5s;
-    transition:all linear 0.5s;
+  -moz-transition: all linear .5s;
+  -ms-transition: all linear .5s;
+  -o-transition: all linear .5s;
+  -webkit-transition: all linear .5s;
+  transition: all linear .5s;
 }
+
 .animate-show.ng-hide-remove,
 .animate-hide.ng-hide-add.ng-hide-add-active {
-    opacity: 0;
+  opacity: 0;
 }
+
 .animate-hide.ng-hide-add,
 .animate-show.ng-hide-remove.ng-hide-remove-active {
-    opacity: 1;
+  opacity: 1;
 }
 
 .short-url-text {
-    font-size: 1.3em;
-    margin-right: 10px;
+  font-size: 1.3em;
+  margin-right: 10px;
 }
 

@@ -110,6 +110,42 @@ In public/js/services folder:
 
 
 CSS Tester - Scss-lint Tester
+#2 - latest
+styles.css:21:21 [W] ColorVariable: Color literals like `#fff` should only be used in variable declarations; they should be referred to via variable everywhere else.
+styles.css:22:11 [W] ColorVariable: Color literals like `#eee` should only be used in variable declarations; they should be referred to via variable everywhere else.
+styles.css:29:10 [W] ColorVariable: Color literals like `#a9a9a9` should only be used in variable declarations; they should be referred to via variable everywhere else.
+styles.css:33:10 [W] ColorVariable: Color literals like `#3658bb` should only be used in variable declarations; they should be referred to via variable everywhere else.
+styles.css:42:10 [W] ColorVariable: Color literals like `#a9a9a9` should only be used in variable declarations; they should be referred to via variable everywhere else.
+styles.css:46:3 [W] PropertySortOrder: Properties should be ordered margin-bottom, margin-top
+styles.css:51:21 [W] ColorVariable: Color literals like `#fff` should only be used in variable declarations; they should be referred to via variable everywhere else.
+styles.css:52:11 [W] ColorVariable: Color literals like `#eee` should only be used in variable declarations; they should be referred to via variable everywhere else.
+styles.css:60:1 [W] MergeableSelector: Merge rule `.public-feed .sub-card .thumbnail .caption` with rule on line 50
+styles.css:60:1 [W] SelectorDepth: Selector should have depth of applicability no greater than 3, but was 4
+styles.css:64:1 [W] MergeableSelector: Merge rule `.public-feed .sub-card .thumbnail .title` with rule on line 50
+styles.css:64:1 [W] SelectorDepth: Selector should have depth of applicability no greater than 3, but was 4
+styles.css:69:1 [W] SelectorDepth: Selector should have depth of applicability no greater than 3, but was 4
+styles.css:69:1 [W] MergeableSelector: Merge rule `.public-feed .sub-card .thumbnail .root-url` with rule on line 50
+styles.css:70:3 [W] PropertySortOrder: Properties should be ordered font-size, margin-top, text-transform
+styles.css:75:1 [W] SelectorDepth: Selector should have depth of applicability no greater than 3, but was 5
+styles.css:75:1 [W] MergeableSelector: Merge rule `.public-feed .sub-card .thumbnail .root-url a` with rule on line 50
+styles.css:76:10 [W] ColorVariable: Color literals like `#a3a6ad` should only be used in variable declarations; they should be referred to via variable everywhere else.
+styles.css:83:1 [W] MergeableSelector: Merge rule `.public-feed .control-panel > div > span` with rule on line 79
+styles.css:83:1 [W] SelectorDepth: Selector should have depth of applicability no greater than 3, but was 4
+styles.css:87:1 [W] SelectorDepth: Selector should have depth of applicability no greater than 3, but was 4
+styles.css:89:10 [W] ColorVariable: Color literals like `#777` should only be used in variable declarations; they should be referred to via variable everywhere else.
+styles.css:92:1 [W] SelectorDepth: Selector should have depth of applicability no greater than 3, but was 4
+styles.css:95:10 [W] ColorVariable: Color literals like `#d92927` should only be used in variable declarations; they should be referred to via variable everywhere else.
+styles.css:99:21 [W] ColorVariable: Color literals like `#fff` should only be used in variable declarations; they should be referred to via variable everywhere else.
+styles.css:107:1 [W] MergeableSelector: Merge rule `.public-feed .comments .comment-box` with rule on line 98
+styles.css:111:1 [W] MergeableSelector: Merge rule `.public-feed .comments .comment` with rule on line 98
+styles.css:117:10 [W] ColorVariable: Color literals like `#3658bb` should only be used in variable declarations; they should be referred to via variable everywhere else.
+styles.css:130:10 [W] ColorVariable: Color literals like `#e8e9ea` should only be used in variable declarations; they should be referred to via variable everywhere else.
+styles.css:135:3 [W] VendorPrefix: Avoid vendor prefixes.
+styles.css:136:3 [W] VendorPrefix: Avoid vendor prefixes.
+styles.css:137:3 [W] VendorPrefix: Avoid vendor prefixes.
+styles.css:138:3 [W] VendorPrefix: Avoid vendor prefixes.
+
+#1
 In public/css folder:
 styles.css:2:1 [W] Indentation: Line should be indented 2 spaces, but was indented 4 spaces
 styles.css:2:5 [W] PropertySortOrder: Properties should be ordered margin, width
