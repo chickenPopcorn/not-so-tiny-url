@@ -11,6 +11,7 @@ var authService = require('../services/authService');
 router.get('/public/:pageSize/:lastId', function(req, res) {
     var pageSize = req.params.pageSize;
     var lastId = req.params.lastId;
+    // lastId = parseInt(lastId);
     userUrlService.getFeed(pageSize, lastId, true, -1, function(data) {
         res.json(data);
     });
@@ -19,8 +20,9 @@ router.get('/public/:pageSize/:lastId', function(req, res) {
 router.get('/private/:pageSize/:lastId', function(req, res) {
     var pageSize = req.params.pageSize;
     var lastId = req.params.lastId;
+    // lastId = parseInt(lastId);
     authService.getUser(req, function(user) {
-        if (user._id != -1) {
+        if (user._id !== -1) {
             userUrlService.getFeed(pageSize, lastId, false, user._id,
                 function(data) {
                     res.json(data);
@@ -56,7 +58,7 @@ router.get('/post/liked/:id', function(req, res) {
     var postId = req.params.id;
     authService.getUser(req, function(user) {
         var userId = user._id;
-        if (userId != -1) {
+        if (userId !== -1) {
             userUrlService.hasLiked(postId, userId, function(data) {
                 res.json(data);
             });
@@ -121,7 +123,7 @@ router.post('/post/removeComment', jsonParser, function(req, res) {
         if (userId != -1) {
             userUrlService.removeComment(req.body.commentId, userId,
                 function(data) {
-                    if (data.status == 'ok') {
+                    if (data.status === 'ok') {
                         res.json(data);
                     } else {
                         res.status(403).send(data);

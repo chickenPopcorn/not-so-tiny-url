@@ -46,7 +46,7 @@ var getShortUrl = function(longUrl, callback) {
             });
         } else {
             validateUrl(longUrl, function(output) {
-                if (output.status != 'ok') {
+                if (output.status !== 'ok') {
                     callback(output);
                 } else {
                     UrlModel.findOne({

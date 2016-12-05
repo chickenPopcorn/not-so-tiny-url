@@ -10,10 +10,10 @@ var userUrlService = require('../services/userUrlService');
 router.post('/urls', jsonParser, function(req, res) {
     var longUrl = req.body.longUrl;
     urlService.getShortUrl(longUrl, function(json) {
-        if (json.status == 'ok') {
+        if (json.status === 'ok') {
             authService.getUser(req, function(user) {
                 // console.log('user: ' + user);
-                if (user._id != -1) {
+                if (user._id !== -1) {
                     var isPublic = typeof req.body.isPublic === 'undefined' ?
                         true : req.body.isPublic;
                     userUrlService.add(user._id, user.fullname, json.shortUrl,
