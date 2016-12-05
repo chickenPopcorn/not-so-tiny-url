@@ -18,10 +18,10 @@ angular.module('tinyurlApp').controller('feedController',
             if ($scope.busy) return;
             $scope.busy = true;
 
-            var lastId = $scope.publicItems.length == 0 ? -1 :
+            var lastId = $scope.publicItems.length === 0 ? -1 :
                 $scope.publicItems[$scope.publicItems.length - 1]._id;
             feedService.getFeed(4, lastId).success(function(data) {
-                // console.log(data);
+                console.log(data);
                 $scope.total = data.count;
                 for (var i = 0; i < data.data.length; i++) {
                     $scope.publicItems.push(data.data[i]);
@@ -46,7 +46,7 @@ angular.module('tinyurlApp').controller('feedController',
 
         $scope.getMeta = function(url, item) {
             feedService.getMeta(url).success(function(data) {
-                if (data && data.result.status == 'ok') {
+                if (data && data.result.status === 'ok') {
                     item.rootUrl = data.meta.rootUrl.replace(/.*?:\/\//g, '');
                     item.title = data.meta.title;
                     item.description = data.meta.description;
@@ -66,7 +66,7 @@ angular.module('tinyurlApp').controller('feedController',
 
         $scope.getNumberOfLikes = function(item) {
             feedService.getNumberOfLikes(item._id).success(function(data) {
-                if (data.status == 'ok') {
+                if (data.status === 'ok') {
                     item.numOfLikes = data.data.count;
                 }
             });
@@ -141,7 +141,7 @@ angular.module('tinyurlApp').controller('feedController',
 
         // add comment
         $scope.addComment = function(item) {
-            if (item.newComment && item.newComment != '') {
+            if (item.newComment && item.newComment !== '') {
                 feedService.addComment(item._id, item.newComment).
                     success(function(data) {
                         data.data.isDeletable = true;
@@ -161,7 +161,7 @@ angular.module('tinyurlApp').controller('feedController',
             }).then(function(modal) {
                 modal.element.modal();
                 modal.close.then(function(result) {
-                    if (result == 'Yes') {
+                    if (result === 'Yes') {
                         feedService.removeComment(comment._id).
                             success(function() {
                                 var index = item.comments.indexOf(comment);
@@ -184,8 +184,8 @@ angular.module('tinyurlApp').controller('feedController',
         };
 
         var isCommentDeletable = function(comment) {
-            return $rootScope.currentUser && $rootScope.currentUser._id != -1 &&
-                comment.userId == $rootScope.currentUser._id;
+            return $rootScope.currentUser && $rootScope.currentUser._id !== -1 &&
+                comment.userId === $rootScope.currentUser._id;
         };
 
         // remove post
@@ -214,6 +214,6 @@ angular.module('tinyurlApp').controller('feedController',
 
         var isPostDeletable = function(item) {
             return $rootScope.currentUser && $rootScope.currentUser._id != -1 &&
-                item.userId == $rootScope.currentUser._id;
+                item.userId === $rootScope.currentUser._id;
         };
     });

@@ -14,7 +14,7 @@ describe('Feed', function() {
     var url = 'http://localhost:3000';
 
     it('should return the most recent 2 public feed posts', function(done) {
-        userUrlService.getFeed(2, -1, true, -1, function(json) {
+        userUrlService.getFeed(2, '-1', true, -1, function(json) {
             assert.equal(json.data.length, 2);
             done();
         });
@@ -27,7 +27,7 @@ describe('Feed', function() {
     });
     it('should return status ok when getting the private feed for a user',
         function(done) {
-            userUrlService.getFeed(10, -1, false, '5801670fec83023b1c9e81c1',
+            userUrlService.getFeed(10, '-1', false, '5801670fec83023b1c9e81c1',
                 function(json) {
                     assert.equal(json.status, 'ok');
                     done();
@@ -170,7 +170,7 @@ describe('Feed', function() {
                     assert.equal(json.shortUrl, 'test');
                     assert.equal(json.longUrl, 'https://www.test.com/');
                     postId = json._id;
-                    userUrlService.removePost(postId, '-1', function(json) {
+                    userUrlService.removePost(postId, -1, function(json) {
                         assert.equal(json.status, 'failed');
                         assert.equal(json.message, 'Not logged in.');
                         userUrlService.removePost(postId,

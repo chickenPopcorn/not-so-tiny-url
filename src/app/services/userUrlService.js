@@ -13,7 +13,7 @@ var host = process.env.REDIS_PORT_6379_TCP_ADDR;
 var redisClient = redis.createClient(port, host);
 
 var add = function(userId, fullname, shortUrl, longUrl, isPublic, callback) {
-    if (userId != '-1') {
+    if (userId !== -1) {
         var userUrl = new userUrlModel({
             userId: userId,
             fullname: fullname,
@@ -36,11 +36,11 @@ var getFeed = function(pageSize, lastId, isPublic, userId, callback) {
     var actualQuery = {isDeleted: {$ne: true}};
     // console.log('userId: ' + userId);
     // console.log('lastId: ' + lastId);
-    if (userId != -1) {
+    if (userId !== -1) {
         countQuery['userId'] = userId;
         actualQuery['userId'] = userId;
     }
-    if (lastId != -1) {
+    if (lastId !== '-1') {
         actualQuery['_id'] = {$lt: lastId};
     }
     countQuery['public'] = isPublic;
@@ -116,7 +116,7 @@ var getPostById = function(postId, callback) {
 };
 
 var removePost = function(postId, userId, callback) {
-    if (userId == -1) {
+    if (userId === -1) {
         callback({'status': 'failed', 'message': 'Not logged in.'});
     } else {
         getPostById(postId, function(post) {

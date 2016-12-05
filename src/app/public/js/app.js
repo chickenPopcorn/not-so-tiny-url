@@ -1,14 +1,17 @@
-var app = angular.module("tinyurlApp", ["ngRoute", "ngResource", 'ngAnimate', 'angularModalService', 'chart.js', 'satellizer', 'ngMessages', 'toggle-switch', 'infinite-scroll', 'yaru22.angular-timeago', 'angularMoment', '720kb.socialshare']);
+var app = angular.module('tinyurlApp', ['ngRoute', 'ngResource',
+    'ngAnimate', 'angularModalService', 'chart.js', 'satellizer',
+    'ngMessages', 'toggle-switch', 'infinite-scroll',
+    'yaru22.angular-timeago', 'angularMoment', '720kb.socialshare']);
 
 app.config(function($routeProvider, $authProvider) {
     // special varible $routeProvider
-    $routeProvider.when("/", {
-            templateUrl: "./public/views/home.html",
-            controller: "homeController"
+    $routeProvider.when('/', {
+            templateUrl: './public/views/home.html',
+            controller: 'homeController'
         })
-        .when("/urls/:shortUrl", {
-            templateUrl: "./public/views/url.html",
-            controller: "urlController"
+        .when('/urls/:shortUrl', {
+            templateUrl: './public/views/url.html',
+            controller: 'urlController'
         })
         .when('/login', {
             templateUrl: './public/views/login.html',
