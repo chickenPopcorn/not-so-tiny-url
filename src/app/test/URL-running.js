@@ -6,6 +6,8 @@ var should = require('should');
 var request = require('supertest');
 var mongoose = require('mongoose');
 var urlService = require('../services/urlService');
+var authService = require('../services/authService');
+
 
 describe('URL', function() {
     var url = 'http://localhost:3000';
@@ -40,6 +42,28 @@ describe('URL', function() {
                 done();
             });
         });
+
+    // for rest.js
+    /*
+    it('should return 200 when get a specific url successfully',
+        function(done) {
+            var user = {
+                email: 'test@test.com',
+                password: 'test123'
+            };
+            authService.login(user.email, user.password, function(json) {
+                // assert.equal(json.status, 200);
+                token = json.token;
+                request(url).get('/urls/*').
+                send().end(function(err, res) {
+                    if (err) {
+                        throw err;
+                    }
+                    res.should.have.property('status', 'ok');
+                    done();
+                });
+            });
+        }); */
 });
 
 
