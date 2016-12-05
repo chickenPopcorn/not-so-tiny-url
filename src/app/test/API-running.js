@@ -92,7 +92,7 @@ describe('APIs', function() {
                     // assert.equal(json.status, 200);
                     token = json.token;
                     request(url).get('/feed/private/10/-1')
-                        .set("Authorization", "Hello " + token)
+                        .set('Authorization', 'Hello ' + token)
                         .send()
                         .end(function(err, res) {
                             if (err) {
@@ -125,18 +125,21 @@ describe('APIs', function() {
                     done();
                 });
             });
-        it('should return 403 if checking a post has been liked by a non-logged-in user',
+        it('should return 403 if checking a post has been liked by ' +
+            'a non-logged-in user',
             function(done) {
-                request(url).get('/feed/post/liked/58030715c387a023e0fb1cb1').send().
-                end(function(err, res) {
-                    if (err) {
-                        throw err;
-                    }
-                    res.should.have.property('status', 403);
-                    done();
-                });
+                request(url).get('/feed/post/liked/58030715c387a023e0fb1cb1')
+                    .send()
+                    .end(function(err, res) {
+                        if (err) {
+                            throw err;
+                        }
+                        res.should.have.property('status', 403);
+                        done();
+                    });
             });
-        it('should return 200 if checking a post has been liked by a logged-in user',
+        it('should return 200 if checking a post has been liked by ' +
+            'a logged-in user',
             function(done) {
                 var user = {
                         email: 'test@test.com',
@@ -145,8 +148,9 @@ describe('APIs', function() {
                 authService.login(user.email, user.password, function(json) {
                     // assert.equal(json.status, 200);
                     token = json.token;
-                    request(url).get('/feed/post/liked/58030715c387a023e0fb1cb1')
-                        .set("Authorization", "Hello " + token)
+                    request(url).get('/feed/post/liked' +
+                        '/58030715c387a023e0fb1cb1')
+                        .set('Authorization', 'Hello ' + token)
                         .send()
                         .end(function(err, res) {
                             if (err) {
@@ -180,7 +184,7 @@ describe('APIs', function() {
                     // assert.equal(json.status, 200);
                     token = json.token;
                     request(url).post('/feed/post/like')
-                        .set("Authorization", "Hello " + token)
+                        .set('Authorization', 'Hello ' + token)
                         .send({postId: '58030715c387a023e0fb1cb1'})
                         .end(function(err, res) {
                             if (err) {
@@ -212,7 +216,7 @@ describe('APIs', function() {
                     // assert.equal(json.status, 200);
                     token = json.token;
                     request(url).post('/feed/post/unlike')
-                        .set("Authorization", "Hello " + token)
+                        .set('Authorization', 'Hello ' + token)
                         .send({postId: '58030715c387a023e0fb1cb1'})
                         .end(function(err, res) {
                             if (err) {
@@ -244,7 +248,7 @@ describe('APIs', function() {
                     // assert.equal(json.status, 200);
                     token = json.token;
                     request(url).post('/feed/post/comment')
-                        .set("Authorization", "Hello " + token)
+                        .set('Authorization', 'Hello ' + token)
                         .send({postId: '58030715c387a023e0fb1cb1'})
                         .end(function(err, res) {
                             if (err) {
@@ -293,9 +297,11 @@ describe('APIs', function() {
             }); */
 
         // get comments for a post
-        it('should return ok status if gets comment for a certain post successfully',
+        it('should return ok status if gets comment for a certain ' +
+            'post successfully',
             function(done) {
-                request(url).get('/feed/post/comments/58030715c387a023e0fb1cb1').
+                request(url).get('/feed/post/comments' +
+                    '/58030715c387a023e0fb1cb1').
                 send().end(function(err, res) {
                     if (err) {
                         throw err;
@@ -304,9 +310,11 @@ describe('APIs', function() {
                     done();
                 });
             });
-        it('should return ok status if gets the number of comment for a certain post successfully',
+        it('should return ok status if gets the number of comment ' +
+            'for a certain post successfully',
             function(done) {
-                request(url).get('/feed/post/numOfComments/58030715c387a023e0fb1cb1').
+                request(url).get('/feed/post/numOfComments' +
+                    '/58030715c387a023e0fb1cb1').
                 send().end(function(err, res) {
                     if (err) {
                         throw err;
@@ -341,7 +349,8 @@ describe('APIs', function() {
                     token = json.token;
                     request(url).post('/feed/post/removePost')
                         .set("Authorization", "Hello " + token)
-                        .send({postId: '58030715c387a023e0fb1cb1', userId: '58016eea901fbc0001a3b99a'})
+                        .send({postId: '58030715c387a023e0fb1cb1',
+                            userId: '58016eea901fbc0001a3b99a'})
                         .end(function(err, res) {
                             if (err) {
                                 throw err;
