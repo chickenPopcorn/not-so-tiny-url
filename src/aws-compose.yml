@@ -1,5 +1,7 @@
 nginx:
-    build: ./nginx
+    image: rxie25/nginx
+    cpu_shares: 25
+    mem_limit: 262144000
     ports:
         - "80:80"
     links:
@@ -7,19 +9,24 @@ nginx:
         - "app2:app2"
 
 app1:
-    build: ./app
+    image: rxie25/tinyurl
+    cpu_shares: 25
+    mem_limit: 262144000
     ports:
         - "3000"
     links:
         - "cache:redis"
 
 app2:
-    build: ./app
+    image: rxie25/tinyurl
+    cpu_shares: 25
+    mem_limit: 262144000
     ports:
         - "3000"
     links:
         - "cache:redis"
 
-
 cache:
     image: redis
+    cpu_shares: 25
+    mem_limit: 262144000
