@@ -1,7 +1,5 @@
 angular.module('tinyurlApp').controller('rankController',
-    function($location, $scope, $http, $auth, $window, $rootScope, feedService, rankService) {
-        var host = location.host;
-
+    function($scope, $http, $auth, $window, $rootScope, feedService, rankService) {
         $scope.topkUrls = [];
         console.log('create');
 
@@ -13,14 +11,14 @@ angular.module('tinyurlApp').controller('rankController',
                     if (data && data.result.status === 'ok') {
                         var title = data.meta.title;
                         $scope.topkUrls.push({
-                            shortUrl: host + '/' + shortUrl,
+                            shortUrl: '/#/urls/' + shortUrl,
                             longUrl: longUrl,
                             title: title,
                             clicks: clicks
                         });
                     }
                 });
-                //console.log($scope.topkUrls);
+                // console.log($scope.topkUrls);
             });
         };
 
