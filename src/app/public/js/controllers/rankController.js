@@ -13,7 +13,7 @@ angular.module('tinyurlApp').controller('rankController',
                         $scope.topkUrls.push({
                             shortUrl: '/#/urls/' + shortUrl,
                             longUrl: longUrl,
-                            title: title,
+                            title: title.trim(),
                             clicks: clicks
                         });
                     }
