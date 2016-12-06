@@ -12,7 +12,7 @@
                                 <th>Page Title</th>
                             </tr>
                         </thead>
-                        <tbody ng-repeat="url in topkUrls">
+                        <tbody ng-repeat="url in topkUrls | orderBy:'-clicks'">
                             <tr>
                                 <th>{{$index + 1}}</th>
                                 <td>{{url.clicks}}</td>
