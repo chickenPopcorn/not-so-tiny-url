@@ -10,7 +10,7 @@
                                 <th>#</th>
                                 <th>Clicks</th>
                                 <th>TinyUrl</th>
-                                <th>Original Url</th>
+                                <th>Page Title</th>
                             </tr>
                         </thead>
                         <tbody ng-repeat="url in topkUrls">
@@ -18,7 +18,7 @@
                                 <th>{{$index + 1}}</th>
                                 <td>{{url.clicks}}</td>
                                 <td><a ng-href="{{url.shortUrl}}">{{url.shortUrl}}</a></td>
-                                <td>{{url.longUrl}}</td>
+                                <td>{{url.title}}</td>
                             </tr>
                         </tbody>
 

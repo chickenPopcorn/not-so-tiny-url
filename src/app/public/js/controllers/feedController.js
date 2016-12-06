@@ -4,8 +4,7 @@
 angular.module('tinyurlApp').controller('feedController',
     function($scope, $location, $auth, $window, $rootScope, feedService,
               timeAgo, ModalService) {
-        var host = 'http://localhost:3000/'; // TODO: should find a way not to
-                                             // hardcode this
+        var host = $location.host();
 
         $scope.isLoggedIn = function() {
             return $auth.isAuthenticated();
@@ -106,7 +105,7 @@ angular.module('tinyurlApp').controller('feedController',
                     data.data[i].isDeletable = isPostDeletable(data.data[i]);
 
                     var url = data.data[i].longUrl ? data.data[i].longUrl :
-                    'localhost:3000/' + data.data[i].shortUrl;
+                    location.host + data.data[i].shortUrl;
                     $scope.getMeta(url, data.data[i]);
                 }
 
