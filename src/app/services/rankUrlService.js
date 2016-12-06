@@ -9,6 +9,24 @@ var host = process.env.REDIS_PORT_6379_TCP_ADDR;
 var redisClient = redis.createClient(port, host);
 var hashClick = '_clicks';
 
+var getUrlClicks = function(shortUrl, callback) {
+    RequestModel.count({shortUrl: shortUrl}, function(err, data) {
+        callback(shortUrl, data);
+    });
+
+};
+
+var getUrlClicksCached = function(shortUrl, callback) {
+    redisClient.hget(hashClick, shortUrl, function(err, data) {
+        if (err == null && data == null) {
+            getUrlClicks(shortUrl, function(shortUrl, data) {
+                callback(shortUrl, data);
+            });
+        } else {
+            callback(shortUrl, data);
+        }
+    });
+};
 
 var getAllClicks = function(callback) {
     redisClient.hgetall(hashClick, callback);
@@ -74,26 +92,6 @@ var updateUrlClicks = function(shortUrl, callback) {
             callback(shortUrl, clicks);
         });
     });
-};
-
-var getUrlClicksCached = function(shortUrl, callback) {
-    redisClient.hget(hashClick, shortUrl, function(err, data) {
-        if (err == null && data == null) {
-            getUrlClicks(shortUrl, function(shortUrl, data) {
-                callback(shortUrl, data);
-            });
-        } else {
-            callback(shortUrl, data);
-        }
-    });
-};
-
-var getUrlClicks = function(shortUrl, callback) {
-    RequestModel.count({shortUrl: shortUrl}, function(err, data) {
-        //console.log(data);
-        callback(shortUrl, data);
-    });
-
 };
 
 module.exports = {
