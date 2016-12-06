@@ -1,42 +1,38 @@
 angular.module('tinyurlApp').controller('rankController',
-    function($scope, $http, $auth, $window, $rootScope, rankService) {
-        var host = 'http://localhost:3000/'; // TODO: should find a way not to
-                                             // hardcode this
-
+    function($scope, $http, $auth, $window, $rootScope, feedService, rankService) {
         $scope.topkUrls = [];
         console.log('create');
 
-        var getLongUrl = function(shortUrl, clicks) {
+        var getTitle = function(shortUrl, clicks) {
             $http.get('/api/v1/urls/' + shortUrl).then(function(res) {
-                $scope.topkUrls.push({
-                    shortUrl: host + shortUrl,
-                    longUrl: res.data.longUrl,
-                    clicks: clicks
+                var longUrl = res.data.longUrl;
+                // console.log(longUrl);
+                feedService.getMeta(longUrl).success(function(data) {
+                    if (data && data.result.status === 'ok') {
+                        var title = data.meta.title;
+                        $scope.topkUrls.push({
+                            shortUrl: '/#/urls/' + shortUrl,
+                            longUrl: longUrl,
+                            title: title.trim(),
+                            clicks: clicks
+                        });
+                    }
                 });
-                console.log($scope.topkUrls);
+                // console.log($scope.topkUrls);
             });
         };
 
-        // rankService.saveUrlClicks().then(function() {
-        //     rankService.getTopKUrls(10).success(function(data) {
-        //         // console.log(data);
-        //         for(var i = 0; i < data.length; i++) {
-        //             getLongUrl(data[i].shortUrl, data[i].clicks);
-        //         }
-        //     });
-        // });
-
         rankService.getAllClicks().success(function(res) {
 
-            console.log(res);
+            // console.log(res);
 
             if (res.data == null) {
                 rankService.saveUrlClicks().then(function(res) {
-                    console.log(res);
+                    //console.log(res);
                     rankService.getTopKUrls(10).success(function(data) {
-                        console.log(data);
+                        // console.log(data);
                         for (var i = 0; i < data.length; i++) {
-                            getLongUrl(data[i].shortUrl, data[i].clicks);
+                            getTitle(data[i].shortUrl, data[i].clicks);
                         }
                     });
                 });
@@ -44,7 +40,7 @@ angular.module('tinyurlApp').controller('rankController',
                 rankService.getTopKUrls(10).success(function(data) {
                     // console.log(data);
                     for (var i = 0; i < data.length; i++) {
-                        getLongUrl(data[i].shortUrl, data[i].clicks);
+                        getTitle(data[i].shortUrl, data[i].clicks);
                     }
                 });
             }
