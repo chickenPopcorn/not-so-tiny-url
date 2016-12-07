@@ -1,3 +1,12 @@
+### Deployment
+After making changes to the repo, make sure run the following to deploy through AWS EC Container Service
+```
+docker build -t rxie25/tiny
+docker push rxie25/tiny
+
+```
+and rerun AWS cloudformation stack
+
 ### Installation Instruction for Mac
 
 - Install node.js version 6 using `brew install node`.
