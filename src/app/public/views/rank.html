@@ -12,8 +12,8 @@
                                 <th>Page Title</th>
                             </tr>
                         </thead>
-                        <tbody ng-repeat="url in topkUrls | orderBy:'-clicks'">
-                            <tr>
+                        <tbody>
+                            <tr ng-repeat="url in topkUrls | orderBy:'-clicks'">
                                 <th>{{$index + 1}}</th>
                                 <td>{{url.clicks}}</td>
                                 <td><a ng-href="{{url.shortUrl}}">{{url.title}}</a></td>
