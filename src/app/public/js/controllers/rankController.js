@@ -24,10 +24,10 @@ angular.module('tinyurlApp').controller('rankController',
 
         rankService.getAllClicks().success(function(res) {
 
-            // console.log(res);
+            console.log(res.data);
 
             if (res.data == null) {
-                rankService.saveUrlClicks().then(function(res) {
+                rankService.saveUrlClicks().then(function(res1) {
                     //console.log(res);
                     rankService.getTopKUrls(10).success(function(data) {
                         // console.log(data);
