@@ -13,6 +13,8 @@ angular.module('tinyurlApp').controller('feedController',
         $scope.publicItems = [];
         $scope.total = -1;
 
+        $scope.url = $location.protocol() + "://" + $location.host() + "/"
+
         $scope.loadPublicItems = function() {
             if ($scope.busy) return;
             $scope.busy = true;

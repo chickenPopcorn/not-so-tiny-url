@@ -16,7 +16,7 @@
                         </div>
                         <div class="post">
                             <span class="text">{{item.title}}</span>
-                            <span><a ng-href="{{'/' + item.shortUrl}}" target="_blank">{{'http://localhost:3000/' + item.shortUrl}}</a></span>
+                            <span><a ng-href="{{'/' + item.shortUrl}}" target="_blank" >{{url + item.shortUrl}}</a></span>
                         </div>
 
                         <div class="row sub-card" ng-click="toUrl(item.shortUrl)">
