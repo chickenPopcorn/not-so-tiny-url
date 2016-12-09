@@ -4,7 +4,7 @@
 angular.module('tinyurlApp').controller('feedController',
     function($scope, $location, $auth, $window, $rootScope, feedService,
               timeAgo, ModalService) {
-        var host = $location.host();
+        // var host = $location.host();
 
         $scope.isLoggedIn = function() {
             return $auth.isAuthenticated();
@@ -13,7 +13,7 @@ angular.module('tinyurlApp').controller('feedController',
         $scope.publicItems = [];
         $scope.total = -1;
 
-        $scope.url = $location.protocol() + "://" + $location.host() + "/"
+        $scope.url = $location.protocol() + "://" + $location.host() + ($location.port() !== 80 ? ':'+$location.port() : '') +  "/";
 
         $scope.loadPublicItems = function() {
             if ($scope.busy) return;
@@ -28,7 +28,7 @@ angular.module('tinyurlApp').controller('feedController',
                     $scope.publicItems.push(data.data[i]);
                     data.data[i].isDeletable = isPostDeletable(data.data[i]);
 
-                    data.data[i].fullShortUrl = host + data.data[i].shortUrl;
+                    data.data[i].fullShortUrl = $scope.url + data.data[i].shortUrl;
                     var url = data.data[i].longUrl ? data.data[i].longUrl :
                         data.data[i].fullShortUrl;
                     $scope.getMeta(url, data.data[i]);
@@ -106,8 +106,8 @@ angular.module('tinyurlApp').controller('feedController',
                     $scope.privateItems.push(data.data[i]);
                     data.data[i].isDeletable = isPostDeletable(data.data[i]);
 
-                    var url = data.data[i].longUrl ? data.data[i].longUrl :
-                    location.host + data.data[i].shortUrl;
+                    data.data[i].fullShortUrl = $scope.url + data.data[i].shortUrl;
+                    var url = data.data[i].longUrl ? data.data[i].longUrl : data.data[i].fullShortUrl;
                     $scope.getMeta(url, data.data[i]);
                 }
 
