@@ -7,7 +7,7 @@ var request = require('supertest');
 var mongoose = require('mongoose');
 var urlService = require('../services/urlService');
 var authService = require('../services/authService');
-
+var rest = require('../routes/rest.js');
 
 describe('URL', function() {
     var url = 'http://localhost:3000';
@@ -44,26 +44,72 @@ describe('URL', function() {
         });
 
     // for rest.js
-    /*
-    it('should return 200 when get a specific url successfully',
-        function(done) {
-            var user = {
-                email: 'test@test.com',
-                password: 'test123'
-            };
-            authService.login(user.email, user.password, function(json) {
-                // assert.equal(json.status, 200);
-                token = json.token;
-                request(url).get('/urls/*').
-                send().end(function(err, res) {
+    it('should return 200 when get a specific url successfully', function(done) {
+        request(url).get('/api/v1/urls/Ca').
+        send().end(function(err, res) {
+            if (err) {
+                throw err;
+            }
+            res.should.have.property('status', 200);
+            done();
+        });
+    });
+    it('should return 200 when get url info successfully', function(done) {
+        request(url).get('/api/v1/urls/Ca/hours').
+        send().end(function(err, res) {
+            if (err) {
+                throw err;
+            }
+            res.should.have.property('status', 200);
+            done();
+        });
+    });
+    it('should return 200 when get urls successfully without logging in', function(done) {
+        var url_para = {'longUrl': ''};
+        request(url).post('/api/v1/urls')
+            .send(url_para)
+            .end(function(err, res) {
+            if (err) {
+                throw err;
+            }
+            // console.log(res.body);
+            res.should.have.property('status', 400);
+            done();
+        });
+    });
+    it('should return 200 when get urls successfully after the user logging in', function(done) {
+        var url_para = {'longUrl': 'http://www.lonelyplanet.com/news/2016/12/06/worlds-highest-bridge-proposal-daredevil/'};
+        var user = {
+            email: 'test@test.com',
+            password: 'test123'
+        };
+        authService.login(user.email, user.password, function(json) {
+            // assert.equal(json.status, 200);
+            token = json.token;
+            request(url).post('/api/v1/urls')
+                .set('Authorization', 'Hello ' + token)
+                .send(url_para)
+                .end(function (err, res) {
                     if (err) {
                         throw err;
                     }
-                    res.should.have.property('status', 'ok');
+                    // console.log(res.body);
+                    res.should.have.property('status', 200);
                     done();
                 });
-            });
-        }); */
+        });
+    });
+
+    // for redirect.js
+    it('should return 200 when get a specific url successfully', function(done) {
+        request(url).get('/urls/Ca').send().end(function (err, res) {
+            if (err) {
+                throw err;
+            }
+            res.should.have.property('status', 302);
+            done();
+        });
+    });
 });
 
 
