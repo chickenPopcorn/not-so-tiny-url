@@ -77,7 +77,7 @@ describe('URL', function() {
             done();
         });
     });
-    it('should return 200 when get urls successfully after the user logging in', function(done) {
+   /* it('should return 200 when get urls successfully after the user logging in', function(done) {
         var url_para = {'longUrl': 'http://www.lonelyplanet.com/news/2016/12/06/worlds-highest-bridge-proposal-daredevil/'};
         var user = {
             email: 'test@test.com',
@@ -97,8 +97,9 @@ describe('URL', function() {
                     res.should.have.property('status', 200);
                     done();
                 });
+
         });
-    });
+    }); */
 
     // for redirect.js
     it('should return 200 when get a specific url successfully', function(done) {
