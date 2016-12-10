@@ -336,34 +336,33 @@ describe('APIs', function() {
                 });
             });
 
-        /* NEED TO FIX, SAME BUG AS THE TEST FOR REMOVECOMMENT ABOVE */
-        /*
+        /* NEED TO FIX, SAME BUG AS THE TEST FOR REMOVECOMMENT ABOVE */ /*
         it('should return 200 if a logged-in user remove a post',
             function(done) {
                 var user = {
                     email: 'test@test.com',
                     password: 'test123'
                 };
+
                 authService.login(user.email, user.password, function(json) {
                     // assert.equal(json.status, 200);
                     token = json.token;
+                    // console.log(json);
                     request(url).post('/feed/post/removePost')
                         .set("Authorization", "Hello " + token)
-                        .send({postId: '58030715c387a023e0fb1cb1',
-                            userId: '58016eea901fbc0001a3b99a'})
+                        .send({postId: '58030715c387a023e0fb1cb1', // this id for lonelyplanet post
+                            userId: '58214149f193d82e0032087b'}) // this id if for test@test.com
                         .end(function(err, res) {
                             if (err) {
                                 throw err;
                             }
+                            // console.log(res.body);
                             assert.equal(res.body.status, 'ok');
                             done();
                         });
                 });
             }); */
-
     });
-
-
 
     describe('Rank', function() {
         it('should return number of clicks for all urls', function(done) {

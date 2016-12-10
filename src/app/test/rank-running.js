@@ -40,6 +40,7 @@ describe('Rank', function() {
                 done();
             });
         });
+
     it('should return the number of clicks for a given shortUrl saved in Redis',
         function(done) {
             var tinyUrl = 'a';
