@@ -5,7 +5,14 @@ docker build -t rxie25/tiny
 docker push rxie25/tiny
 
 ```
-and rerun AWS cloudformation stack
+```
+ecs-cli up --keypair tinyurl --capability-iam --size 1 --instance-type t2.micro
+
+ecs-cli compose --file aws-compose.yml up
+```
+for first time deployment using aws ec container service
+
+and re-run AWS cloudformation stack
 
 ### Installation Instruction for Mac
 
