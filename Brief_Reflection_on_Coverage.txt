@@ -1,0 +1,61 @@
+﻿Prof. Kaiser
+Continuous Integration and Coverage - Brief Reflection on Coverage
+SYNC(Ruicong Xie-rx2119, Tianci Zhong-tz2278, Yue Cen-yc3171, Jiaxin Su-js4722)
+December 10th
+
+
+Brief Reflection on Coverage
+
+
+Our continuous integration tool is Travis CI, and our statement coverage tool is Coverall.io. 
+The current coverage of our test is 80%. As we discussed Section I. Discussion, the two main reasons caused the 20% uncovered codes are: 1. difficult -to-test codes; 2. Limited time. 
+
+
+First, some of the codes in our application are difficult to test, which means the procedure to test those lines of codes will be very complicated. For example, one of our functions is like:
+
+
+module.exports = function RedirectRouter(io) {
+   var router = express.Router();
+   router.get('*', function(req, res) {
+       var shortUrl = req.originalUrl.slice(1);
+       urlService.getLongUrl(shortUrl, function(url) {
+           Eif (url) {
+               res.redirect(url.longUrl);
+               statsService.logRequest(shortUrl, req);
+               io.emit('shortUrlVisited', shortUrl);
+           } else {
+                res.sendFile('404.html', {
+                   root: path.join(__dirname, '../public/views')
+               });
+           }
+       });
+   });
+   this.router = router;
+};
+
+
+We covered the lines without any highlight. The one line with red highlight are the uncovered part. In this case, what we need to do is that first request the API path “*”, which means it can be any url, force error on the request, get the response, check if res(ponse) has the file called ‘404. html’. Checking if res has the file is difficult, so this makes checking the content of the file even harder. In our application codes, we have many lines similar to this case. Since many of these difficult-to-test codes scatters in the codes, this decreases our test coverage.  
+
+
+So far, the files in our application codes that are not 100% covered are:
+* route folder
+   * auth.js - 88.24%
+   * feed.js - 91.01%
+   * rank.js - 92.31%
+   * redirect.js - 93.57%
+   * rest.js - 77.78%        
+* services folder
+   * authService.js - 60.66%
+   * rankUrlService.js - 87.72%
+   * statsService.js - 85%
+   * urlService.js - 52.54%
+   * userUrlService.js - 75.8%        
+
+
+You can get even more details (like which codes are not covered) about our coverage in Section II.Coverage Report. 
+
+
+Second, we put efforts into making our application more user-friendly and easy-to-use for our users, but then we do not have enough time to actually cover every statement in our codes yet.
+
+
+In addition to the two main reasons above, we did not find any other reason so far. We are still working on adding additional unit test to increase the coverage up to 85~90% before the showcase demo and the final demo.
