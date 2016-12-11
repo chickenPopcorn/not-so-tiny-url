@@ -1,7 +1,7 @@
 nginx:
     image: rxie25/nginx
     cpu_shares: 256
-    mem_limit: 163840000
+    mem_limit: 131072000
     ports:
         - "80:80"
     links:
@@ -12,7 +12,6 @@ app1:
     image: rxie25/tinyurl
     cpu_shares: 256
     mem_limit: 262144000
-
     ports:
         - "3000"
     links:

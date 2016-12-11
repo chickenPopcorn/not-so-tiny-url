@@ -10,7 +10,6 @@ var logRequest = function(shortUrl, req) {
     reqInfo.platform = req.useragent.platform || 'Unknown';
     reqInfo.browser = req.useragent.browser || 'Unknown';
     var ip = requestIp.getClientIp(req);
-    console.log("ip is"+ ip);
     var geo = geoip.lookup(ip);
     if (geo) {
         reqInfo.country = geo.country;

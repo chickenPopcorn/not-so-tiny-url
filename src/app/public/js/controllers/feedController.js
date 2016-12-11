@@ -4,7 +4,6 @@
 angular.module('tinyurlApp').controller('feedController',
     function($scope, $location, $auth, $window, $rootScope, feedService,
               timeAgo, ModalService) {
-        // var host = $location.host();
 
         $scope.isLoggedIn = function() {
             return $auth.isAuthenticated();

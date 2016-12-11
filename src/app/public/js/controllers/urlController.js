@@ -1,12 +1,12 @@
 angular.module('tinyurlApp').controller('urlController',
-    ['$scope', '$http', '$routeParams', 'moment', 'socket',
-        function($scope, $http, $routeParams, moment, socket) {
+    ['$location', '$scope', '$http', '$routeParams', 'moment', 'socket',
+        function($location, $scope, $http, $routeParams, moment, socket) {
             $http.get('/api/v1/urls/' + $routeParams.shortUrl).
                 success(function(data) {
                     $scope.longUrl = data.longUrl;
                     $scope.shortUrl = data.shortUrl;
                     $scope.shortUrlToShow =
-                        'http://localhost:3000/' + data.shortUrl;
+                        $location.protocol() + "://" + $location.host() + ($location.port() !== 80 ? ':'+$location.port() : '') +  "/";+ data.shortUrl;
                 });
             var renderTotalClicks = function() {
                 $http.get(
