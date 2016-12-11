@@ -38,7 +38,7 @@ var getShortUrl = function(longUrl, callback) {
      } */
     redisClient.get(longUrl, function(err, shortUrl) {
         if (shortUrl) {
-            console.log('using cache');
+            // console.log('using cache');
             callback({
                 status: 'ok',
                 shortUrl: shortUrl,

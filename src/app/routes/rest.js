@@ -18,11 +18,15 @@ router.post('/urls', jsonParser, function(req, res) {
                         true : req.body.isPublic;
                     userUrlService.add(user._id, user.fullname, json.shortUrl,
                         longUrl, isPublic, function(data) {
-                            console.log(data);
+                            // console.log(data);
+                            var postId = data._id;
+                            var userId = data.userId;
+                            json['postId'] = postId;
+                            json['userId'] = userId;
+
+                            res.json(json);
                         });
                 }
-
-                res.json(json);
             });
         } else {
             res.status(400).send(json);

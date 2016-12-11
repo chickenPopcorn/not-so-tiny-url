@@ -6,6 +6,7 @@ var should = require('should');
 var request = require('supertest');
 var mongoose = require('mongoose');
 var rankUrlService = require('../services/rankUrlService');
+
 describe('Rank', function() {
     var url = 'http://localhost:3000';
 
