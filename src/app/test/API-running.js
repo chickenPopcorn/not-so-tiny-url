@@ -238,7 +238,7 @@ describe('APIs', function() {
                     done();
                 });
             });
-        it('should return 200 if a logged-in user adds comment on a post',
+        it('should return 200 if a logged-in user adds and removes a comment on a post',
             function(done) {
                 var user = {
                     email: 'test@test.com',
@@ -255,6 +255,45 @@ describe('APIs', function() {
                                 throw err;
                             }
                             assert.equal(res.body.status, 'ok');
+
+                            // from here it is the removal part
+                            var commentId = res.body.data._id;
+                            var userId = res.body.data.userId;
+                            request(url).post('/feed/post/removeComment')
+                                .set("Authorization", "Hello " + token)
+                                .send({commentId: commentId, userId: userId})
+                                .end(function(err, res) {
+                                    if (err) {
+                                        throw err;
+                                    }
+                                    assert.equal(res.body.status, 'ok');
+
+                                    done();
+                                });
+                        });
+                });
+            });
+        it('should return 403 if a user tries to delete a comment that does not belong to him/her',
+            function(done) {
+                var user = {
+                    email: 'test@test.com',
+                    password: 'test123'
+                };
+                authService.login(user.email, user.password, function(json) {
+                    // assert.equal(json.status, 200);
+                    token = json.token;
+                    var commentId = '5844e073bd057d3e37346952';
+                    var userId = '5801670fec83023b1c9e81c1';
+                    request(url).post('/feed/post/removeComment')
+                        .set("Authorization", "Hello " + token)
+                        .send({commentId: commentId, userId: userId})
+                        .end(function(err, res) {
+                            if (err) {
+                                throw err;
+                            }
+
+
+                            res.should.have.property('status', 403);
                             done();
                         });
                 });
@@ -271,30 +310,6 @@ describe('APIs', function() {
                     done();
                 });
             });
-
-        /* NEED TO FIX, SAME BUG AS THE TEST FOR REMOVE_POST BELOW */
-        /*
-        it('should return 200 if a logged-in user adds comment on a post',
-            function(done) {
-                var user = {
-                    email: 'test@test.com',
-                    password: 'test123'
-                };
-                authService.login(user.email, user.password, function(json) {
-                    // assert.equal(json.status, 200);
-                    token = json.token;
-                    request(url).post('/feed/post/removeComment')
-                        .set("Authorization", "Hello " + token)
-                        .send({commentId: '58016eea901fbc0001a3b99a'})
-                        .end(function(err, res) {
-                            if (err) {
-                                throw err;
-                            }
-                            assert.equal(res.body.status, 'ok');
-                            done();
-                        });
-                });
-            }); */
 
         // get comments for a post
         it('should return ok status if gets comment for a certain ' +
@@ -335,33 +350,6 @@ describe('APIs', function() {
                     done();
                 });
             });
-
-        /* NEED TO FIX, SAME BUG AS THE TEST FOR REMOVECOMMENT ABOVE */ /*
-        it('should return 200 if a logged-in user remove a post',
-            function(done) {
-                var user = {
-                    email: 'test@test.com',
-                    password: 'test123'
-                };
-
-                authService.login(user.email, user.password, function(json) {
-                    // assert.equal(json.status, 200);
-                    token = json.token;
-                    // console.log(json);
-                    request(url).post('/feed/post/removePost')
-                        .set("Authorization", "Hello " + token)
-                        .send({postId: '58030715c387a023e0fb1cb1', // this id for lonelyplanet post
-                            userId: '58214149f193d82e0032087b'}) // this id if for test@test.com
-                        .end(function(err, res) {
-                            if (err) {
-                                throw err;
-                            }
-                            // console.log(res.body);
-                            assert.equal(res.body.status, 'ok');
-                            done();
-                        });
-                });
-            }); */
     });
 
     describe('Rank', function() {

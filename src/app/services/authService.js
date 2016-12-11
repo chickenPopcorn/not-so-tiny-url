@@ -17,29 +17,29 @@ var createToken = function(user) {
     return jwt.encode(payload, config.tokenSecret);
 };
 
-var isAuthenticated = function(req, res, next) {
-    if (!(req.headers && req.headers.authorization)) {
-        return res.status(400).send({message: 'No Token.'});
-    }
-
-    var header = req.headers.authorization.split(' ');
-    var token = header[1];
-    var payload = jwt.decode(token, config.tokenSecret);
-    var now = moment().unix();
-
-    if (now > payload.exp) {
-        return res.status(401).send({message: 'Token has expired.'});
-    }
-
-    userModel.findById(payload.sub, function(err, user) {
-        if (!user) {
-            return res.status(400).send({message: 'User does not exist.'});
-        }
-
-        req.user = user;
-        next();
-    });
-};
+// var isAuthenticated = function(req, res, next) {
+//     if (!(req.headers && req.headers.authorization)) {
+//         return res.status(400).send({message: 'No Token.'});
+//     }
+//
+//     var header = req.headers.authorization.split(' ');
+//     var token = header[1];
+//     var payload = jwt.decode(token, config.tokenSecret);
+//     var now = moment().unix();
+//
+//     if (now > payload.exp) {
+//         return res.status(401).send({message: 'Token has expired.'});
+//     }
+//
+//     userModel.findById(payload.sub, function(err, user) {
+//         if (!user) {
+//             return res.status(400).send({message: 'User does not exist.'});
+//         }
+//
+//         req.user = user;
+//         next();
+//     });
+// };
 
 var getUser = function(req, callback) {
     if (!(req.headers && req.headers.authorization)) {
@@ -117,7 +117,7 @@ var login = function(email, password, callback) {
 };
 
 module.exports = {
-    isAuthenticated: isAuthenticated,
+    // isAuthenticated: isAuthenticated,
     getUser: getUser,
     reg: reg,
     login: login
