@@ -1,0 +1,26 @@
+﻿Prof. Kaiser
+Continuous Integration and Coverage - Showcase Demo Script
+SYNC(Ruicong Xie-rx2119, Tianci Zhong-tz2278, Yue Cen-yc3171, Jiaxin Su-js4722)
+December 10th
+
+
+Showcase Demo Script
+As social media brings users convenience and entertainment on a daily basis, the links shared through this platform become crucial in term of information exchange. Our project, TinyUrl, is a web application that shortens long links for users, allows them to login and out, post their links, shares, like, comment on the shorten links in our main feed page. Users can control if they want to post their links on the main feed page by setting their links private or public. They can also track specific link data, delete post or comment on our platform. TinyUrl will provide users with a leaderboard that ranks the top 8 shared links so that users can see the trend. Here is our application (show laptop).
+
+
+Functionalities show:
+1. Log in - also mention Sign up 
+2. Convert link on the index page, mention public/private control button, post the converted link on the main feed page
+3. Show main feed page - the main stream feed and the private link block
+4. Show like, comment, delete functionalities
+5. Show statistic page of a link
+6. On the statistic page, mention using socketio to get real-time statistics about the link. Also, show if we click on the shorten link, the data will update itself at the same time
+7. Mention that we use MongoDB for our database and Redis for cache (script below):
+
+
+        We use MongoDB for our database and Redis for cache. Based on the CAP Theorem, our MongoDB supports the consistency and partition tolerance of our system. Compared to application using SQL database, MongoDB makes our system highly scalable. On the other hand, we cached our IO request in Redis, which is another NoSQL database we used in our system. It is a in-memory key-value NoSQL database with performance comparable to volatile data storage that helps boost the performance of our application greatly.
+
+
+1. Log out 
+ 
+Our project, TinyUrl, is for anyone who would like to share links on the Internet. The value of this project depends on how users use those links since different user groups can apply the two basic features -- screen real estate/storage optimization and click activity history tracking -- into a variety of fields.
