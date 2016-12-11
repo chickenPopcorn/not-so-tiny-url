@@ -1,23 +1,24 @@
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
-        <h4>Input your long URL</h4>
+        <!-- <h4>Input your long URL</h4> -->
+        <h2 class="navbar-brand" href="#/" style="font-size: 400%; margin: 20% 0 5% 30%; color:#ED2929;">SYNC</h2>
         <form ng-submit="submit()" name="homeForm" novalidate>
             <div class="form-group" ng-class="{ 'has-error' : homeForm.longUrl.$invalid && homeForm.longUrl.$dirty }">
-                <input type="url" class="form-control" name="longUrl" ng-model="longUrl" http-prefix required server-message />
+                <input type="url" class="form-control" name="longUrl" ng-model="longUrl" http-prefix required server-message placeholder="Input your long URL here."/>
                 <div class="help-block" ng-if="homeForm.longUrl.$dirty" ng-messages="homeForm.longUrl.$error">
                     <div ng-message="required">Please input a URL.</div>
                     <div ng-message="url">Please input a valid URL. Don't forget to use http://</div>
                     <div ng-message="server">{{errorMessage.longUrl}}</div>
                 </div>
             </div>
-            <div class="form-group" ng-init="isPublic = true" ng-show="isLoggedIn()">
-                <toggle-switch
+            <div class="form-group" ng-init="isPublic = true" ng-show="isLoggedIn()" style="margin-left: 48%; display:inline-block; white-space: nowrap;">
+                Make this public on the feed? <toggle-switch
                         ng-model="isPublic"
                         on-label="Public"
                         off-label="Private">
-                </toggle-switch> Make this public on the feed?
+                </toggle-switch>
             </div>
-            <input type="submit" value="Get Your TinyURL" class="btn btn-primary" ng-disabled="homeForm.$invalid" />
+            <input type="submit" value="Get Tiny URL" class="btn btn-primary" ng-disabled="homeForm.$invalid" style="margin-left: 81%;"/>
         </form>
     </div>
 </div>
