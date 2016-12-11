@@ -37,6 +37,40 @@ module.exports = function RedirectRouter(io) {
 We covered the lines without any highlight. The one line with red highlight are the uncovered part. In this case, what we need to do is that first request the API path “*”, which means it can be any url, force error on the request, get the response, check if res(ponse) has the file called ‘404. html’. Checking if res has the file is difficult, so this makes checking the content of the file even harder. In our application codes, we have many lines similar to this case. Since many of these difficult-to-test codes scatters in the codes, this decreases our test coverage.  
 
 
+Furthermore, there is another situation that we cannot really force error to our codes or the methods are private so that we cannot test them. Here are two examples:
+
+
+Example 1 - We cannot really force error on the function below since the red-highlighted part will only be triggered when there is something severe happened to the application.
+
+
+var getComments = function(postId, callback) {
+   var json = {'status': 'ok', 'data': {}};
+
+   commentModel.find({postId: postId, isDeleted: {$ne: true}}).sort({_id: 1}).
+       exec(function(err, comments) {
+           Iif (err) {
+                json['status'] = 'failed';
+                json['data'] = err;
+                callback(json);
+                return;
+           }
+
+           json['data'] = comments;
+           callback(json);
+       });
+};
+
+
+Example 2 - The function below is private, which means that it is not publicly available and we cannot test it. 
+
+
+var generateShortUrl = function(callback) {
+    UrlModel.count({}, function(err, num) {
+        callback(convertTo62(num + 1));
+   });
+};
+
+
 So far, the files in our application codes that are not 100% covered are:
 * route folder
    * auth.js - 88.24%
