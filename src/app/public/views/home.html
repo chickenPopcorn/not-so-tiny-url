@@ -11,14 +11,17 @@
                     <div ng-message="server">{{errorMessage.longUrl}}</div>
                 </div>
             </div>
-            <div class="form-group" ng-init="isPublic = true" ng-show="isLoggedIn()" style="margin-left: 48%; display:inline-block; white-space: nowrap;">
+            <div class="form-group" ng-init="isPublic = true" ng-show="isLoggedIn()" style="float:right">
                 Make this public on the feed? <toggle-switch
                         ng-model="isPublic"
                         on-label="Public"
                         off-label="Private">
                 </toggle-switch>
             </div>
-            <input type="submit" value="Get Tiny URL" class="btn btn-primary" ng-disabled="homeForm.$invalid" style="margin-left: 81%;"/>
+            <div class="clearfix"></div>
+            <div>
+                <input type="submit" value="Get Tiny URL" class="btn btn-primary" ng-disabled="homeForm.$invalid" style="float:right"/>
+            </div>
         </form>
     </div>
 </div>
