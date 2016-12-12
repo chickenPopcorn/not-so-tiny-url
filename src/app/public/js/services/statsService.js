@@ -1,5 +1,5 @@
 angular.module('tinyurlApp').factory('socket', function($location, $rootScope) {
-    var socket = io.connect("http://www.nocrash.today" );
+    var socket = io.connect();
     return {
         on: function(eventName, callback) {
             socket.on(eventName, function() {
