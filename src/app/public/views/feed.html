@@ -91,9 +91,21 @@
 
         <div class="col-md-4 col-sm-4 private-feed">
             <div class="card">
-                <div class="header">Private URLs</div>
+                <div class="header">Your Private URLs</div>
                 <div class="list-group">
                     <div ng-repeat="item in privateItems" class="list-group-item">
+                        <a ng-href="{{item.shortUrl}}" target="_blank">
+                            <p class="list-group-item-heading">{{item.title}}</p>
+                        </a>
+                        <span class="list-group-short-url">{{item.fullShortUrl}}</span> <span><a ng-href="{{'/#/urls/' + item.shortUrl}}"><i class="fa fa-bar-chart" aria-hidden="true"></i></a></span> <span ng-if="item.isDeletable"><a ng-click="removePost(item)" href=""><i class="fa fa-trash" aria-hidden="true"></i></a></span>
+                        <p class="list-group-item-text">{{item.description}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="header">Your Public URLs</div>
+                <div class="list-group">
+                    <div ng-repeat="item in yourPublicItems" class="list-group-item">
                         <a ng-href="{{item.shortUrl}}" target="_blank">
                             <p class="list-group-item-heading">{{item.title}}</p>
                         </a>

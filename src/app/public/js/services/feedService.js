@@ -32,6 +32,10 @@ angular.module('tinyurlApp').factory('feedService', function($http) {
             return $http.get('/feed/private/' + pageSize + '/' + lastId);
         },
 
+        getYourPublicURL: function(pageSize, lastId) {
+            return $http.get('/feed/yourPublic/' + pageSize + '/' + lastId);
+        },
+
         getComments: function(postId) {
             return $http.get('/feed/post/comments/' + postId);
         },
