@@ -19,6 +19,20 @@ describe('URL', function() {
             done();
         });
     });
+    it('should return a short URL for google.com (using cache this time)', function(done) {
+        urlService.getShortUrl('http://www.google.com', function(json) {
+            // console.log(json);
+            assert.equal(json.status, 'ok');
+            done();
+        });
+    });
+    it('should return a short URL for airbnb.com', function(done) {
+        urlService.getShortUrl('https://www.airbnb.com/careers/departments/position/263212', function(json) {
+            // console.log(json);
+            assert.equal(json.status, 'ok');
+            done();
+        });
+    });
     it('should return status "failed" when trying to get a short URL for an' +
         ' invalid URL like "http://abcedfghijk"',
         function(done) {
@@ -163,12 +177,30 @@ describe('URL', function() {
     });
 
     // for redirect.js
-    it('should return 200 when get a specific url successfully', function(done) {
-        request(url).get('/urls/Ca').send().end(function (err, res) {
+    it('should return 302 when getting a specific url successfully', function(done) {
+        request(url).get('/Ca').send().end(function (err, res) {
             if (err) {
                 throw err;
             }
             res.should.have.property('status', 302);
+            done();
+        });
+    });
+    it('should return 404 when getting an invalid short url', function(done) {
+        request(url).get('/asdfjasfjdksfjklasdjfklasdjflksadf').send().end(function (err, res) {
+            if (err) {
+                throw err;
+            }
+            res.should.have.property('status', 404);
+            done();
+        });
+    });
+    it('should return 200 when getting favicon', function(done) {
+        request(url).get('/public/img/favicon/favicon.ico').send().end(function (err, res) {
+            if (err) {
+                throw err;
+            }
+            res.should.have.property('status', 200);
             done();
         });
     });

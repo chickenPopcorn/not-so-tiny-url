@@ -23,8 +23,8 @@ var logRequest = function(shortUrl, req) {
             console.log(err);
             return;
         }
-        if (data.shortUrl.indexOf('/') === -1 && data.shortUrl.indexOf('_') &&
-            data.shortUrl != 'undefined' && data.shortUrl != 'favicon.ico') {
+        // console.log('request saved: ' + data);
+        if (data.shortUrl != 'undefined' && data.shortUrl != 'favicon.ico') {
             rankUrlService.updateUrlClicks(data.shortUrl, function(err, data) {
                 if (err != null) {
                     console.log(err);
