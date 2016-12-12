@@ -46,4 +46,11 @@ router.get('/updateUrlClicks/:shortUrl', function(req, res) {
         });
 });
 
+
+router.get('/flushRedis', function(req, res) {
+    rankUrlService.flushRedis(function(err, data) {
+            res.json({err: err, data: data});
+        });
+});
+
 module.exports = router;

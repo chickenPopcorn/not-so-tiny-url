@@ -25,7 +25,7 @@ angular.module('tinyurlApp').controller('rankController',
                 rankService.saveUrlClicks().then(function(res1) {
                     //console.log(res);
                     rankService.getTopKUrls(10).success(function(data) {
-                        // console.log(data);
+                        // console.log('data: ' + data);
                         $scope.topkUrls = data;
 
                         for (var i = 0; i < data.length; i++) {
@@ -35,7 +35,7 @@ angular.module('tinyurlApp').controller('rankController',
                 });
             } else {
                 rankService.getTopKUrls(10).success(function(data) {
-                    // console.log(data);
+                    // console.log('data: ' + data);
                     $scope.topkUrls = data;
 
                     for (var i = 0; i < data.length; i++) {
