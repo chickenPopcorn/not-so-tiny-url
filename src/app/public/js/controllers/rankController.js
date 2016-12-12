@@ -3,19 +3,14 @@ angular.module('tinyurlApp').controller('rankController',
         $scope.topkUrls = [];
         console.log('create');
 
-        var getTitle = function(shortUrl, clicks) {
-            $http.get('/api/v1/urls/' + shortUrl).then(function(res) {
+        var getTitle = function(urlData) {
+            $http.get('/api/v1/urls/' + urlData.shortUrl).then(function(res) {
                 var longUrl = res.data.longUrl;
                 // console.log(longUrl);
                 feedService.getMeta(longUrl).success(function(data) {
                     if (data && data.result.status === 'ok') {
                         var title = data.meta.title;
-                        $scope.topkUrls.push({
-                            shortUrl: '/#/urls/' + shortUrl,
-                            longUrl: longUrl,
-                            title: title.trim(),
-                            clicks: clicks
-                        });
+                        urlData.title = title.trim();
                     }
                 });
                 // console.log($scope.topkUrls);
@@ -23,7 +18,7 @@ angular.module('tinyurlApp').controller('rankController',
         };
 
         rankService.getAllClicks().success(function(res) {
-
+            console.log('res: ' + res);
             console.log(res.data);
 
             if (res.data == null) {
@@ -31,16 +26,20 @@ angular.module('tinyurlApp').controller('rankController',
                     //console.log(res);
                     rankService.getTopKUrls(10).success(function(data) {
                         // console.log(data);
+                        $scope.topkUrls = data;
+
                         for (var i = 0; i < data.length; i++) {
-                            getTitle(data[i].shortUrl, data[i].clicks);
+                            getTitle(data[i]);
                         }
                     });
                 });
             } else {
                 rankService.getTopKUrls(10).success(function(data) {
                     // console.log(data);
+                    $scope.topkUrls = data;
+
                     for (var i = 0; i < data.length; i++) {
-                        getTitle(data[i].shortUrl, data[i].clicks);
+                        getTitle(data[i]);
                     }
                 });
             }
