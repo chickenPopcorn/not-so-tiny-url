@@ -16,6 +16,10 @@ var getUrlClicks = function(shortUrl, callback) {
 
 };
 
+var flushRedis = function(callback) {
+    redisClient.flushall(callback);
+};
+
 var getUrlClicksCached = function(shortUrl, callback) {
     redisClient.hget(hashClick, shortUrl, function(err, data) {
         if (err == null && data == null) {
@@ -100,5 +104,6 @@ module.exports = {
     getAllClicks: getAllClicks,
     getTopKUrls: getTopKUrls,
     updateUrlClicks: updateUrlClicks,
-    getUrlClicksCached: getUrlClicksCached
+    getUrlClicksCached: getUrlClicksCached,
+    flushRedis: flushRedis
 };
