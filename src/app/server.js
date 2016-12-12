@@ -11,7 +11,7 @@ var useragent = require('express-useragent');
 var cors = require('cors');
 var socketio = require('socket.io');
 
-var io = socketio(app.listen(80));
+var io = socketio(app.listen(3000));
 
 mongoose.Promise = global.Promise; // Ref: http://stackoverflow.com/questions/38138445/node3341-deprecationwarning-mongoose-mpromise
 mongoose.connect('mongodb://user:user@ds049466.mlab.com:49466/tinyurl');

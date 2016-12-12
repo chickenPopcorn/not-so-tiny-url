@@ -42,6 +42,28 @@ describe('URL', function() {
                 done();
             });
         });
+    it('should return status "ok" when validating a valid URL',
+        function(done) {
+            urlService.validateUrl('http://www.google.com', function(json) {
+                assert.equal(json.status, 'ok');
+                done();
+            });
+        });
+    it('should return status "failed" when validating a invalid URL',
+        function(done) {
+            this.timeout(0);
+            urlService.validateUrl('http://wwwwwwww', function(json) {
+                assert.equal(json.status, 'failed');
+                done();
+            });
+        });
+    it('should return a short URL when attempting to generate one',
+        function(done) {
+            urlService.generateShortUrl(function(shortUrl) {
+                assert.ok(shortUrl);
+                done();
+            });
+        });
 
     // for rest.js
     it('should return 200 when get a specific url successfully', function(done) {

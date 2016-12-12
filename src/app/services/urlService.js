@@ -149,5 +149,7 @@ var convertTo62 = function(id) {
 
 module.exports = {
     getShortUrl: getShortUrl,
-    getLongUrl: getLongUrl
+    getLongUrl: getLongUrl,
+    validateUrl: validateUrl,
+    generateShortUrl: generateShortUrl
 };
