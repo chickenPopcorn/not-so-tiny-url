@@ -9,12 +9,13 @@ module.exports = function RedirectRouter(io) {
     router.get('*', function(req, res) {
         var shortUrl = req.originalUrl.slice(1);
         urlService.getLongUrl(shortUrl, function(url) {
-            if (url) {
+            // console.log(url);
+            if (url.status === 'ok') {
                 res.redirect(url.longUrl);
                 statsService.logRequest(shortUrl, req);
                 io.emit('shortUrlVisited', shortUrl);
             } else {
-                res.sendFile('404.html', {
+                res.status(404).sendFile('404.html', {
                     root: path.join(__dirname, '../public/views')
                 });
             }

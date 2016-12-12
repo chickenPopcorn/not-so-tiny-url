@@ -12,6 +12,17 @@ var config = require('../services/config');
 
 describe('APIs', function() {
     var url = 'http://localhost:3000';
+    describe('Redis', function() {
+        it('should return ok when flushing redis', function(done) {
+            request(url).get('/rank/flushRedis').send().end(function (err, res) {
+                if (err) {
+                    throw err;
+                }
+                res.should.have.property('status', 200);
+                done();
+            });
+        });
+    });
 
     describe('User', function() {
         it('should return error trying to sign up with the same email',
@@ -30,6 +41,22 @@ describe('APIs', function() {
                         done();
                     });
             });
+        it('should return ok trying to sign up',
+            function(done) {
+                var user = {
+                    email: 'test+' + Math.random() + '@gmail.com',
+                    password: 'test',
+                    fullname: 'CY'
+                };
+                request(url).post('/auth/reg').send(user).
+                end(function(err, res) {
+                    if (err) {
+                        throw err;
+                    }
+                    res.should.have.property('status', 200);
+                    done();
+                });
+            });
         it('should return error trying to sign in with the wrong combination ' +
             'of username and password',
             function(done) {
@@ -45,6 +72,22 @@ describe('APIs', function() {
                         res.should.have.property('status', 401);
                         done();
                     });
+            });
+        it('should return ok trying to sign in with the correct combination ' +
+            'of username and password',
+            function(done) {
+                var user = {
+                    email: 'test@test.com',
+                    password: 'test123'
+                };
+                request(url).post('/auth/login').send(user).
+                end(function(err, res) {
+                    if (err) {
+                        throw err;
+                    }
+                    res.should.have.property('status', 200);
+                    done();
+                });
             });
     });
 

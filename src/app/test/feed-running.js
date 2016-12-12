@@ -19,9 +19,22 @@ describe('Feed', function() {
             done();
         });
     });
+    it('should return the most recent 2 public feed posts (with a lastId)', function(done) {
+        userUrlService.getFeed(2, '58030715c387a023e0fb1cb1', true, -1, function(json) {
+            assert.equal(json.data.length, 2);
+            done();
+        });
+    });
     it('should return the metadata for www.google.com', function(done) {
         userUrlService.getMeta('http://www.google.com', function(json) {
             assert.equal(json.result.status, 'ok');
+            done();
+        });
+    });
+    it('should return the error message for an invalid URL when getting metadata', function(done) {
+        this.timeout(0);
+        userUrlService.getMeta('http://wwwwwwwww', function(json) {
+            assert.equal(json.result.status, 'failed');
             done();
         });
     });
@@ -112,6 +125,14 @@ describe('Feed', function() {
                 done();
             });
     });
+    it('should fail to add comment with a non-logged-in user', function(done) {
+        userUrlService.addComment('5802cf4338e1ca386403687b',
+            -1, 'Ruicong Xie', 'testing',
+            function(json) {
+                assert.equal(json.status, 'failed');
+                done();
+            });
+    });
     it('should fail to remove comment', function(done) {
         userUrlService.removeComment(commentId, -1, function(json) {
             assert.equal(json.status, 'failed');
@@ -185,6 +206,14 @@ describe('Feed', function() {
                     });
 
                 });
+        });
+    it('should return error message when a non-logged-in user tries to add a new post',
+        function(done) {
+            userUrlService.add(-1, 'Ruicong Xie',
+                'test', 'https://www.test.com/', true, function(json) {
+                    assert.equal(json.message, 'No userId.');
+                    done();
+                    });
         });
 });
 

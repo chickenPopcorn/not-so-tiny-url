@@ -23,11 +23,37 @@ describe('User', function() {
                     done();
                 });
         });
+    it('should return ok when trying to sign up',
+        function(done) {
+            var user = {
+                email: 'test+' + Math.random() + '@gmail.com',
+                password: 'test',
+                fullname: 'CY'
+            };
+
+            authService.reg(user.email, user.password, user.fullname,
+                function(json) {
+                    assert.equal(json.status, 200);
+                    done();
+                });
+        });
     it('should return error trying to sign in with the wrong combination of' +
         ' username and password',
         function(done) {
             var user = {
                 email: 'dyorex@gmail.com',
+                password: 'test'
+            };
+
+            authService.login(user.email, user.password, function(json) {
+                assert.equal(json.status, 401);
+                done();
+            });
+        });
+    it('should return error trying to sign in with an non-existed user account',
+        function(done) {
+            var user = {
+                email: 'dyorexfdsaffsadf@gmail.com',
                 password: 'test'
             };
 
