@@ -85,7 +85,7 @@ var getMeta = function(url, callback) {
     });
 
     client.on('error', function(err) {
-        console.log(err);
+        //console.log(err);
         json['result']['status'] = 'failed';
         json['result']['error'] = err;
         json['meta']['url'] = url;

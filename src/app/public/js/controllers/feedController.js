@@ -116,6 +116,25 @@ angular.module('tinyurlApp').controller('feedController',
         };
         $scope.loadPrivateItems();
 
+        $scope.yourPublicItems = [];
+        $scope.loadYourPublicItems = function() {
+            feedService.getYourPublicURL(10, -1).success(function(data) {
+                // console.log(data);
+                for (var i = 0; i < data.data.length; i++) {
+                    if (isPostDeletable(data.data[i])){
+                        $scope.yourPublicItems.push(data.data[i]);
+                        data.data[i].isDeletable = true;
+                        data.data[i].fullShortUrl = $scope.url + data.data[i].shortUrl;
+                        var url = data.data[i].longUrl ? data.data[i].longUrl : data.data[i].fullShortUrl;
+                        $scope.getMeta(url, data.data[i]);
+                    }
+                }
+                console.log('total for public: ' + data.count);
+                console.log('publicItems: ' + $scope.yourPublicItems.length);
+            });
+        };
+        $scope.loadYourPublicItems();
+
         // get comments
         var getComments = function(item) {
             feedService.getComments(item._id).success(function(data) {

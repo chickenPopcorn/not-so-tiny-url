@@ -17,6 +17,21 @@ router.get('/public/:pageSize/:lastId', function(req, res) {
     });
 });
 
+router.get('/yourPublic/:pageSize/:lastId', function(req, res) {
+    var pageSize = req.params.pageSize;
+    var lastId = req.params.lastId;
+    authService.getUser(req, function(user) {
+        if (user._id !== -1) {
+            userUrlService.getFeed(pageSize, lastId, true, user._id,
+                function(data) {
+                    res.json(data);
+                });
+        } else {
+            res.status(403).json({'message': 'No private feed'});
+        }
+    });
+});
+
 router.get('/private/:pageSize/:lastId', function(req, res) {
     var pageSize = req.params.pageSize;
     var lastId = req.params.lastId;
