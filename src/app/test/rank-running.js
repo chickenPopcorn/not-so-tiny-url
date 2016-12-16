@@ -36,6 +36,7 @@ describe('Rank', function() {
     it('should get the number of clicks for shortUrls in MongoDB then save' +
         ' it in Redis',
         function(done) {
+            this.timeout(0);
             rankUrlService.saveUrlClicks(function(err) {
                 assert.equal(err, null);
                 done();

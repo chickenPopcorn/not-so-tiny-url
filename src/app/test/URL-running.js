@@ -177,7 +177,25 @@ describe('URL', function() {
     });
 
     // for redirect.js
+    it('should return ok when flushing redis', function(done) {
+        request(url).get('/rank/flushRedis').send().end(function (err, res) {
+            if (err) {
+                throw err;
+            }
+            res.should.have.property('status', 200);
+            done();
+        });
+    });
     it('should return 302 when getting a specific url successfully', function(done) {
+        request(url).get('/Ca').send().end(function (err, res) {
+            if (err) {
+                throw err;
+            }
+            res.should.have.property('status', 302);
+            done();
+        });
+    });
+    it('should return 302 when getting a specific url successfully (using cache)', function(done) {
         request(url).get('/Ca').send().end(function (err, res) {
             if (err) {
                 throw err;
