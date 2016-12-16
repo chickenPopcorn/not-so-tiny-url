@@ -393,6 +393,37 @@ describe('APIs', function() {
                     done();
                 });
             });
+        it('should return the most recent 2 public feed posts of a user',
+            function(done) {
+                var user = {
+                    email: 'test@test.com',
+                    password: 'test123'
+                };
+                authService.login(user.email, user.password, function (json) {
+                    token = json.token;
+                    request(url).get('/feed/yourPublic/2/-1')
+                        .set('Authorization', 'Hello ' + token)
+                        .send()
+                        .end(function (err, res) {
+                            if (err) {
+                                throw err;
+                            }
+                            res.should.have.property('status', 200);
+                            done();
+                    });
+                });
+        });
+        it('should return status 403 when tyring to get the public feed with userId -1',
+            function(done) {
+                request(url).get('/feed/yourPublic/10/-1').send().
+                end(function(err, res) {
+                    if (err) {
+                        throw err;
+                    }
+                    res.should.have.property('status', 403);
+                    done();
+                });
+            });
     });
 
     describe('Rank', function() {
@@ -431,6 +462,7 @@ describe('APIs', function() {
         it('should get the number of clicks for shortUrls in MongoDB then' +
             ' save it in Redis',
             function(done) {
+            this.timeout(0);
                 request(url).get('/rank/saveUrlClicks').send().
                     end(function(err, res) {
                         if (err) {

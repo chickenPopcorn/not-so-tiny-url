@@ -27,7 +27,7 @@ var logRequest = function(shortUrl, req) {
     reqInfo.timestamp = new Date();
 
     redisClient.keys('*', function(err, data) {
-        console.log(data);
+        console.log('data: ' + data);
         if (data.length > 0) {
             if (data.indexOf(shortUrl) > -1) {
                 var request = new RequestModel(reqInfo);
