@@ -6,7 +6,7 @@ This is the group project of for Advanced Software Engineering. We built an web 
 
 ## System Architecture
 
-![alt tag](https://github.com/chickenPopcorn/not-so-tiny-url/blob/master/system.jpg)
+![alt tag](https://github.com/chickenPopcorn/not-so-tiny-url/blob/master/doc/system.jpg)
 
 ### Backend
 Project developed using MEAN stack(`MongoDB`, `Express`, `AngularJS`, `NodeJS`). Using docker container service to docker-compose a cluster of back end servers, all connected to cache `Redis` and load balancer using `Nginx`. We deployed the application using AWS Elastic Container Service(`ECS`) and "docker-compose" on a cluster. We also built a test suites and continuously integrated with project using `Travis CI`. Then coverage information is sent to `coverall.io`. 
