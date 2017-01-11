@@ -8,7 +8,7 @@ docker push rxie25/tinyurl
 ```
 ecs-cli configure --region us-east-1 --cluster tinyurl
 
-ecs-cli up --keypair tinyurl --capability-iam --size 1 --instance-type t2.micro
+ecs-cli up --keypair SYNC --capability-iam --size 1 --instance-type t2.micro --force
 
 ecs-cli compose --file aws-compose.yml up
 ```
