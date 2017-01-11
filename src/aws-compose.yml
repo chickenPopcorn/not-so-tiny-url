@@ -1,16 +1,37 @@
 nginx:
     image: rxie25/nginx
-    cpu_shares: 256
-    mem_limit: 131072000
+    cpu_shares: 128
+    mem_limit: 100000000
     ports:
         - "80:80"
     links:
         - "app1:app1"
+        - "app2:app2"
+        - "app3:app3"
 
 app1:
     image: rxie25/tinyurl
-    cpu_shares: 512
-    mem_limit: 524288000
+    cpu_shares: 256
+    mem_limit: 262144000
+
+    ports:
+        - "3000"
+    links:
+        - "cache:redis"
+
+app2:
+    image: rxie25/tinyurl
+    cpu_shares: 256
+    mem_limit: 262144000
+    ports:
+        - "3000"
+    links:
+        - "cache:redis"
+
+app3:
+    image: rxie25/tinyurl
+    cpu_shares: 256
+    mem_limit: 262144000
     ports:
         - "3000"
     links:
@@ -18,5 +39,5 @@ app1:
 
 cache:
     image: redis
-    cpu_shares: 256
-    mem_limit: 262144000
+    cpu_shares: 128
+    mem_limit: 131072000
